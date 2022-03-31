@@ -1,0 +1,28 @@
+@import "../../../../../styles/mixins";
+
+.header {
+    @include flex-center;
+
+    border-bottom: 1px solid #ddd;
+
+    &.active {
+        margin: 0 1rem;
+    }
+}
+
+.menu {
+    @include flex-center;
+
+    &.active {
+        margin-left: 1rem;
+    }
+
+    font-size: 2rem;
+    background: none;
+}
+
+.sidebarToggle {
+    @include flex-center;
+
+    height: 60px;
+}

@@ -1,0 +1,14 @@
+@import "../../styles/mixins";
+
+.container {
+    @include flex-col-center;
+
+    transition: margin-left 0.5s;
+}
+
+.main {
+    @include flex-center;
+
+    height: calc(100vh - 61px);
+    width: 100%;
+}

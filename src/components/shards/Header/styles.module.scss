@@ -1,0 +1,26 @@
+@import "../../../styles/mixins";
+
+.header {
+    display: flex;
+    width: 80vw;
+    border-bottom: 1px solid #ddd;
+}
+
+.searchBar {
+    @include flex-align-center;
+
+    height: 60px;
+}
+
+.icon {
+    @include size(25px, 25px);
+
+    color: #888;
+    cursor: pointer;
+}
+
+.themeIcon {
+    @include flex-center;
+
+    margin-left: auto;
+}
