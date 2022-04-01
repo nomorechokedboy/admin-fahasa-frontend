@@ -6,13 +6,13 @@ import {
 import { useLocalStorage } from "@mantine/hooks";
 import { Provider } from "react-redux";
 import "./App.css";
-import AdminPage from "./components/AdminPage";
+import AdminPage from "./containers/AdminPage";
 import store from "./redux/store";
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
         key: "mantine-color-scheme",
-        defaultValue: "light",
+        defaultValue: "dark",
     });
 
     const toggleColorScheme = (value?: ColorScheme) => {

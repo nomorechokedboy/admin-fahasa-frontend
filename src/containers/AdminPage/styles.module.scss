@@ -1,0 +1,11 @@
+@import "@scss/mixins";
+
+.container {
+    transition: margin-left 0.5s;
+}
+
+.main {
+    padding: 30px 3%;
+    margin-left: auto;
+    margin-right: auto;
+}

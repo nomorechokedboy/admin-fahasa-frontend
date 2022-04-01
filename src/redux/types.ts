@@ -3,6 +3,4 @@ export interface ReduxAction<T> {
     payload: T;
 }
 
-export interface StateTree {
-    showSidebar: boolean;
-}
+export interface StateTree {}
