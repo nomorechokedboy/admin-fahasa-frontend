@@ -1,0 +1,27 @@
+@import "@scss/mixins";
+
+.header {
+    display: flex;
+    border-bottom: 1px solid $black-400;
+    justify-content: space-between;
+    padding-left: 3%;
+    padding-right: 3%;
+    min-height: $header-height;
+}
+
+.searchBar {
+    @include flex-align-center;
+
+    height: $header-height;
+}
+
+.icon {
+    @include size(25px, 25px);
+
+    color: $black-300;
+    cursor: pointer;
+}
+
+.themeIcon {
+    @include flex-center;
+}
