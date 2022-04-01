@@ -1,8 +1,7 @@
 @import "@scss/mixins";
 
 .sideBarMenu {
-    @include size(250px, 100vh);
-    @include overlay;
+    @include size($sidebar-width, 100vh);
 
     display: block;
     max-width: 250px;

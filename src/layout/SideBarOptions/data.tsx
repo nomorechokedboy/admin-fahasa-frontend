@@ -1,15 +1,8 @@
-import { ReactElement } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 
-export type SideBarData = {
-    title: string;
-    path: string;
-    icon: ReactElement;
-};
-
-export const sideBarData: SideBarData[] = [
+export const sideBarData = [
     {
         title: "Home",
         path: "/",

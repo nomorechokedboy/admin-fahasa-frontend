@@ -3,23 +3,27 @@ import SideBarHeader from "../SideBarHeader";
 import SideBarOption from "../SideBarOptions";
 import styles from "./styles.module.scss";
 import { Navbar } from "@mantine/core";
-import { MouseEventHandler } from "react";
+import { useToggle } from "@mantine/hooks";
 
-export type SideBarProp = {
-    onClick?: MouseEventHandler;
-    active: boolean;
-};
+export default function Sidebar() {
+    const [sideBarActive, sideBarToggle] = useToggle<boolean>(true, [
+        false,
+        true,
+    ]);
 
-export default function Sidebar({ onClick, active }: SideBarProp) {
+    const showSideBar = () => {
+        sideBarToggle();
+    };
+
     return (
         <Navbar
             className={classNames(
                 styles.sideBarMenu,
-                active ? styles.active : styles.collapsed,
+                sideBarActive ? styles.active : styles.collapsed,
             )}
         >
-            <SideBarHeader onClick={onClick} active={active} />
-            <SideBarOption active={active} />
+            <SideBarHeader onClick={showSideBar} active={sideBarActive} />
+            <SideBarOption active={sideBarActive} />
         </Navbar>
     );
 }

@@ -6,8 +6,8 @@ import {
 import { useLocalStorage } from "@mantine/hooks";
 import { Provider } from "react-redux";
 import "./App.css";
-import AdminPage from "./containers/AdminPage";
-import store from "./redux/store";
+import AdminPage from "../containers/AdminPage";
+import store from "../redux/store";
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({

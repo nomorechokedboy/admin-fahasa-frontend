@@ -1,14 +1,16 @@
-import { Key } from "react";
 import { NavLink } from "react-router-dom";
-import { sideBarData, SideBarData } from "./data";
+import { sideBarData } from "./data";
 import { Container, Stack, Text as MantineText } from "@mantine/core";
-import { SideBarProp } from "../SideBar";
 import styles from "./styles.module.scss";
 
-export default function SideBarOption({ active }: SideBarProp) {
+type SideBaroptionProps = {
+    active: boolean;
+};
+
+export default function SideBarOption({ active }: SideBaroptionProps) {
     return (
         <Stack className={styles.sideBarItem}>
-            {sideBarData.map((item: SideBarData, index: Key) => {
+            {sideBarData.map((item, index) => {
                 return (
                     <Container key={index} className={styles.sideBarText}>
                         <NavLink

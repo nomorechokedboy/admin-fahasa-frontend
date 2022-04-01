@@ -1,5 +1,5 @@
 import { mount } from "@cypress/react";
-import App from "./App";
+import App from "../../src/App";
 
 describe("App test", () => {
     beforeEach(() => {

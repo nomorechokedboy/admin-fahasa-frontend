@@ -1,7 +1,12 @@
 @import "@scss/mixins";
 
+.body {
+    display: flex;
+}
+
 .container {
     transition: margin-left 0.5s;
+    flex-grow: 1;
 }
 
 .main {
@@ -9,3 +14,4 @@
     margin-left: auto;
     margin-right: auto;
 }
+

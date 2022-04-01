@@ -4,9 +4,14 @@ import { Container, Image as MantineImage } from "@mantine/core";
 import * as CgIcons from "react-icons/cg";
 import * as FaIcons from "react-icons/fa";
 import styles from "./styles.module.scss";
-import { SideBarProp } from "../SideBar";
+import { MouseEventHandler } from "react";
 
-export default function SideBarHeader({ onClick, active }: SideBarProp) {
+type SideBarHeaderProps = {
+    onClick?: MouseEventHandler;
+    active: boolean;
+};
+
+export default function SideBarHeader({ onClick, active }: SideBarHeaderProps) {
     const containerStyle = {
         paddingRight: active ? 0 : "16px",
     };
