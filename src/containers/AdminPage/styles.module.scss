@@ -1,0 +1,17 @@
+@import "@scss/mixins";
+
+.body {
+    display: flex;
+}
+
+.container {
+    transition: margin-left 0.5s;
+    flex-grow: 1;
+}
+
+.main {
+    padding: 30px 3%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
