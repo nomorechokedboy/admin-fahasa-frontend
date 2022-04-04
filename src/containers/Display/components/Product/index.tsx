@@ -42,46 +42,46 @@ export default function Product({
                 centered
             />
 
-            <Skeleton visible={loading}>
-                <Card withBorder>
-                    <Stack>
-                        <Skeleton visible={loading}>
-                            <div className={styles.cardSection}>
-                                <Image
-                                    width={100}
-                                    height={155}
-                                    src={imageSrc}
-                                    radius={5}
-                                    withPlaceholder
-                                />
-                            </div>
-                        </Skeleton>
-                        <Skeleton visible={loading}>
-                            <Stack>
-                                <Text weight={500}>{name || "no name"}</Text>
-                                <Text weight={700}>{price || "n/a"}</Text>
-                            </Stack>
-                        </Skeleton>
-                        <Skeleton visible={loading}>
-                            <Group grow>
-                                <Button
-                                    leftIcon={<BsIcons.BsPencilFill />}
-                                    color="blue"
-                                >
-                                    Edit
-                                </Button>
-                                <Button
-                                    leftIcon={<BsIcons.BsFillTrashFill />}
-                                    color="red"
-                                    onClick={handleModalClick}
-                                >
-                                    Delete
-                                </Button>
-                            </Group>
-                        </Skeleton>
-                    </Stack>
-                </Card>
-            </Skeleton>
+            <Card withBorder>
+                <Stack>
+                    <Skeleton visible={loading}>
+                        <div className={styles.cardSection}>
+                            <Image
+                                width={100}
+                                height={155}
+                                src={imageSrc}
+                                radius={5}
+                                withPlaceholder
+                            />
+                        </div>
+                    </Skeleton>
+                    <Skeleton visible={loading}>
+                        <Stack>
+                            <Text weight={500}>{name || "no name"}</Text>
+                            <Text weight={700}>
+                                {Number(price).toLocaleString() || "n/a"} vnd
+                            </Text>
+                        </Stack>
+                    </Skeleton>
+                    <Skeleton visible={loading}>
+                        <Group grow>
+                            <Button
+                                leftIcon={<BsIcons.BsPencilFill />}
+                                color="blue"
+                            >
+                                Edit
+                            </Button>
+                            <Button
+                                leftIcon={<BsIcons.BsFillTrashFill />}
+                                color="red"
+                                onClick={handleModalClick}
+                            >
+                                Delete
+                            </Button>
+                        </Group>
+                    </Skeleton>
+                </Stack>
+            </Card>
         </>
     );
 }

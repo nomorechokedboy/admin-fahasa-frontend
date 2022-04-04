@@ -28,8 +28,8 @@ export default function Display() {
         <Stack>
             <SimpleGrid cols={4}>
                 {loading
-                    ? [...Array(8).keys()].map(() => (
-                          <Product loading={loading} />
+                    ? [...Array(8).keys()].map((value: number) => (
+                          <Product key={value} loading={loading} />
                       ))
                     : data.map((product: any, index: any) => (
                           <Product
