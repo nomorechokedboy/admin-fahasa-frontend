@@ -1,16 +1,30 @@
-import { Button, Card, Text, Image, Group, Stack } from "@mantine/core";
+import {
+    Button,
+    Card,
+    Text,
+    Image,
+    Group,
+    Stack,
+    Skeleton,
+} from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import * as BsIcons from "react-icons/bs";
 import ConfirmModal from "@/components/ConfirmModal";
 import styles from "./styles.module.scss";
 
 type ProductProps = {
-    name: string;
-    price: string;
-    image: any;
+    loading: boolean;
+    name?: string;
+    price?: string;
+    imageSrc?: string;
 };
 
-export default function Product({ name, price, image }: ProductProps) {
+export default function Product({
+    name,
+    price,
+    imageSrc,
+    loading,
+}: ProductProps) {
     const [isModalOpen, modalOpenToggle] = useToggle(false, [true, false]);
 
     const handleModalClick = () => {
@@ -28,35 +42,46 @@ export default function Product({ name, price, image }: ProductProps) {
                 centered
             />
 
-            <Card withBorder>
-                <Stack>
-                    <div className={styles.cardSection}>
-                        <Image
-                            className={styles.image}
-                            src={image}
-                            radius={5}
-                            withPlaceholder
-                        />
-                    </div>
-                    <Text weight={500}>{name}</Text>
-                    <Text weight={700}>{price}</Text>
-                    <Group grow>
-                        <Button
-                            leftIcon={<BsIcons.BsPencilFill />}
-                            color="blue"
-                        >
-                            Edit
-                        </Button>
-                        <Button
-                            leftIcon={<BsIcons.BsFillTrashFill />}
-                            color="red"
-                            onClick={handleModalClick}
-                        >
-                            Delete
-                        </Button>
-                    </Group>
-                </Stack>
-            </Card>
+            <Skeleton visible={loading}>
+                <Card withBorder>
+                    <Stack>
+                        <Skeleton visible={loading}>
+                            <div className={styles.cardSection}>
+                                <Image
+                                    width={100}
+                                    height={155}
+                                    src={imageSrc}
+                                    radius={5}
+                                    withPlaceholder
+                                />
+                            </div>
+                        </Skeleton>
+                        <Skeleton visible={loading}>
+                            <Stack>
+                                <Text weight={500}>{name || "no name"}</Text>
+                                <Text weight={700}>{price || "n/a"}</Text>
+                            </Stack>
+                        </Skeleton>
+                        <Skeleton visible={loading}>
+                            <Group grow>
+                                <Button
+                                    leftIcon={<BsIcons.BsPencilFill />}
+                                    color="blue"
+                                >
+                                    Edit
+                                </Button>
+                                <Button
+                                    leftIcon={<BsIcons.BsFillTrashFill />}
+                                    color="red"
+                                    onClick={handleModalClick}
+                                >
+                                    Delete
+                                </Button>
+                            </Group>
+                        </Skeleton>
+                    </Stack>
+                </Card>
+            </Skeleton>
         </>
     );
 }
