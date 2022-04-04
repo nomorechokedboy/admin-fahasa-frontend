@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import clx from "classnames";
 import SideBarHeader from "../SideBarHeader";
 import SideBarOption from "../SideBarOptions";
 import styles from "./styles.module.scss";
@@ -17,7 +17,7 @@ export default function Sidebar() {
 
     return (
         <Navbar
-            className={classNames(
+            className={clx(
                 styles.sideBarMenu,
                 sideBarActive ? styles.active : styles.collapsed,
             )}

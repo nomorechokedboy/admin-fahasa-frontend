@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import clx from "classnames";
 import { Link } from "react-router-dom";
 import { Container, Image as MantineImage } from "@mantine/core";
 import * as CgIcons from "react-icons/cg";
@@ -17,7 +17,7 @@ export default function SideBarHeader({ onClick, active }: SideBarHeaderProps) {
     };
     return (
         <div
-            className={classNames(styles.header, {
+            className={clx(styles.header, {
                 [styles.active]: active,
             })}
         >

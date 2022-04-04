@@ -1,4 +1,9 @@
-import { ActionIcon, TextInput, useMantineColorScheme } from "@mantine/core";
+import {
+    ActionIcon,
+    Avatar,
+    TextInput,
+    useMantineColorScheme,
+} from "@mantine/core";
 import * as AiIcons from "react-icons/ai";
 import * as CgIcons from "react-icons/cg";
 import styles from "./styles.module.scss";
@@ -35,6 +40,7 @@ export default function Header() {
                         <CgIcons.CgMoon size={18} />
                     )}
                 </ActionIcon>
+                <Avatar radius="xl" />
             </div>
         </div>
     );
