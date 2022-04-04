@@ -1,4 +1,4 @@
-export const API = import.meta.env.VITE_API as string;
+import { API } from "@/configs/env";
 
 export const axiosConfigs = {
     baseURL: API,

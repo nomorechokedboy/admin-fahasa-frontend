@@ -1,15 +1,7 @@
-import {
-    Button,
-    Card,
-    Text as MantineText,
-    Image as MantineImage,
-    Group,
-    Stack,
-    Modal,
-} from "@mantine/core";
+import { Button, Card, Text, Image, Group, Stack } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import * as BsIcons from "react-icons/bs";
-import ConfirmModal from "../ConfirmModal";
+import ConfirmModal from "@/components/ConfirmModal";
 import styles from "./styles.module.scss";
 
 type ProductProps = {
@@ -27,27 +19,27 @@ export default function Product({ name, price, image }: ProductProps) {
 
     return (
         <>
-            <Modal
-                size="xs"
-                centered
+            <ConfirmModal
+                message="Do you want to remove the item"
                 opened={isModalOpen}
                 onClose={handleModalClick}
-            >
-                <ConfirmModal onCancelClick={handleModalClick} />
-            </Modal>
+                onOkClick={() => {}}
+                size="xs"
+                centered
+            />
 
             <Card withBorder>
                 <Stack>
                     <div className={styles.cardSection}>
-                        <MantineImage
+                        <Image
                             className={styles.image}
                             src={image}
                             radius={5}
                             withPlaceholder
                         />
                     </div>
-                    <MantineText weight={500}>{name}</MantineText>
-                    <MantineText weight={700}>{price}</MantineText>
+                    <Text weight={500}>{name}</Text>
+                    <Text weight={700}>{price}</Text>
                     <Group grow>
                         <Button
                             leftIcon={<BsIcons.BsPencilFill />}
