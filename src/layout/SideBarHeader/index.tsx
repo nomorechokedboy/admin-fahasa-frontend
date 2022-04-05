@@ -1,10 +1,7 @@
-import classNames from "classnames";
-import { Link } from "react-router-dom";
-import { Container, Image as MantineImage } from "@mantine/core";
-import * as CgIcons from "react-icons/cg";
-import * as FaIcons from "react-icons/fa";
-import styles from "./styles.module.scss";
 import { MouseEventHandler } from "react";
+import { Container, Image as MantineImage, Burger } from "@mantine/core";
+import clx from "classnames";
+import styles from "./styles.module.scss";
 
 type SideBarHeaderProps = {
     onClick?: MouseEventHandler;
@@ -17,7 +14,7 @@ export default function SideBarHeader({ onClick, active }: SideBarHeaderProps) {
     };
     return (
         <div
-            className={classNames(styles.header, {
+            className={clx(styles.header, {
                 [styles.active]: active,
             })}
         >
@@ -31,9 +28,7 @@ export default function SideBarHeader({ onClick, active }: SideBarHeaderProps) {
             )}
 
             <Container className={styles.sideBarToggle} style={containerStyle}>
-                <Link to="#" className={styles.menu} onClick={onClick}>
-                    {active ? <CgIcons.CgPlayListRemove /> : <FaIcons.FaBars />}
-                </Link>
+                <Burger opened={active} onClick={onClick} />
             </Container>
         </div>
     );

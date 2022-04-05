@@ -1,0 +1,5 @@
+@import "@scss/mixins";
+
+.cardSection {
+    @include flex-justify-center;
+}
