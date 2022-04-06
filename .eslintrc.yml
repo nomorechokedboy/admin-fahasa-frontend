@@ -1,8 +1,11 @@
 extends:
-  - eslint:recommended
-  - prettier
+    - eslint:recommended
+    - prettier
 
 parser: "@typescript-eslint/parser"
 
-env: 
-  browser: true
+env:
+    browser: true
+
+rules:
+    no-redeclare: 0

@@ -1,4 +1,6 @@
 import axios from "axios";
 import { axiosConfigs } from "./config";
 
-export const axiosClient = axios.create(axiosConfigs);
+const axiosClient = axios.create(axiosConfigs);
+
+export default axiosClient;

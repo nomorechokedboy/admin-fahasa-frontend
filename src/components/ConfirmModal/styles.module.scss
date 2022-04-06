@@ -1,0 +1,5 @@
+@import "@scss/mixins";
+
+.message {
+    @include flex-justify-center;
+}

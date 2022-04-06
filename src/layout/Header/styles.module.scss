@@ -23,5 +23,7 @@
 }
 
 .themeIcon {
-    @include flex-center;
+    @include flex-common(space-between, center);
+
+    width: 90px;
 }
