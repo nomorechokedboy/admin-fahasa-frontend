@@ -1,8 +1,6 @@
 @import "@scss/mixins";
 
 .container {
-    @include flex-col;
-
     height: 100%;
 }
 

@@ -34,7 +34,7 @@ export default function Product({
     return (
         <>
             <ConfirmModal
-                message="Do you want to remove the item"
+                message="Do you want to remove the item?"
                 opened={isModalOpen}
                 onClose={handleModalClick}
                 onOkClick={() => {}}
