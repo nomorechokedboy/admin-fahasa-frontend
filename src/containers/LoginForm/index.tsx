@@ -1,6 +1,7 @@
+import NotificationDialog from "@/components/NotificationDiaglog";
 import ThemeSwitch from "@/components/ThemeSwitch";
-import useAuth from "@/hooks/useAuth";
-import { auth } from "@/lib/firebase";
+import { StateTree } from "@/redux";
+import login, { setLoginError } from "@/redux/login/action";
 import {
     Anchor,
     Button,
@@ -8,13 +9,16 @@ import {
     Checkbox,
     Container,
     Input,
+    LoadingOverlay,
     PasswordInput,
     useMantineColorScheme,
     useMantineTheme,
 } from "@mantine/core";
 import { joiResolver, useForm } from "@mantine/form";
-import { CSSProperties, memo, useMemo } from "react";
+import { CSSProperties, memo, useEffect, useMemo, useState } from "react";
 import { HiLockClosed, HiMail } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import Title from "../../components/Title";
 import styles from "./styles.module.scss";
 import loginSchema, { LoginData } from "./validate";
@@ -40,15 +44,32 @@ const LoginForm = memo(() => {
         schema: joiResolver(loginSchema),
     });
 
-    const handleSubmit = ({ email, password }: typeof loginForm.values) => {};
-    // auth
-    //     .signInWithEmailAndPassword(email, password)
-    //     .then((res) => {
-    //         console.log(res.user);
-    //     })
-    //     .catch((e) => console.error(e));
+    const redirect = useNavigate();
+    const dispatch = useDispatch();
+    const { error, loading, user } = useSelector(
+        (state: StateTree) => state.login,
+    );
+    const [open, setOpen] = useState(false);
+    const handleCloseNotification = () => {
+        setOpen(false);
+        dispatch(setLoginError(""));
+    };
 
-    console.log("LoginForm render");
+    const handleSubmit = async ({
+        email,
+        password,
+    }: typeof loginForm.values) => {
+        dispatch(setLoginError(""));
+        dispatch(login(email, password));
+    };
+
+    useEffect(() => {
+        if (user) {
+            loginForm.reset();
+            redirect("/admin");
+        }
+        if (error) setOpen(true);
+    }, [user, error]);
 
     return (
         <Container size={380} className={styles.container}>
@@ -91,6 +112,17 @@ const LoginForm = memo(() => {
                         <Anchor>Forgot password?</Anchor>
                     </div>
                 </div>
+                <LoadingOverlay visible={loading} />
+                {open && (
+                    <div className={styles.dialogContainer}>
+                        <NotificationDialog
+                            onClose={handleCloseNotification}
+                            title={"Login error"}
+                            message={error}
+                            color="red"
+                        />
+                    </div>
+                )}
             </form>
         </Container>
     );

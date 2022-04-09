@@ -41,14 +41,17 @@ export default function Display() {
                         label="Reload the page"
                         onClick={handleReloadClick}
                     />
-                    <NotificationDialog
-                        opened={notiOpened}
-                        onClose={handleCloseNotification}
-                        icon={<AiIcons.AiOutlineClose />}
-                        title="Fetching error"
-                        message={error.message}
-                        color="red"
-                    />
+                    {notiOpened && (
+                        <div className={styles.dialogContainer}>
+                            <NotificationDialog
+                                onClose={handleCloseNotification}
+                                icon={<AiIcons.AiOutlineClose />}
+                                title="Fetching error"
+                                message={error.message}
+                                color="red"
+                            />
+                        </div>
+                    )}
                 </>
             ) : isValidating ? (
                 <Products>

@@ -1,11 +1,9 @@
 .notification {
-    position: fixed;
-    width: 400px;
-    min-height: 50px;
-    z-index: 2;
-    bottom: 30px;
-    right: 30px;
-    animation: came-from-left 0.5s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    left: 0;
 }
 
 @keyframes came-from-left {

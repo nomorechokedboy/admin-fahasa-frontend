@@ -12,7 +12,7 @@ $icon-size: 25px;
 }
 
 .searchBar {
-    @include flex-align-center;
+    @include flex-items-center;
 
     height: $header-height;
 }

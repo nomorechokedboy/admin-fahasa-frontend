@@ -1,139 +1,250 @@
-
-import RichTextEditor from "react-rte";
+import usePreviewImage from "@/hooks/usePreviewImage";
+import { createProduct } from "@/lib/api";
+import ProductFile from "@/types/customs/file";
+import { FormProps } from "@/types/product";
+import { getFormData } from "@/utils";
+import {
+    Button,
+    Container,
+    MultiSelect,
+    NativeSelect,
+    NumberInput,
+    TextInput,
+    useMantineColorScheme,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { UseFormInput } from "@mantine/form/lib/use-form";
+import clx from "classnames";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import RichTextEditor, { EditorValue, ToolbarConfig } from "react-rte";
+import Text from "../Text";
+import {
+    defaultProduct,
+    genresData,
+    PublicYearData,
+    toolbarConfig,
+} from "./data";
 import styles from "./styles.module.scss";
-import {TextInput,Button} from "@mantine/core";
-import { useRef, useState } from "react";
-import { useForm } from '@mantine/form';
-import ReactMarkdown from "react-markdown";
 
-
-
-
-interface ProductInput{
-    _id: string,
-    name: string,
-    author: string,
-    genres: string,
-    description: string,
-    price: number,
-    productSupplier: string,
-    publishingCompany: string,
-    publicYear: number,
-    amount: number,
-    image: any,
-    onSubmit:any ,
-
+interface ProductFormProps extends FormProps {
+    onSubmit: () => void;
 }
-export default function ProductForm(
-{
-_id,
-name,
-author,
-genres,
-description,
-price,
-productSupplier,
-publishingCompany,
-publicYear,
-amount,
-image,
-onSubmit,
 
-}:ProductInput,
+export default function ProductForm({
+    onSubmit,
+    ...productProps
+}: ProductFormProps) {
+    const { colorScheme } = useMantineColorScheme();
+    const [productDesc, setProductDesc] = useState(
+        RichTextEditor.createEmptyValue(),
+    );
+    const { image: productImage, setImage: setProductImage } =
+        usePreviewImage();
+    const useFormInput: UseFormInput<FormProps> =
+        JSON.stringify(productProps) !== JSON.stringify({})
+            ? {
+                  initialValues: {
+                      ...productProps,
+                  },
+              }
+            : defaultProduct;
+    const form = useForm<FormProps>(useFormInput);
 
-)
-{
-    const [value, setValue] = useState(RichTextEditor.createEmptyValue());
-    const onchangehandle = (inputValue: any) => 
-    {
-    setValue(inputValue);
-    };
-    const form = useForm({
-        initialValues:{
-            _id: _id,
-            name: name,
-            author: author,
-            genres: genres,
-            price: price,
-            productSupplier: productSupplier,
-            publishingCompany: publishingCompany,
-            publicYear: publicYear,
-            amount: amount,
-            image: null,
-            description :"",
-        },
-        validate:{
-            _id: (data) => (data.length < 5 ? "id error": null),
-            name: (data) => (data.length < 5 ? "name error": null),
-            author: (data) => (data.length < 0 ? "author error": null),
-            genres: (data) => (data.length < 5 ? "genres error": null),
-            price: (data) => (data < 1000 ? "price error": null),
-            publishingCompany: (data) => (data.length < 5 ? "Publishing Company error": null),
-            publicYear: (data) => (data < 2010 || data >  2022 ? "public year error": null),
-            amount: (data) => (data < 1 ? "Amount error": null),
-            
+    const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+        const productImage: ProductFile | undefined = e.target.files?.[0];
+        if (productImage) {
+            productImage.preview = URL.createObjectURL(productImage);
+            setProductImage(productImage);
         }
-        
-    });
-    
-    type FormValues = typeof form.values;
-    const handleSubmit = (values: FormValues) => console.log(values);
+    };
 
-    return(
-        <form className={styles.container} onSubmit={form.onSubmit(handleSubmit)}>
-            <TextInput label="Id" 
-            placeholder="Book's id"
-            defaultValue={_id} 
-            {...form.getInputProps('_id')}/>
+    const handleRTEChange = (inputValue: EditorValue) => {
+        setProductDesc(inputValue);
+    };
 
-            <TextInput label="Name"
-            defaultValue={name}
-            placeholder="book's name"
-            {...form.getInputProps('name')}
-            />
+    const handleSubmit = async (values: typeof form.values, _: FormEvent) => {
+        form.setFieldValue("description", productDesc.toString("markdown"));
+        form.setFieldValue("image", productImage);
 
-            <TextInput label="Author"
-            defaultValue={author}
-            {...form.getInputProps('author')}
-            />
+        try {
+            const res = await createProduct("/product", getFormData(values));
+            console.log({ data: res.data });
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
-            <TextInput label="Genres"
-            defaultValue={genres}
-            {...form.getInputProps('genres')}
-            />
+    return (
+        <Container
+            className={styles.container}
+            sx={(theme) => ({
+                backgroundColor:
+                    colorScheme === "dark"
+                        ? theme.colors.dark[6]
+                        : theme.colors.gray[1],
+            })}
+        >
+            <form onSubmit={form.onSubmit(handleSubmit)}>
+                <div className={styles.row}>
+                    <div className={styles.colLeft}>
+                        <Text size="lg" font="bold">
+                            1.General information
+                        </Text>
+                    </div>
+                    <div className={styles.colRight}>
+                        <div className={styles.row}>
+                            <TextInput
+                                className={styles.input}
+                                label="Sku"
+                                placeholder="Enter sku here..."
+                                {...form.getInputProps("_id")}
+                            />
+                        </div>
+                        <div className={styles.row}>
+                            <TextInput
+                                className={styles.input}
+                                label="Product name"
+                                placeholder="Enter product name here..."
+                                {...form.getInputProps("name")}
+                            />
+                        </div>
+                        <div className={styles.row}>
+                            <NumberInput
+                                className={styles.input}
+                                type="number"
+                                label="Amount"
+                                min={1}
+                                {...form.getInputProps("amount")}
+                            />
+                        </div>
+                        <div className={styles.row}>
+                            <RichTextEditor
+                                toolbarConfig={toolbarConfig as ToolbarConfig}
+                                className={clx(styles.rte, {
+                                    [styles.dark]: colorScheme === "dark",
+                                })}
+                                value={productDesc}
+                                onChange={handleRTEChange}
+                            />
+                        </div>
+                    </div>
+                </div>
 
-            <TextInput type="number" label="Amount"
-            defaultValue={amount}
-            {...form.getInputProps('amount')}
-            />
+                <div className={styles.row}>
+                    <div className={styles.colLeft}>
+                        <Text size="lg" font="bold">
+                            2.Additional information
+                        </Text>
+                    </div>
+                    <div className={styles.colRight}>
+                        <div className={styles.row}>
+                            <TextInput
+                                className={styles.input}
+                                label="Author"
+                                {...form.getInputProps("author")}
+                            />
+                        </div>
+                        <div className={styles.row}>
+                            <TextInput
+                                className={styles.input}
+                                type="text"
+                                label="Product Supplier"
+                                {...form.getInputProps("productSupplier")}
+                            />
+                        </div>
+                        <div className={styles.row}>
+                            <TextInput
+                                className={styles.input}
+                                type="text"
+                                label="Publishing Company"
+                                {...form.getInputProps("publishingCompany")}
+                            />
+                        </div>
+                        <div className={styles.row}>
+                            <NativeSelect
+                                className={styles.input}
+                                label="Public Year"
+                                data={PublicYearData}
+                                {...form.getInputProps("publicYear")}
+                            />
+                        </div>
+                    </div>
+                </div>
 
-            <TextInput type="text" label="Product Supplier"
-            {...form.getInputProps('productSupplier')}
-            defaultValue={productSupplier}/>
+                <div className={styles.row}>
+                    <div className={styles.colLeft}>
+                        <Text size="lg" font="bold">
+                            3.Pricing
+                        </Text>
+                    </div>
+                    <div className={styles.colRight}>
+                        <div className={styles.row}>
+                            <NumberInput
+                                className={styles.input}
+                                type="number"
+                                label="Price"
+                                min={1000}
+                                {...form.getInputProps("price")}
+                            />
+                        </div>
+                    </div>
+                </div>
 
-            <TextInput type="text" label="Publishing Company"
-            defaultValue={publishingCompany}
-            {...form.getInputProps('publishingCompany')}
-            />
+                <div className={styles.row}>
+                    <div className={styles.colLeft}>
+                        <Text size="lg" font="bold">
+                            4.Genres
+                        </Text>
+                    </div>
+                    <div className={styles.colRight}>
+                        <div className={styles.row}>
+                            <MultiSelect
+                                className={styles.input}
+                                data={genresData}
+                                searchable
+                                placeholder="Select genres..."
+                                nothingFound="Nothing found"
+                                clearable
+                            />
+                        </div>
+                    </div>
+                </div>
 
-            <TextInput type="number" label="Public Year"
-            defaultValue={publicYear}
-            {...form.getInputProps('publicYear')}
-            />
-
-            <TextInput type="number" label="Price"
-            defaultValue={price}
-            {...form.getInputProps('price')}
-            />
-            
-            
-            <input type="file" {...form.getInputProps('image')} />
-
-            <RichTextEditor
-            value={value}
-            onChange={(event) => onchangehandle(event)}
-            />
-            <Button type="submit">Submit</Button>
-        </form>
-    )
+                <div className={styles.row}>
+                    <div className={styles.colLeft}>
+                        <Text size="lg" font="bold">
+                            5.Media
+                        </Text>
+                    </div>
+                    <div className={styles.colRight}>
+                        <div className={styles.row}>
+                            <div className={styles.previewImage}>
+                                {productImage?.preview ? (
+                                    <img
+                                        src={productImage.preview}
+                                        alt="Preview image"
+                                    />
+                                ) : (
+                                    <FaCloudUploadAlt />
+                                )}
+                            </div>
+                        </div>
+                        <div className={styles.row}>
+                            <div className={styles.fileWrapper}>
+                                <input
+                                    type="file"
+                                    required
+                                    onChange={handleChangeImage}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.buttonWrapper}>
+                    <Button type="submit">Submit</Button>
+                </div>
+            </form>
+        </Container>
+    );
 }

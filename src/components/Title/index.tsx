@@ -2,18 +2,17 @@ import clx from "classnames";
 import styles from "./styles.module.scss";
 
 interface TitleProps {
-    lg?: boolean;
-    sm?: boolean;
+    size?: "lg" | "sm";
     fontMedium?: boolean;
     children: string;
 }
 
-const Title = ({ children, fontMedium, lg, sm }: TitleProps) => {
+const Title = ({ children, fontMedium, size }: TitleProps) => {
     return (
         <div
             className={clx(styles.title, {
-                [styles.lg]: lg,
-                [styles.sm]: sm,
+                [styles.lg]: size === "lg",
+                [styles.sm]: size === "sm",
                 [styles.fontMedium]: fontMedium,
             })}
         >

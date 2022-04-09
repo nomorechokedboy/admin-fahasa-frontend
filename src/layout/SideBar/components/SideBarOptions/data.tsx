@@ -3,18 +3,18 @@ import * as AiIcons from "react-icons/ai";
 
 export const sideBarData = [
     {
-        title: "Dashboard",
-        path: "/",
+        title: "Home",
+        path: "/admin",
         icon: <AiIcons.AiFillHome />,
     },
     {
         title: "Products",
-        path: "/products",
+        path: "/admin/products",
         icon: <FaIcons.FaShoppingBag />,
     },
     {
         title: "Manage",
-        path: "/manage",
+        path: "/admin/manage",
         icon: <FaIcons.FaCartPlus />,
     },
 ];
