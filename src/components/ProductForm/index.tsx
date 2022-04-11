@@ -1,6 +1,5 @@
-import usePreviewImage from "@/hooks/usePreviewImage";
-import { createProduct } from "@/lib/api";
-import ProductFile from "@/types/customs/file";
+import useUploadFile from "@/hooks/useUploadFile";
+import useValidate from "@/hooks/useValidate";
 import { FormProps } from "@/types/product";
 import { getFormData } from "@/utils";
 import {
@@ -12,23 +11,19 @@ import {
     TextInput,
     useMantineColorScheme,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { joiResolver, useForm } from "@mantine/form";
 import { UseFormInput } from "@mantine/form/lib/use-form";
-import clx from "classnames";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import RichTextEditor, { EditorValue, ToolbarConfig } from "react-rte";
+import { FormEvent, useRef } from "react";
+import { AiOutlineFileImage } from "react-icons/ai";
+import RichTextEditor, { EditorValue } from "react-rte";
+import CustomRTE from "../CustomRTEProps";
 import Text from "../Text";
-import {
-    defaultProduct,
-    genresData,
-    PublicYearData,
-    toolbarConfig,
-} from "./data";
+import { defaultProduct, genresData, PublicYearData } from "./data";
 import styles from "./styles.module.scss";
+import productFormSchema from "./validate";
 
 interface ProductFormProps extends FormProps {
-    onSubmit: () => void;
+    onSubmit: (data: FormData) => void;
 }
 
 export default function ProductForm({
@@ -36,11 +31,9 @@ export default function ProductForm({
     ...productProps
 }: ProductFormProps) {
     const { colorScheme } = useMantineColorScheme();
-    const [productDesc, setProductDesc] = useState(
-        RichTextEditor.createEmptyValue(),
-    );
-    const { image: productImage, setImage: setProductImage } =
-        usePreviewImage();
+    const [productImage, handleChangeImage] = useUploadFile((file) => {
+        form.setFieldValue("image", file);
+    });
     const useFormInput: UseFormInput<FormProps> =
         JSON.stringify(productProps) !== JSON.stringify({})
             ? {
@@ -49,30 +42,32 @@ export default function ProductForm({
                   },
               }
             : defaultProduct;
-    const form = useForm<FormProps>(useFormInput);
+    const form = useForm<FormProps>({
+        ...useFormInput,
+        schema: joiResolver(productFormSchema),
+    });
+    const inputFileRef = useRef<HTMLInputElement>(null);
+    const [productDesc, descriptionError, handleDescriptionChange] =
+        useValidate<EditorValue>(
+            form.errors.description,
+            (value) => {
+                form.setFieldValue("description", value.toString("markdown"));
+            },
+            RichTextEditor.createEmptyValue(),
+        );
+    const [genres, genresError, handleGenresChange] = useValidate<string[]>(
+        form.errors.genres,
+        (values) => {
+            form.setFieldValue("genres", values.join(" "));
+        },
+    );
 
-    const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
-        const productImage: ProductFile | undefined = e.target.files?.[0];
-        if (productImage) {
-            productImage.preview = URL.createObjectURL(productImage);
-            setProductImage(productImage);
-        }
-    };
-
-    const handleRTEChange = (inputValue: EditorValue) => {
-        setProductDesc(inputValue);
+    const handleUpload = () => {
+        inputFileRef.current?.click();
     };
 
     const handleSubmit = async (values: typeof form.values, _: FormEvent) => {
-        form.setFieldValue("description", productDesc.toString("markdown"));
-        form.setFieldValue("image", productImage);
-
-        try {
-            const res = await createProduct("/product", getFormData(values));
-            console.log({ data: res.data });
-        } catch (e) {
-            console.error(e);
-        }
+        onSubmit(getFormData(values));
     };
 
     return (
@@ -98,6 +93,7 @@ export default function ProductForm({
                                 className={styles.input}
                                 label="Sku"
                                 placeholder="Enter sku here..."
+                                required
                                 {...form.getInputProps("_id")}
                             />
                         </div>
@@ -106,6 +102,7 @@ export default function ProductForm({
                                 className={styles.input}
                                 label="Product name"
                                 placeholder="Enter product name here..."
+                                required
                                 {...form.getInputProps("name")}
                             />
                         </div>
@@ -115,17 +112,18 @@ export default function ProductForm({
                                 type="number"
                                 label="Amount"
                                 min={1}
+                                required
                                 {...form.getInputProps("amount")}
                             />
                         </div>
                         <div className={styles.row}>
-                            <RichTextEditor
-                                toolbarConfig={toolbarConfig as ToolbarConfig}
-                                className={clx(styles.rte, {
-                                    [styles.dark]: colorScheme === "dark",
-                                })}
-                                value={productDesc}
-                                onChange={handleRTEChange}
+                            <CustomRTE
+                                label="Description"
+                                placeholder="Enter product description here..."
+                                className={styles.rte}
+                                value={productDesc!}
+                                onChange={handleDescriptionChange}
+                                error={descriptionError}
                             />
                         </div>
                     </div>
@@ -141,7 +139,9 @@ export default function ProductForm({
                         <div className={styles.row}>
                             <TextInput
                                 className={styles.input}
+                                placeholder="Enter author name here..."
                                 label="Author"
+                                required
                                 {...form.getInputProps("author")}
                             />
                         </div>
@@ -150,6 +150,8 @@ export default function ProductForm({
                                 className={styles.input}
                                 type="text"
                                 label="Product Supplier"
+                                placeholder="Enter product supplier here..."
+                                required
                                 {...form.getInputProps("productSupplier")}
                             />
                         </div>
@@ -158,6 +160,8 @@ export default function ProductForm({
                                 className={styles.input}
                                 type="text"
                                 label="Publishing Company"
+                                placeholder="Enter product publishing company here..."
+                                required
                                 {...form.getInputProps("publishingCompany")}
                             />
                         </div>
@@ -166,6 +170,7 @@ export default function ProductForm({
                                 className={styles.input}
                                 label="Public Year"
                                 data={PublicYearData}
+                                required
                                 {...form.getInputProps("publicYear")}
                             />
                         </div>
@@ -184,7 +189,8 @@ export default function ProductForm({
                                 className={styles.input}
                                 type="number"
                                 label="Price"
-                                min={1000}
+                                min={10000}
+                                required
                                 {...form.getInputProps("price")}
                             />
                         </div>
@@ -202,10 +208,13 @@ export default function ProductForm({
                             <MultiSelect
                                 className={styles.input}
                                 data={genresData}
-                                searchable
+                                value={genres}
+                                onChange={handleGenresChange}
                                 placeholder="Select genres..."
                                 nothingFound="Nothing found"
                                 clearable
+                                searchable
+                                error={genresError}
                             />
                         </div>
                     </div>
@@ -226,17 +235,22 @@ export default function ProductForm({
                                         alt="Preview image"
                                     />
                                 ) : (
-                                    <FaCloudUploadAlt />
+                                    <AiOutlineFileImage />
                                 )}
                             </div>
                         </div>
                         <div className={styles.row}>
                             <div className={styles.fileWrapper}>
                                 <input
+                                    className={styles.file}
+                                    accept="image/*"
+                                    id="uploadFile"
                                     type="file"
+                                    ref={inputFileRef}
                                     required
                                     onChange={handleChangeImage}
                                 />
+                                <Button onClick={handleUpload}>Upload</Button>
                             </div>
                         </div>
                     </div>

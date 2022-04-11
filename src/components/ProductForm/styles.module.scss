@@ -68,18 +68,13 @@
 .rte {
     height: 200px;
     overflow: auto;
-
-    &.dark {
-        background-color: #5c5f66;
-    }
-
-    @include desktop {
-        width: 100%;
-    }
 }
 .fileWrapper {
     @include center;
     margin-top: 20px;
+}
+.file {
+    display: none;
 }
 .buttonWrapper {
     @include flex-center-end;

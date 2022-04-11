@@ -1,11 +1,26 @@
 import ProductFormHOC from "@/HOC/ProductFormHOC";
+import { createProduct } from "@/lib/api";
+import axios from "axios";
+import styles from "./styles.module.scss";
 
-import { memo, useCallback } from "react";
+const AddForm = () => {
+    const handleSubmit = (data: FormData) => {
+        createProduct("/product", data)
+            .then((res) => {
+                console.log({ res });
+            })
+            .catch((e) => {
+                if (axios.isAxiosError(e)) {
+                    console.log({ errorMessage: e.response?.data });
+                }
+            });
+    };
 
-const AddForm = memo(() => {
-    const handleSubmit = useCallback(() => {}, []);
-
-    return <ProductFormHOC title="Add product" onSubmit={handleSubmit} />;
-});
+    return (
+        <div className={styles.container}>
+            <ProductFormHOC title="Add product" onSubmit={handleSubmit} />
+        </div>
+    );
+};
 
 export default AddForm;

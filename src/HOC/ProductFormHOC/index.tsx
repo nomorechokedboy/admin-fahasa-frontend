@@ -1,26 +1,26 @@
 import ProductForm from "@/components/ProductForm";
 import Title from "@/components/Title";
 import { FormProps } from "@/types";
-import { memo } from "react";
 import styles from "./styles.module.scss";
 
 interface ProductFormHOCProps extends FormProps {
-    onSubmit: () => void;
+    onSubmit: (data: FormData) => void;
     title: string;
 }
 
-const ProductFormHOC = memo<ProductFormHOCProps>(
-    ({ onSubmit, title, ...product }) => {
-        return (
-            <div className={styles.container}>
-                <div className={styles.title}>
-                    <Title>{title}</Title>
-                </div>
-                <ProductForm {...product} onSubmit={onSubmit} />
+const ProductFormHOC = ({
+    onSubmit,
+    title,
+    ...product
+}: ProductFormHOCProps) => {
+    return (
+        <>
+            <div className={styles.title}>
+                <Title>{title}</Title>
             </div>
-        );
-    },
-    (prev, next) => prev.onSubmit !== next.onSubmit,
-);
+            <ProductForm {...product} onSubmit={onSubmit} />
+        </>
+    );
+};
 
 export default ProductFormHOC;

@@ -1,7 +1,8 @@
 import ProductFile from "@/types/customs/file";
+import { ReturnArrayState } from "@/types/customs/hook";
 import { useEffect, useState } from "react";
 
-export default function usePreviewImage() {
+export default function usePreviewImage(): ReturnArrayState<ProductFile> {
     const [image, setImage] = useState<ProductFile>();
 
     useEffect(() => {
@@ -10,5 +11,5 @@ export default function usePreviewImage() {
         };
     }, [image]);
 
-    return { image, setImage };
+    return [image, setImage];
 }

@@ -14,3 +14,8 @@
     margin: 0 auto;
     height: calc(100% - $header-height - 1px);
 }
+.notifications {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+}

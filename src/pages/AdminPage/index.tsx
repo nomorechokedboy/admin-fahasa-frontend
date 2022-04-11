@@ -1,8 +1,11 @@
+import NotificationDialog from "@/components/NotificationDiaglog";
 import AddForm from "@/containers/AddForm";
 import Header from "@/layout/Header";
 import Sidebar from "@/layout/SideBar";
 import { auth } from "@/lib/firebase";
+import { getNotificationState } from "@/redux/admin";
 import clx from "classnames";
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Display from "../../containers/Display";
 import styles from "./styles.module.scss";
@@ -10,6 +13,7 @@ import styles from "./styles.module.scss";
 export default function AdminPage() {
     console.log("AdminPage render");
     console.log({ user: auth.currentUser });
+    const notification = useSelector(getNotificationState);
 
     return (
         <div className={styles.body}>
@@ -25,7 +29,13 @@ export default function AdminPage() {
                     </Routes>
                 </main>
             </div>
-            {/* <NotificationDialog /> */}
+            {notification.messages.length !== 0 && (
+                <div className={styles.notifications}>
+                    {notification.messages.map((message) => (
+                        <NotificationDialog message={message} />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
