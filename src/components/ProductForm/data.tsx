@@ -1,4 +1,4 @@
-import { FormProps } from "@/types";
+import { PartialProduct } from "@/types";
 import { UseFormInput } from "@mantine/form/lib/use-form";
 
 export const PublicYearData = Array.from(Array(23)).map((_, i) => ({
@@ -6,7 +6,7 @@ export const PublicYearData = Array.from(Array(23)).map((_, i) => ({
     label: `${i + 2000}`,
 }));
 
-export const defaultProduct: UseFormInput<FormProps> = {
+export const defaultProduct: UseFormInput<PartialProduct> = {
     initialValues: {
         _id: "",
         amount: 1,

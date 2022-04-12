@@ -12,4 +12,4 @@ export default interface Product {
     image: any;
 }
 
-export type FormProps = Partial<Product>;
+export type PartialProduct = Partial<Product>;

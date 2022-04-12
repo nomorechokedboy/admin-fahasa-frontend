@@ -1,9 +1,9 @@
 import ProductForm from "@/components/ProductForm";
 import Title from "@/components/Title";
-import { FormProps } from "@/types";
+import { PartialProduct } from "@/types";
 import styles from "./styles.module.scss";
 
-interface ProductFormHOCProps extends FormProps {
+interface ProductFormHOCProps extends PartialProduct {
     onSubmit: (data: FormData) => void;
     title: string;
 }
