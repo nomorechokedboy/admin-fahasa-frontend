@@ -2,17 +2,16 @@ import NotificationDialog from "@/components/NotificationDiaglog";
 import AddForm from "@/containers/AddForm";
 import Header from "@/layout/Header";
 import Sidebar from "@/layout/SideBar";
-import { auth } from "@/lib/firebase";
 import { getNotificationState } from "@/redux/admin";
 import clx from "classnames";
+import { memo } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Display from "../../containers/Display";
 import styles from "./styles.module.scss";
 
-export default function AdminPage() {
+const AdminPage = memo(() => {
     console.log("AdminPage render");
-    console.log({ user: auth.currentUser });
     const notification = useSelector(getNotificationState);
 
     return (
@@ -23,9 +22,13 @@ export default function AdminPage() {
                 <main className={clx(styles.main)}>
                     <Routes>
                         <Route index element={<AddForm />} />
-                        <Route path="manage" element={<></>}></Route>
-                        <Route path="products" element={<Display />}></Route>
+                        <Route path="manage" element={<></>} />
+                        <Route path="products" element={<Display />} />
                         <Route path="detail" element={<AddForm />} />
+                        <Route
+                            path="*"
+                            element={<p>There's nothing here: 404!</p>}
+                        />
                     </Routes>
                 </main>
             </div>
@@ -38,4 +41,6 @@ export default function AdminPage() {
             )}
         </div>
     );
-}
+});
+
+export default AdminPage;

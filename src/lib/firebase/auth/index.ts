@@ -1,8 +1,10 @@
 import {
     createUserWithEmailAndPassword,
+    onAuthStateChanged,
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signOut,
+    User,
 } from "firebase/auth";
 import { auth } from "../config";
 
@@ -15,4 +17,8 @@ const registerNewEmployee = (email: string, password: string) =>
 const resetPassword = (email: string) => sendPasswordResetEmail(auth, email);
 
 const logOut = () => signOut(auth);
-export { logIn, logOut, registerNewEmployee, resetPassword };
+
+const isSignedIn: () => Promise<User | null> = () =>
+    new Promise((resolve) => onAuthStateChanged(auth, (user) => resolve(user)));
+
+export { logIn, logOut, isSignedIn, registerNewEmployee, resetPassword };

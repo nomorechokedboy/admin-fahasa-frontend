@@ -5,8 +5,10 @@
 }
 
 .container {
+    height: 100vh;
     transition: margin-left 0.5s;
     flex-grow: 1;
+    overflow: auto;
 }
 
 .main {

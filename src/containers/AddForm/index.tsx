@@ -1,9 +1,11 @@
-import ProductFormHOC from "@/HOC/ProductFormHOC";
+import ProductForm from "@/components/ProductForm";
+import Title from "@/components/Title";
 import { createProduct } from "@/lib/api";
 import axios from "axios";
+import { memo } from "react";
 import styles from "./styles.module.scss";
 
-const AddForm = () => {
+const AddForm = memo(() => {
     const handleSubmit = (data: FormData) => {
         createProduct("/product", data)
             .then((res) => {
@@ -18,9 +20,12 @@ const AddForm = () => {
 
     return (
         <div className={styles.container}>
-            <ProductFormHOC title="Add product" onSubmit={handleSubmit} />
+            <div className={styles.title}>
+                <Title>Add new product</Title>
+            </div>
+            <ProductForm onSubmit={handleSubmit} />
         </div>
     );
-};
+});
 
 export default AddForm;

@@ -1,9 +1,10 @@
+import { isSignedIn } from "@/lib/firebase";
 import { User } from "firebase/auth";
 import { Action } from "../types";
 import { LoginState, LOGIN_FAIL, LOGIN_LOADING, LOGIN_SUCCESS } from "./types";
 
 const initialState: LoginState = {
-    user: null,
+    user: await isSignedIn(),
     loading: false,
     error: "",
 };

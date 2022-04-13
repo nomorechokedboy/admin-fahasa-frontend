@@ -12,6 +12,7 @@ export default function ProductForm({
     ...productProps
 }: ProductFormProps) {
     const { colorScheme } = useMantineColorScheme();
+    console.log("ProductForm render");
 
     return (
         <Container

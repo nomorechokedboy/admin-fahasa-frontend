@@ -16,8 +16,10 @@ export default function FormSection({ children, label }: FormSectionProps) {
                 </Text>
             </div>
             <div className={styles.colRight}>
-                {Children.map(children, (child) => (
-                    <div className={styles.inputWrapper}>{child}</div>
+                {Children.map(children, (child, i) => (
+                    <div className={styles.inputWrapper} key={i}>
+                        {child}
+                    </div>
                 ))}
             </div>
         </div>

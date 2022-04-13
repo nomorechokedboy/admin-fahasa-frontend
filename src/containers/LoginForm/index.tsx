@@ -23,7 +23,9 @@ import Title from "../../components/Title";
 import styles from "./styles.module.scss";
 import loginSchema, { LoginData } from "./validate";
 
-const LoginForm = memo(() => {
+const LoginForm = () => {
+    console.log("LoginForm render");
+
     const { colorScheme } = useMantineColorScheme();
     const { colors } = useMantineTheme();
     const formStyle: CSSProperties = useMemo(
@@ -126,6 +128,6 @@ const LoginForm = memo(() => {
             </form>
         </Container>
     );
-});
+};
 
 export default LoginForm;
