@@ -10,10 +10,12 @@ import {
 } from "./types";
 
 const initialState: LoginState = {
-    user: await isSignedIn(),
+    user: null,
     loading: false,
     error: "",
 };
+
+isSignedIn().then((value) => (initialState.user = value));
 
 export default function LoginReducer(
     state = initialState,
