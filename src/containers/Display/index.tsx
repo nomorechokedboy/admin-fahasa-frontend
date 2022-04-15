@@ -1,27 +1,26 @@
-import { Pagination, SimpleGrid, Stack } from "@mantine/core";
+import { Button, Pagination, Stack } from "@mantine/core";
 import NotificationDialog from "@/components/NotificationDiaglog";
-import ProductLoadingSekeletons from "./components/ProductLoadingSkeleton";
 import Product from "./components/Product";
+import Products from "./components/Products";
 import CTA from "@/components/CTA";
 import styles from "./styles.module.scss";
 import useSWR from "swr/immutable";
 import * as AiIcons from "react-icons/ai";
 import * as BsIcons from "react-icons/bs";
 import * as FiIcons from "react-icons/fi";
-import { useToggle } from "@mantine/hooks";
 import { getAllProduct } from "../../lib/api";
-import { Key } from "react";
+import { Key, useState } from "react";
 
 export default function Display() {
     const { data, error, isValidating, mutate } = useSWR(
         "/product",
         getAllProduct,
     );
-    const [notiOpened, notiToggle] = useToggle(true, [false, true]);
+    const [notiOpened, setNotiOpended] = useState<boolean>(!!error);
     const hasData = data && data.length;
 
     const handleCloseNotification = () => {
-        notiToggle();
+        setNotiOpended(false);
     };
 
     const handleReloadClick = () => {
@@ -30,12 +29,17 @@ export default function Display() {
 
     return (
         <Stack className={styles.container}>
+            <div className={styles.contentHeader}>
+                <h2>Products</h2>
+                <Button color="blue">Add new product</Button>
+            </div>
             {error ? (
                 <>
                     <CTA
                         icon={<FiIcons.FiMeh />}
-                        label="Reload the page"
                         message={error.message}
+                        withButton
+                        label="Reload the page"
                         onClick={handleReloadClick}
                     />
                     <NotificationDialog
@@ -48,27 +52,27 @@ export default function Display() {
                     />
                 </>
             ) : isValidating ? (
-                <ProductLoadingSekeletons />
+                <Products>
+                    {[...Array(8).keys()].map((value: number) => (
+                        <Product key={value} loading />
+                    ))}
+                </Products>
             ) : !hasData ? (
                 <CTA
                     icon={<BsIcons.BsCartX />}
                     message="There is no current product, please add new product!"
-                    label="Add new product"
-                    onClick={() => {}}
                 />
             ) : (
                 <>
-                    <SimpleGrid cols={4}>
+                    <Products>
                         {data.map((product: any, index: Key) => (
                             <Product
                                 key={index}
                                 loading={isValidating}
-                                name={product.name}
-                                price={product.price}
-                                imageSrc={product.image}
+                                {...product}
                             />
                         ))}
-                    </SimpleGrid>
+                    </Products>
                     <div className={styles.pagination}>
                         <Pagination total={5} />
                     </div>

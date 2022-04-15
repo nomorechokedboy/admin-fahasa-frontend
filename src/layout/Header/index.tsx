@@ -21,7 +21,7 @@ export default function Header() {
             <div className={styles.searchBar}>
                 <TextInput
                     className={styles.input}
-                    icon={<AiIcons.AiOutlineSearch className={styles.icon} />}
+                    icon={<AiIcons.AiOutlineSearch color="gray" size={25} />}
                     variant="filled"
                     placeholder="Search"
                     radius="md"
