@@ -1,14 +1,15 @@
-import NotificationDialog from "@/components/NotificationDiaglog";
-import AddForm from "@/containers/AddForm";
 import Header from "@/layout/Header";
 import Sidebar from "@/layout/SideBar";
 import { getNotificationState } from "@/redux/admin";
 import clx from "classnames";
-import { memo } from "react";
+import { lazy, memo } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import Display from "../../containers/Display";
+import ProductPage from "../ProductPage";
 import styles from "./styles.module.scss";
+const NotificationDialog = lazy(
+    () => import("@/components/NotificationDiaglog"),
+);
 
 const AdminPage = memo(() => {
     console.log("AdminPage render");
@@ -21,10 +22,10 @@ const AdminPage = memo(() => {
                 <Header />
                 <main className={clx(styles.main)}>
                     <Routes>
-                        <Route index element={<AddForm />} />
+                        <Route index element={<></>} />
                         <Route path="manage" element={<></>} />
-                        <Route path="products" element={<Display />} />
-                        <Route path="detail" element={<AddForm />} />
+                        <Route path="products/*" element={<ProductPage />} />
+                        <Route path="detail" element={<></>} />
                         <Route
                             path="*"
                             element={<p>There's nothing here: 404!</p>}
@@ -32,13 +33,13 @@ const AdminPage = memo(() => {
                     </Routes>
                 </main>
             </div>
-            {notification.messages.length !== 0 && (
+            {/* {notification.messages.length !== 0 && (
                 <div className={styles.notifications}>
                     {notification.messages.map((message) => (
                         <NotificationDialog message={message} />
                     ))}
                 </div>
-            )}
+            )} */}
         </div>
     );
 });

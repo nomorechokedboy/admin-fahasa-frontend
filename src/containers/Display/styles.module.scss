@@ -1,11 +1,15 @@
 @import "@scss/mixins";
 
-<<<<<<< HEAD
-=======
 .container {
     height: 100%;
 }
+.contentHeader {
+    @include flex-center-between;
 
+    h2 {
+        margin-bottom: 10px;
+    }
+}
 .dialogContainer {
     animation: came-from-left 0.5s;
     position: fixed;
@@ -16,21 +20,12 @@
     z-index: 2;
 }
 
->>>>>>> 37f147c (login form done, product form done, lacking of required auth and handle click for product form)
 .pagination {
     margin-top: 5px;
     margin-left: auto;
     margin-right: 0;
 }
 
-<<<<<<< HEAD
-.container {
-    height: 100%;
-}
-
-.contentHeader {
-    @include flex-common(space-between, center);
-=======
 @keyframes came-from-left {
     from {
         right: -400px;
@@ -39,5 +34,4 @@
     to {
         right: 30px;
     }
->>>>>>> 37f147c (login form done, product form done, lacking of required auth and handle click for product form)
 }

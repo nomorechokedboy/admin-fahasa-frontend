@@ -1,7 +1,6 @@
 import NotificationDialog from "@/components/NotificationDiaglog";
 import ThemeSwitch from "@/components/ThemeSwitch";
-import { StateTree } from "@/redux";
-import login, { setLoginError } from "@/redux/login/action";
+import login, { getLoginState, setLoginError } from "@/redux/login/action";
 import {
     Anchor,
     Button,
@@ -15,7 +14,7 @@ import {
     useMantineTheme,
 } from "@mantine/core";
 import { joiResolver, useForm } from "@mantine/form";
-import { CSSProperties, memo, useEffect, useMemo, useState } from "react";
+import { CSSProperties, useEffect, useMemo, useState } from "react";
 import { HiLockClosed, HiMail } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -48,9 +47,7 @@ const LoginForm = () => {
 
     const redirect = useNavigate();
     const dispatch = useDispatch();
-    const { error, loading, user } = useSelector(
-        (state: StateTree) => state.login,
-    );
+    const { error, loading, user } = useSelector(getLoginState);
     const [open, setOpen] = useState(false);
     const handleCloseNotification = () => {
         setOpen(false);

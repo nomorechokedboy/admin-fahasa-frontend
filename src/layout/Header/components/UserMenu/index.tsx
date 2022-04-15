@@ -1,7 +1,7 @@
-import { getLoginState } from "@/redux";
+import { getLoginState, logout } from "@/redux";
 import { Menu } from "@mantine/core";
 import { FaCogs, FaSignOutAlt } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import User from "../User";
 import styles from "./styles.module.scss";
 
@@ -9,11 +9,10 @@ interface UserMenuProps {}
 
 export default function UserMenu({}: UserMenuProps) {
     const { user } = useSelector(getLoginState);
-    console.log({
-        displayName: user?.displayName,
-        user,
-        photoUrl: user?.photoURL,
-    });
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        dispatch(logout());
+    };
 
     return (
         <Menu
@@ -27,7 +26,9 @@ export default function UserMenu({}: UserMenuProps) {
             placement="end"
         >
             <Menu.Item icon={<FaCogs />}>Settings</Menu.Item>
-            <Menu.Item icon={<FaSignOutAlt />}>Logout</Menu.Item>
+            <Menu.Item onClick={handleLogout} icon={<FaSignOutAlt />}>
+                Logout
+            </Menu.Item>
         </Menu>
     );
 }

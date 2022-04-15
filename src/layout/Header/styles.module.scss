@@ -17,9 +17,13 @@ $icon-size: 25px;
     height: $header-height;
 }
 
-.themeIcon {
-    @include flex-common(space-between, center);
+.icon {
+    @include size(25px, 25px);
 
-    width: 90px;
-    margin-left: 1rem;
+    color: $black-300;
+    cursor: pointer;
+}
+
+.user {
+    @include flex-common(space-between, center);
 }

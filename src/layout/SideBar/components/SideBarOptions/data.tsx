@@ -3,8 +3,8 @@ import * as AiIcons from "react-icons/ai";
 
 export const sideBarData = [
     {
-        title: "Home",
-        path: "/admin",
+        title: "Dashboard",
+        path: "/",
         icon: <AiIcons.AiFillHome />,
     },
     {

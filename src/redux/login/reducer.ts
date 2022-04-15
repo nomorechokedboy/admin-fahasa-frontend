@@ -1,7 +1,13 @@
 import { isSignedIn } from "@/lib/firebase";
 import { User } from "firebase/auth";
 import { Action } from "../types";
-import { LoginState, LOGIN_FAIL, LOGIN_LOADING, LOGIN_SUCCESS } from "./types";
+import {
+    LoginState,
+    AUTH_ERROR,
+    LOGIN_LOADING,
+    LOGIN_SUCCESS,
+    LOGOUT,
+} from "./types";
 
 const initialState: LoginState = {
     user: await isSignedIn(),
@@ -26,11 +32,16 @@ export default function LoginReducer(
                 user: action.payload as User,
                 loading: false,
             };
-        case LOGIN_FAIL:
+        case AUTH_ERROR:
             return {
                 ...state,
                 loading: false,
                 error: action.payload as string,
+            };
+        case LOGOUT:
+            return {
+                ...state,
+                user: null,
             };
         default:
             return state;

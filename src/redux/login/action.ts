@@ -1,21 +1,31 @@
-import { logIn } from "@/lib/firebase";
+import { logIn, logOut } from "@/lib/firebase";
 import { codeToMessage } from "@/utils/auth";
-import { LOGIN_FAIL, LOGIN_LOADING, LOGIN_SUCCESS } from "./types";
+import { AUTH_ERROR, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT } from "./types";
 import { User } from "firebase/auth";
 import { Action, StateTree } from "../types";
 
 export default function login(email: string, password: string) {
     return (dispatch: any) => {
-        dispatch(setLoginLoading());
+        dispatch(setLoading());
         logIn(email, password)
             .then((credential) => dispatch(setLoginUser(credential.user)))
             .catch((e) =>
-                dispatch({ type: LOGIN_FAIL, payload: codeToMessage(e.code) }),
+                dispatch({ type: AUTH_ERROR, payload: codeToMessage(e.code) }),
             );
     };
 }
 
-export const setLoginLoading = (): Action<null> => ({
+export const logout = () => (dispatch: any) => {
+    logOut()
+        .then(() => {
+            dispatch(setLogout());
+        })
+        .catch((e) =>
+            dispatch({ type: AUTH_ERROR, payload: codeToMessage(e.code) }),
+        );
+};
+
+export const setLoading = (): Action<null> => ({
     payload: null,
     type: LOGIN_LOADING,
 });
@@ -27,7 +37,12 @@ export const setLoginUser = (user: User): Action<User> => ({
 
 export const setLoginError = (error: string): Action<string> => ({
     payload: error,
-    type: LOGIN_FAIL,
+    type: AUTH_ERROR,
+});
+
+export const setLogout = (): Action<null> => ({
+    payload: null,
+    type: LOGOUT,
 });
 
 export const getLoginState = (state: StateTree) => state.login;

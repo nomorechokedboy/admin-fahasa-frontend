@@ -10,6 +10,7 @@ import * as BsIcons from "react-icons/bs";
 import * as FiIcons from "react-icons/fi";
 import { getAllProduct } from "../../lib/api";
 import { Key, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Display() {
     const { data, error, isValidating, mutate } = useSWR(
@@ -31,7 +32,9 @@ export default function Display() {
         <Stack className={styles.container}>
             <div className={styles.contentHeader}>
                 <h2>Products</h2>
-                <Button color="blue">Add new product</Button>
+                <Button color="blue">
+                    <Link to={"/admin/products/add"}>Add new product</Link>
+                </Button>
             </div>
             {error ? (
                 <>

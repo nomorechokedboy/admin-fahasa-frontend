@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "@/layout/Header";
 import Sidebar from "@/layout/SideBar";
 import Display from "../Display";
-import Login from "../Login";
 import styles from "./styles.module.scss";
 import AddForm from "../AddForm";
 

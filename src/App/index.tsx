@@ -3,14 +3,16 @@ import LoginPage from "@/pages/Login";
 import {
     ColorScheme,
     ColorSchemeProvider,
+    LoadingOverlay,
     MantineProvider,
 } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
+import { lazy, Suspense } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AdminPage from "../pages/AdminPage";
 import store from "../redux/store";
 import "./App.css";
+const AdminPage = lazy(() => import("@/pages/AdminPage"));
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -43,7 +45,13 @@ function App() {
                                 path="admin/*"
                                 element={
                                     <ProtectedPage>
-                                        <AdminPage />
+                                        <Suspense
+                                            fallback={
+                                                <LoadingOverlay visible />
+                                            }
+                                        >
+                                            <AdminPage />
+                                        </Suspense>
                                     </ProtectedPage>
                                 }
                             />

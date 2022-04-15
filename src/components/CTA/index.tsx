@@ -2,12 +2,12 @@ import { Text, Button } from "@mantine/core";
 import { ReactNode } from "react";
 import styles from "./styles.module.scss";
 
-type CTAProps = {
+interface CTAProps {
     icon: ReactNode;
     message: string;
     onClick?(): void;
     label?: string;
-};
+}
 
 export default function CTA({ icon, message, label, onClick }: CTAProps) {
     return (
