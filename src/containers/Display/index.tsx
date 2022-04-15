@@ -38,7 +38,6 @@ export default function Display() {
                     <CTA
                         icon={<FiIcons.FiMeh />}
                         message={error.message}
-                        withButton
                         label="Reload the page"
                         onClick={handleReloadClick}
                     />
