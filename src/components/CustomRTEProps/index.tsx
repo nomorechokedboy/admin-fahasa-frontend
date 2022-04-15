@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import RichTextEditor, { EditorValue, ToolbarConfig } from "react-rte";
 import clx from "classnames";
 import { useMantineColorScheme } from "@mantine/core";
@@ -21,6 +23,7 @@ export default function CustomRTE({
     ...props
 }: CustomRTEProps) {
     const { colorScheme } = useMantineColorScheme();
+
     return (
         <div className={clx(styles.container)}>
             {label && (
@@ -30,14 +33,14 @@ export default function CustomRTE({
                     </Text>
                 </div>
             )}
-            <RichTextEditor
+            <RichTextEditor.default
                 className={clx(className, {
                     [styles.dark]: colorScheme === "dark",
                     [styles.rteError]: error,
                 })}
                 toolbarConfig={toolbarConfig as ToolbarConfig}
                 {...props}
-            ></RichTextEditor>
+            />
             {error && <span className={styles.error}>{error}</span>}
         </div>
     );
