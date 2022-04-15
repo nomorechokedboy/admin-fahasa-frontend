@@ -3,7 +3,7 @@ import * as AiIcons from "react-icons/ai";
 
 export const sideBarData = [
     {
-        title: "Home",
+        title: "Dashboard",
         path: "/",
         icon: <AiIcons.AiFillHome />,
     },

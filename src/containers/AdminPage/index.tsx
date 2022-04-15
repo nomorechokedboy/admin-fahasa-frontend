@@ -15,10 +15,9 @@ export default function AdminPage() {
 
                     <main className={styles.main}>
                         <Routes>
-                            <Route path="/" element={<>{"Hello"}</>}></Route>
-                            <Route path="/manage" element={<></>}></Route>
-                            <Route path="/products" element={<></>}></Route>
-                            <Route path="/detail" element={<AddForm></AddForm>}></Route>
+                            <Route path="/" element={<>{"Hello"}</>} />
+                            <Route path="/products" element={<Display />} />
+                            <Route path="/manage" element={<AddForm />} />
                         </Routes>
                     </main>
                 </div>
