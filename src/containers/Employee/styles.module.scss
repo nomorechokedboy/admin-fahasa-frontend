@@ -1,0 +1,140 @@
+@import "@scss/mixins";
+
+.container
+{
+    padding: 0px;
+}
+.title
+{
+    margin: 0px;
+}
+.mainBox
+{
+    border-radius: 10px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
+}
+.boxHeader
+{
+    width: 100%;
+    padding: 10px;
+    height: 80px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom:  2px solid rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+}
+
+.boxBody
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boxBodyContainer
+{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.userBox
+{
+    
+    width: 190px;
+ 
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: rgb(221, 218, 218) solid 2px;
+    margin: 10px;
+
+}
+
+.imgContainer
+{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: linear-gradient(
+    to bottom, 
+    #96d6ff 0%,
+    #96d6ff 60%,
+    transparent 60%,
+    transparent 100%);
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+img
+{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.ButtonEditContainer
+{
+    padding: 10px;
+}
+
+.buttonEdit
+{
+    border: rgb(221, 218, 218) solid 2px;
+    background-color: #96d6ff;
+    color: #ffff;
+    border-radius: 5px;
+    padding: 5px 20px;
+    font-weight: 700;
+}
+
+
+.userName
+    {
+        font-weight: 700;
+    }
+.userNameContainer
+{
+    padding: 0px 15px;
+    width: 100%;
+    height: 120px;
+    text-align: center;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    h3
+    {
+        margin: 0px;
+    
+    }
+    p
+    {
+        font-size: 13px;
+    }
+    
+    .information
+        {
+            color: gray;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            
+        }
+}
+
+.boxFooter
+{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+
+
