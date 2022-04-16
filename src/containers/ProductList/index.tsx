@@ -1,7 +1,7 @@
 import CTA from "@/components/CTA";
 import NotificationDialog from "@/components/NotificationDiaglog";
 import { TO_PRODUCTS } from "@/configs";
-import SubPageLayout from "@/layout/SubPageLayout";
+import ListPageLayout from "@/layout/SubPageLayout";
 import { Pagination } from "@mantine/core";
 import { Key, useState } from "react";
 import * as AiIcons from "react-icons/ai";
@@ -30,7 +30,7 @@ export default function ProductList() {
     };
 
     return (
-        <SubPageLayout rootDir={TO_PRODUCTS} title="Products List">
+        <ListPageLayout rootDir={TO_PRODUCTS} title="Products List">
             {error ? (
                 <>
                     <CTA
@@ -78,6 +78,6 @@ export default function ProductList() {
                     </div>
                 </>
             )}
-        </SubPageLayout>
+        </ListPageLayout>
     );
 }

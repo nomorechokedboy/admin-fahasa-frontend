@@ -5,17 +5,17 @@ import { HiOutlinePlus } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
 
-interface SubPageLayoutProps {
+interface ListPageLayoutProps {
     children: ReactNode;
     title: string;
     rootDir: string;
 }
 
-export default function SubPageLayout({
+export default function ListPageLayout({
     children,
     title,
     rootDir,
-}: SubPageLayoutProps) {
+}: ListPageLayoutProps) {
     return (
         <Stack className={styles.container}>
             <div className={styles.contentHeader}>
