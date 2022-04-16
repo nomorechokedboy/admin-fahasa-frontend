@@ -1,5 +1,7 @@
 import ProtectedPage from "@/components/ProtectedPage";
+import { ADMIN, LOGIN } from "@/configs";
 import Layout from "@/layout/Layout";
+import ErrorPage from "@/pages/Error";
 import LoginPage from "@/pages/Login";
 import {
     ColorScheme,
@@ -13,7 +15,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import store from "../redux/store";
 import "./App.css";
-const AdminPage = lazy(() => import("@/pages/AdminPage"));
+const AdminPage = lazy(() => import("@/pages/Admin"));
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -42,9 +44,9 @@ function App() {
                         <Suspense fallback={<LoadingOverlay visible />}>
                             <Routes>
                                 <Route index element={<LoginPage />} />
-                                <Route path="/" element={<LoginPage />} />
+                                <Route path={LOGIN} element={<LoginPage />} />
                                 <Route
-                                    path="admin/*"
+                                    path={ADMIN}
                                     element={
                                         <ProtectedPage>
                                             <Layout>
@@ -53,10 +55,7 @@ function App() {
                                         </ProtectedPage>
                                     }
                                 />
-                                <Route
-                                    path="*"
-                                    element={<p>There's nothing here: 404!</p>}
-                                />
+                                <Route path="*" element={<ErrorPage />} />
                             </Routes>
                         </Suspense>
                     </BrowserRouter>

@@ -1,18 +1,19 @@
-import { Button, Pagination, Stack } from "@mantine/core";
-import NotificationDialog from "@/components/NotificationDiaglog";
-import Product from "./components/Product";
-import Products from "./components/Products";
 import CTA from "@/components/CTA";
-import styles from "./styles.module.scss";
-import useSWR from "swr/immutable";
+import NotificationDialog from "@/components/NotificationDiaglog";
+import { TO_PRODUCTS } from "@/configs";
+import SubPageLayout from "@/layout/SubPageLayout";
+import { Pagination } from "@mantine/core";
+import { Key, useState } from "react";
 import * as AiIcons from "react-icons/ai";
 import * as BsIcons from "react-icons/bs";
 import * as FiIcons from "react-icons/fi";
+import useSWR from "swr/immutable";
 import { getAllProduct } from "../../api";
-import { Key, useState } from "react";
-import { Link } from "react-router-dom";
+import Product from "./components/Product";
+import Products from "./components/Products";
+import styles from "./styles.module.scss";
 
-export default function Display() {
+export default function ProductList() {
     const { data, error, isValidating, mutate } = useSWR(
         "/product",
         getAllProduct,
@@ -29,13 +30,7 @@ export default function Display() {
     };
 
     return (
-        <Stack className={styles.container}>
-            <div className={styles.contentHeader}>
-                <h2>Products</h2>
-                <Button color="blue">
-                    <Link to={"/admin/products/add"}>Add new product</Link>
-                </Button>
-            </div>
+        <SubPageLayout rootDir={TO_PRODUCTS} title="Products List">
             {error ? (
                 <>
                     <CTA
@@ -83,6 +78,6 @@ export default function Display() {
                     </div>
                 </>
             )}
-        </Stack>
+        </SubPageLayout>
     );
 }

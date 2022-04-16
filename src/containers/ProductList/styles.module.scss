@@ -1,15 +1,5 @@
 @import "@scss/mixins";
 
-.container {
-    height: 100%;
-}
-.contentHeader {
-    @include flex-center-between;
-
-    h2 {
-        margin-bottom: 10px;
-    }
-}
 .dialogContainer {
     animation: came-from-left 0.5s;
     position: fixed;
