@@ -14,4 +14,8 @@
     &.collapsed {
         width: 80px;
     }
+
+    @media only screen and (max-width: 1200px) {
+        max-width: 200px;
+    }
 }

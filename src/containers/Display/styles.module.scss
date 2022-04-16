@@ -1,11 +1,15 @@
 @import "@scss/mixins";
 
-.container {
-    height: 100%;
-}
-
 .pagination {
     margin-top: 5px;
     margin-left: auto;
     margin-right: 0;
+}
+
+.container {
+    height: 100%;
+}
+
+.contentHeader {
+    @include flex-common(space-between, center);
 }

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { sideBarData } from "./data";
-import { Container, Stack, Text as MantineText } from "@mantine/core";
+import { Container, Stack, Text } from "@mantine/core";
 import styles from "./styles.module.scss";
 
 type SideBaroptionProps = {
@@ -21,11 +21,9 @@ export default function SideBarOption({ active }: SideBaroptionProps) {
                         >
                             {item.icon}
                             {active && (
-                                <MantineText
-                                    className={styles.sideBarOptionTitle}
-                                >
+                                <Text className={styles.sideBarOptionTitle}>
                                     {item.title}
-                                </MantineText>
+                                </Text>
                             )}
                         </NavLink>
                     </Container>
