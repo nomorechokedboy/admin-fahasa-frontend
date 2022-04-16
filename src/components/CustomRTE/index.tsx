@@ -6,6 +6,7 @@ import { useMantineColorScheme } from "@mantine/core";
 import styles from "./styles.module.scss";
 import { toolbarConfig } from "./configs";
 import Text from "../Text";
+import { DEV } from "@/configs/env";
 
 interface CustomRTEProps {
     placeholder?: string;
@@ -23,9 +24,10 @@ export default function CustomRTE({
     ...props
 }: CustomRTEProps) {
     const { colorScheme } = useMantineColorScheme();
+    const RTE = DEV ? RichTextEditor : RichTextEditor.default;
 
     return (
-        <div className={clx(styles.container)}>
+        <div className={styles.container}>
             {label && (
                 <div className={styles.label}>
                     <Text size="sm" font="medium">
@@ -33,7 +35,7 @@ export default function CustomRTE({
                     </Text>
                 </div>
             )}
-            <RichTextEditor.default
+            <RTE
                 className={clx(className, {
                     [styles.dark]: colorScheme === "dark",
                     [styles.rteError]: error,

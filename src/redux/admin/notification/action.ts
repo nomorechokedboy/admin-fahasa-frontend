@@ -1,20 +1,20 @@
 import { Action, StateTree } from "@/redux/types";
 import NotificationState, { SET_ERRORS, SET_NOTIFICATIONS } from "./types";
 
-export const setNotifications = (
-    messages: string[],
+export const setNotification = (
+    message: string,
 ): Action<NotificationState> => ({
     payload: {
         isError: false,
-        messages,
+        message,
     },
     type: SET_NOTIFICATIONS,
 });
 
-export const setErros = (messages: string[]): Action<NotificationState> => ({
+export const setError = (message: string): Action<NotificationState> => ({
     payload: {
         isError: true,
-        messages,
+        message,
     },
     type: SET_ERRORS,
 });

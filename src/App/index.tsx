@@ -1,4 +1,5 @@
 import ProtectedPage from "@/components/ProtectedPage";
+import Layout from "@/layout/Layout";
 import LoginPage from "@/pages/Login";
 import {
     ColorScheme,
@@ -38,28 +39,26 @@ function App() {
                     withNormalizeCSS
                 >
                     <BrowserRouter>
-                        <Routes>
-                            <Route index element={<LoginPage />} />
-                            <Route path="/" element={<LoginPage />} />
-                            <Route
-                                path="admin/*"
-                                element={
-                                    <ProtectedPage>
-                                        <Suspense
-                                            fallback={
-                                                <LoadingOverlay visible />
-                                            }
-                                        >
-                                            <AdminPage />
-                                        </Suspense>
-                                    </ProtectedPage>
-                                }
-                            />
-                            <Route
-                                path="*"
-                                element={<p>There's nothing here: 404!</p>}
-                            />
-                        </Routes>
+                        <Suspense fallback={<LoadingOverlay visible />}>
+                            <Routes>
+                                <Route index element={<LoginPage />} />
+                                <Route path="/" element={<LoginPage />} />
+                                <Route
+                                    path="admin/*"
+                                    element={
+                                        <ProtectedPage>
+                                            <Layout>
+                                                <AdminPage />
+                                            </Layout>
+                                        </ProtectedPage>
+                                    }
+                                />
+                                <Route
+                                    path="*"
+                                    element={<p>There's nothing here: 404!</p>}
+                                />
+                            </Routes>
+                        </Suspense>
                     </BrowserRouter>
                 </MantineProvider>
             </Provider>

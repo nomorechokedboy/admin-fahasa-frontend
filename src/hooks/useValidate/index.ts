@@ -6,7 +6,7 @@ export default function useValidate<T>(
     field: ReactNode,
     cb?: CustomHookCallback<T>,
     defaultValue?: T,
-): [T | undefined, string | undefined, (value: T) => void] {
+): [T | undefined, string | undefined, (value: T) => void, (value: T) => void] {
     const [state, setState] = defaultValue
         ? useState<T>(defaultValue)
         : useState<T>();
@@ -18,5 +18,9 @@ export default function useValidate<T>(
         if (typeof cb === "function") cb(value);
     };
 
-    return [state, error, handleChange];
+    const reset = (value: T) => {
+        setState(value);
+    };
+
+    return [state, error, handleChange, reset];
 }

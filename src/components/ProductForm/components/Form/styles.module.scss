@@ -1,40 +1,7 @@
 @import "@scss/mixins";
-
-.previewImage {
-    --size: 100px;
-    @include center;
-    width: var(--size);
-    height: var(--size);
-
-    img {
-        object-fit: contain;
-        width: var(--size);
-        height: var(--size);
-    }
-
-    svg {
-        width: var(--size);
-        height: var(--size);
-
-        @include desktop {
-        }
-    }
-
-    @include desktop {
-        --size: 200px;
-    }
-}
 .rte {
     height: 200px;
     overflow: auto;
-}
-.fileWrapper {
-    @include flex-row;
-    justify-content: center;
-    margin-top: 20px;
-}
-.file {
-    display: none;
 }
 .buttonWrapper {
     @include flex-center-end;

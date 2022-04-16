@@ -1,8 +1,8 @@
-import CustomRTE from "@/components/CustomRTEProps";
+import CustomRTE from "@/components/CustomRTE";
+import UploadFile from "@/components/UploadFile";
 import useUploadFile from "@/hooks/useUploadFile";
 import useValidate from "@/hooks/useValidate";
-import { PartialProduct } from "@/types/product";
-import { getFormData } from "@/utils";
+import Product, { PartialProduct } from "@/types/product";
 import {
     Button,
     MultiSelect,
@@ -12,8 +12,7 @@ import {
 } from "@mantine/core";
 import { joiResolver, useForm } from "@mantine/form";
 import { UseFormInput } from "@mantine/form/lib/use-form";
-import { FormEvent, memo, useRef } from "react";
-import { AiOutlineFileImage } from "react-icons/ai";
+import { FormEvent, memo } from "react";
 import RichTextEditor, { EditorValue } from "react-rte";
 import { defaultProduct, genresData, PublicYearData } from "../../data";
 import productFormSchema from "../../validate";
@@ -21,16 +20,15 @@ import FormSection from "../FormSection";
 import styles from "./styles.module.scss";
 
 interface FormProps extends PartialProduct {
-    onSubmit: (data: FormData) => void;
+    onSubmit: (data: Partial<Product>) => void;
 }
 
 const Form = memo<FormProps>(
     ({ onSubmit, ...productProps }) => {
         console.log("Form render");
 
-        const [productImage, handleChangeImage] = useUploadFile((file) => {
-            form.setFieldValue("image", file);
-        });
+        const [productImage, handleChangeImage, handleCancelImage] =
+            useUploadFile();
         const useFormInput: UseFormInput<PartialProduct> =
             JSON.stringify(productProps) !== JSON.stringify({})
                 ? {
@@ -43,34 +41,30 @@ const Form = memo<FormProps>(
             ...useFormInput,
             schema: joiResolver(productFormSchema),
         });
-        const inputFileRef = useRef<HTMLInputElement>(null);
-        const [productDesc, descriptionError, handleDescriptionChange] =
-            useValidate<EditorValue>(
-                form.errors.description,
-                (value) => {
-                    form.setFieldValue(
-                        "description",
-                        value.toString("markdown"),
-                    );
-                },
-                RichTextEditor.createEmptyValue(),
-            );
-        const [genres, genresError, handleGenresChange] = useValidate<string[]>(
-            form.errors.genres,
-            (values) => {
-                form.setFieldValue("genres", values.join(" "));
-            },
-        );
+        console.log({ errors: form.errors, values: form.values });
 
-        const handleUpload = () => {
-            inputFileRef.current?.click();
-        };
+        const [
+            productDesc,
+            descriptionError,
+            handleDescriptionChange,
+            resetDesc,
+        ] = useValidate<EditorValue>(
+            form.errors.description,
+            (value) => {
+                form.setFieldValue("description", value.toString("markdown"));
+            },
+            RichTextEditor.createEmptyValue(),
+        );
+        const [genres, genresError, handleGenresChange, resetGenres] =
+            useValidate<string[]>(form.errors.genres, (values) => {
+                form.setFieldValue("genres", values.join(" "));
+            });
 
         const handleSubmit = async (
             values: typeof form.values,
             _: FormEvent,
         ) => {
-            onSubmit(getFormData(values));
+            onSubmit(values);
         };
 
         return (
@@ -163,31 +157,17 @@ const Form = memo<FormProps>(
                     />
                 </FormSection>
                 <FormSection label="5.Media">
-                    <div className={styles.previewImage}>
-                        {productImage?.preview ? (
-                            <img
-                                src={productImage.preview}
-                                alt="Preview image"
-                            />
-                        ) : (
-                            <AiOutlineFileImage />
-                        )}
-                    </div>
-                    <div className={styles.fileWrapper}>
-                        <input
-                            className={styles.file}
-                            accept="image/*"
-                            id="uploadFile"
-                            type="file"
-                            ref={inputFileRef}
-                            required
-                            onChange={handleChangeImage}
-                        />
-                        <Button onClick={handleUpload}>Upload</Button>
-                    </div>
+                    <UploadFile
+                        form={form}
+                        handleCancelImage={handleCancelImage}
+                        handleChangeImage={handleChangeImage}
+                        productImage={productImage}
+                    />
                 </FormSection>
                 <div className={styles.buttonWrapper}>
-                    <Button type="submit">Add</Button>
+                    <Button color="green" type="submit">
+                        Add product
+                    </Button>
                 </div>
             </form>
         );

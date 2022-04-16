@@ -1,6 +1,12 @@
+@import "@scss/mixins";
+
 .container {
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 400;
+
+    @include desktop {
+        font-size: 16px;
+    }
 }
 .sm {
     font-size: 14px;

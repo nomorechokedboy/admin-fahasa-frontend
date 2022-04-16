@@ -8,10 +8,10 @@
     margin-bottom: 4px;
 }
 .rteError {
-    border: 1px solid $red-150;
+    border: 1px solid $red-150 !important;
 }
 .dark {
-    background-color: #5c5f66;
+    background-color: #5c5f66 !important;
 }
 .error {
     color: $red-150;

@@ -4,7 +4,7 @@ import NotificationState from "./types";
 
 const initialState: NotificationState = {
     isError: false,
-    messages: [],
+    message: "",
 };
 
 export default function NotificationReducer(

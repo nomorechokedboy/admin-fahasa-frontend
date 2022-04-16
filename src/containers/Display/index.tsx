@@ -8,7 +8,7 @@ import useSWR from "swr/immutable";
 import * as AiIcons from "react-icons/ai";
 import * as BsIcons from "react-icons/bs";
 import * as FiIcons from "react-icons/fi";
-import { getAllProduct } from "../../lib/api";
+import { getAllProduct } from "../../api";
 import { Key, useState } from "react";
 import { Link } from "react-router-dom";
 

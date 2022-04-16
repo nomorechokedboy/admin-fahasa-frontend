@@ -1,10 +1,10 @@
-import { PartialProduct } from "@/types/product";
+import Product, { PartialProduct } from "@/types/product";
 import { Container, useMantineColorScheme } from "@mantine/core";
 import Form from "./components/Form";
 import styles from "./styles.module.scss";
 
 interface ProductFormProps extends PartialProduct {
-    onSubmit: (data: FormData) => void;
+    onSubmit: (data: Partial<Product>) => void;
 }
 
 export default function ProductForm({
