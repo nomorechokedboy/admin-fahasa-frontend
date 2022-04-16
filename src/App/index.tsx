@@ -1,7 +1,6 @@
 import ProtectedPage from "@/components/ProtectedPage";
 import { ADMIN, LOGIN } from "@/configs";
 import Layout from "@/layout/Layout";
-import ErrorPage from "@/pages/Error";
 import LoginPage from "@/pages/Login";
 import {
     ColorScheme,
@@ -16,6 +15,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import store from "../redux/store";
 import "./App.css";
 const AdminPage = lazy(() => import("@/pages/Admin"));
+const ErrorPage = lazy(() => import("@/pages/Error"));
 
 function App() {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({

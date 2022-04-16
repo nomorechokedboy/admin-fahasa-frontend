@@ -2,10 +2,10 @@ import { EMPLOYEES, ORDERS, PRODUCTS, REVIEWS } from "@/configs";
 import { lazy, memo } from "react";
 import { Route, Routes } from "react-router-dom";
 import EmployeePage from "../Employee";
-import ErrorPage from "../Error";
 import OrderPage from "../Order";
 import ReviewPage from "../Review";
 const ProductPage = lazy(() => import("../Product"));
+const ErrorPage = lazy(() => import("@/pages/Error"));
 
 const AdminPage = memo(() => {
     console.log("AdminPage render");

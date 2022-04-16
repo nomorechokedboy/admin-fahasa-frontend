@@ -1,10 +1,9 @@
 import CTA from "@/components/CTA";
 import { DASHBOARD } from "@/configs";
+import { memo } from "react";
 import { useNavigate } from "react-router";
 
-interface ErrorPageProps {}
-
-export default function ErrorPage({}: ErrorPageProps) {
+const ErrorPage = memo(() => {
     const redirect = useNavigate();
     const handleBackToMain = () => {
         redirect(DASHBOARD);
@@ -22,4 +21,6 @@ export default function ErrorPage({}: ErrorPageProps) {
             />
         </div>
     );
-}
+});
+
+export default ErrorPage;

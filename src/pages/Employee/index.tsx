@@ -1,7 +1,8 @@
 import { CREATE, DETAIL } from "@/configs";
 import EmployeeList from "@/containers/EmployeeList";
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import ErrorPage from "../Error";
+const ErrorPage = lazy(() => import("@/pages/Error"));
 
 interface EmployeePageProps {}
 
