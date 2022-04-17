@@ -45,7 +45,7 @@ export default function Product({ name, price, image, loading }: ProductProps) {
                     <Skeleton visible={loading}>
                         <Stack>
                             <Text weight={500}>{name || "no name"}</Text>
-                            <Text weight={700}>
+                            <Text weight="bold">
                                 {price?.toLocaleString() || "n/a"} vnd
                             </Text>
                         </Stack>

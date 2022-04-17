@@ -1,13 +1,13 @@
 @import "@scss/mixins";
 
 .dialogContainer {
-    animation: came-from-left 0.5s;
     position: fixed;
     bottom: 30px;
     right: 30px;
     width: 400px;
     min-height: 50px;
     z-index: 2;
+    animation: came-from-left 0.5s;
 }
 
 .pagination {

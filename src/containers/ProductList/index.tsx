@@ -2,6 +2,7 @@ import CTA from "@/components/CTA";
 import NotificationDialog from "@/components/NotificationDiaglog";
 import { TO_PRODUCTS } from "@/configs";
 import ListPageLayout from "@/layout/SubPageLayout";
+import IProduct from "@/types/product";
 import { Pagination } from "@mantine/core";
 import { Key, useState } from "react";
 import * as AiIcons from "react-icons/ai";
@@ -65,7 +66,7 @@ export default function ProductList() {
             ) : (
                 <>
                     <Products>
-                        {data.map((product: any, index: Key) => (
+                        {data.map((product: IProduct, index: Key) => (
                             <Product
                                 key={index}
                                 loading={isValidating}
