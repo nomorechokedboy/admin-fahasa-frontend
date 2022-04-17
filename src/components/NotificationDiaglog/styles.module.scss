@@ -1,16 +1,5 @@
+@import "@scss/mixins";
+
 .notification {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-}
-
-@keyframes came-from-left {
-    from {
-        right: -400px;
-    }
-
-    to {
-        right: 30px;
-    }
+    @include position(absolute, 0, $bottom: auto);
 }
