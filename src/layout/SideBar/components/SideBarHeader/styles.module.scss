@@ -1,7 +1,7 @@
 @import "@scss/mixins";
 
 .header {
-    @include flex-common(space-between, center);
+    @include flex-center-between;
 
     padding: 0 0.5rem;
 }

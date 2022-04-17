@@ -23,7 +23,7 @@
 
         &.collapsed {
             @include flex-center;
-            @include size(100%, 100%);
+            @include size(100%);
         }
 
         &:hover {
