@@ -11,9 +11,7 @@
 .iconWrapper {
     svg,
     img {
-        width: var(--icon-size);
-        height: var(--icon-size);
-
+        @include size(var(--icon-size));
         @include desktop {
             --icon-size: 240px;
         }
