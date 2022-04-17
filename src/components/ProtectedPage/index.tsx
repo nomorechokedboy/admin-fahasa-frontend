@@ -1,14 +1,18 @@
-import { getLoginState } from "@/redux";
+import { LOGIN } from "@/configs";
 import { ReactNode } from "react";
-import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-interface ProtectedPageProps {
+interface ProtectedRouteProps {
     children: ReactNode;
+    isAllowed: boolean;
+    redirectLink?: string;
 }
 
-export default function ProtectedPage({ children }: ProtectedPageProps) {
-    const { user } = useSelector(getLoginState);
-    if (!user) return <Navigate to="/" replace />;
+export default function ProtectedRoute({
+    children,
+    isAllowed,
+    redirectLink = LOGIN,
+}: ProtectedRouteProps) {
+    if (!isAllowed) return <Navigate to={redirectLink} replace />;
     return <>{children}</>;
 }

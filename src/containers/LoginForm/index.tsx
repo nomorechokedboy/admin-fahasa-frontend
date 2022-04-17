@@ -48,6 +48,8 @@ const LoginForm = () => {
     const redirect = useNavigate();
     const dispatch = useDispatch();
     const { error, loading, user } = useSelector(getLoginState);
+    console.log({ error, loading });
+
     const [open, setOpen] = useState(false);
     const handleCloseNotification = () => {
         setOpen(false);

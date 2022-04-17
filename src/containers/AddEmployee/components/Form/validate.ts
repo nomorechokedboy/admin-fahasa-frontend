@@ -21,8 +21,8 @@ export const registerSchema = Joi.object<RegisterData>({
     email: Joi.string()
         .email({ tlds: { allow: false } })
         .message("Invalid email"),
-    firstName: Joi.string().min(3).max(10),
-    lastName: Joi.string().min(3).max(10),
+    firstName: Joi.string().min(2).max(10),
+    lastName: Joi.string().min(2).max(10),
     password: Joi.string()
         .min(8)
         .message("Password should contains at least 8 characters"),

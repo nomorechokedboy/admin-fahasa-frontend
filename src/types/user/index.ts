@@ -1,5 +1,5 @@
 export default interface BaseUser {
-    name: string;
+    displayName: string;
     role: string;
     photoURL: string;
 }

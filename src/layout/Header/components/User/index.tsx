@@ -1,4 +1,5 @@
 import Text from "@/components/Text";
+import { getLoginState } from "@/redux";
 import {
     Avatar,
     Group,
@@ -7,31 +8,37 @@ import {
 } from "@mantine/core";
 import { forwardRef } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import styles from "./styles.module.scss";
 
-interface UserProps extends UnstyledButtonProps {
-    src: string | null;
-    name: string;
-}
+interface UserProps extends UnstyledButtonProps {}
 
 const User = forwardRef<HTMLButtonElement, UserProps>(
-    ({ name, src, ...buttonProps }, ref) => {
+    ({ ...buttonProps }, ref) => {
+        const { user } = useSelector(getLoginState);
+
+        console.log({ user });
+
         return (
             <UnstyledButton ref={ref} {...buttonProps}>
                 <Group>
-                    {!src ? (
-                        <Avatar radius={"lg"} src={src} alt={`${name} avatar`}>
-                            {name[0].toUpperCase()}
+                    {!user?.photoURL ? (
+                        <Avatar
+                            radius={"lg"}
+                            src={user?.photoURL}
+                            alt={`${user?.displayName} avatar`}
+                        >
+                            {user?.displayName[0].toUpperCase()}
                         </Avatar>
                     ) : (
                         <Avatar
                             radius={"lg"}
-                            src={src}
-                            alt={`${name} avatar`}
+                            src={user.photoURL}
+                            alt={`${user.displayName} avatar`}
                         />
                     )}
                     <div className={styles.name}>
-                        <Text>{name}</Text>
+                        <Text>{user?.displayName ?? ""}</Text>
                     </div>
                     <FaChevronDown />
                 </Group>
