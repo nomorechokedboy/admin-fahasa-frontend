@@ -2,6 +2,7 @@ import {
     apiKey,
     appId,
     authDomain,
+    databaseURL,
     measurementId,
     messagingSenderId,
     projectId,
@@ -9,6 +10,7 @@ import {
 } from "@/configs/env";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import "firebase/compat/database";
 import { getAuth } from "firebase/auth";
 
 export const app = firebase.initializeApp({
@@ -19,6 +21,8 @@ export const app = firebase.initializeApp({
     messagingSenderId: messagingSenderId as string,
     projectId: projectId as string,
     storageBucket: storageBucket as string,
+    databaseURL: databaseURL as string,
 });
 
 export const auth = getAuth(app);
+export const FireStore = app.database();

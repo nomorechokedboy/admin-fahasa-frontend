@@ -6,6 +6,7 @@ export const storageBucket = import.meta.env.storageBucket;
 export const messagingSenderId = import.meta.env.messagingSenderId;
 export const appId = import.meta.env.appId;
 export const measurementId = import.meta.env.measurementId;
+export const databaseURL = import.meta.env.VITE_databaseURL;
 export const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
 export const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
 export const UploadAPI = import.meta.env.VITE_UploadAPI;

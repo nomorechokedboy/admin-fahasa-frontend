@@ -1,6 +1,5 @@
 import { TO_EMPLOYEES } from "@/configs";
 import ListPageLayout from "@/layout/SubPageLayout";
-import styles from "./styles.module.scss";
 
 interface EmployeeListProps {}
 

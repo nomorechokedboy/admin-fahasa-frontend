@@ -34,8 +34,8 @@ const LoginForm = () => {
                 : { boxShadow: "0 0 5px #000" },
         [colorScheme],
     );
-    const UserIcon = useMemo(() => <HiMail size={24} />, []);
-    const PasswordIcon = useMemo(() => <HiLockClosed size={24} />, []);
+    // const UserIcon = useMemo(() => , []);
+    // const PasswordIcon = useMemo(() => , []);
 
     const loginForm = useForm<LoginData>({
         initialValues: {
@@ -85,15 +85,15 @@ const LoginForm = () => {
                     <div className={styles.row}>
                         <Input
                             type={"email"}
-                            icon={UserIcon}
-                            required
+                            icon={<HiMail />}
                             placeholder="Email"
+                            required
                             {...loginForm.getInputProps("email")}
                         />
                     </div>
                     <div className={styles.row}>
                         <PasswordInput
-                            icon={PasswordIcon}
+                            icon={<HiLockClosed />}
                             required
                             placeholder="Password"
                             {...loginForm.getInputProps("password")}

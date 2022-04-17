@@ -2,10 +2,10 @@
  * AdminPage will be a big page, in admin, there will be subpages, for example, products, orders, employees,...
  * And in these subpages, it will have sub route like create, detail, deleted, update, etc
  */
-export const CREATE = "CREATE";
-export const DETAIL = "DETAIL";
-export const UPDATE = "UPDATE";
-export const DELETE = "DELETE";
+export const CREATE = "create";
+export const DETAIL = "detail";
+export const UPDATE = "update";
+export const DELETE = "delete";
 export const LOGIN = "/";
 export const ADMIN = "admin/*";
 export const DASHBOARD = "/admin";

@@ -1,4 +1,5 @@
 import { CREATE, DETAIL } from "@/configs";
+import AddEmployee from "@/containers/AddEmployee";
 import EmployeeList from "@/containers/EmployeeList";
 import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -13,7 +14,7 @@ export default function EmployeePage({}: EmployeePageProps) {
         <Routes>
             <Route index element={<EmployeeList />} />
             <Route path={DETAIL} element={<>Detail</>} />
-            <Route path={CREATE} element={<>Add</>} />
+            <Route path={CREATE} element={<AddEmployee />} />
             <Route path="*" element={<ErrorPage />} />
         </Routes>
     );

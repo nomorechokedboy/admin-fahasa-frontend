@@ -1,5 +1,5 @@
 import { logIn, logOut } from "@/lib/firebase";
-import { codeToMessage } from "@/utils/auth";
+import { ErrorCodeToMessage } from "@/utils/auth";
 import { AUTH_ERROR, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT } from "./types";
 import { User } from "firebase/auth";
 import { Action, StateTree } from "../types";
@@ -10,7 +10,10 @@ export default function login(email: string, password: string) {
         logIn(email, password)
             .then((credential) => dispatch(setLoginUser(credential.user)))
             .catch((e) =>
-                dispatch({ type: AUTH_ERROR, payload: codeToMessage(e.code) }),
+                dispatch({
+                    type: AUTH_ERROR,
+                    payload: ErrorCodeToMessage(e.code),
+                }),
             );
     };
 }
@@ -21,7 +24,7 @@ export const logout = () => (dispatch: any) => {
             dispatch(setLogout());
         })
         .catch((e) =>
-            dispatch({ type: AUTH_ERROR, payload: codeToMessage(e.code) }),
+            dispatch({ type: AUTH_ERROR, payload: ErrorCodeToMessage(e.code) }),
         );
 };
 
