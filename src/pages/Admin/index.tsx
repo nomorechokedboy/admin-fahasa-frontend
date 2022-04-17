@@ -1,4 +1,5 @@
 import { EMPLOYEES, ORDERS, PRODUCTS, REVIEWS } from "@/configs";
+import Dashboard from "@/containers/Dashboard";
 import { lazy, memo } from "react";
 import { Route, Routes } from "react-router-dom";
 import EmployeePage from "../Employee";
@@ -12,8 +13,7 @@ const AdminPage = memo(() => {
 
     return (
         <Routes>
-            {/* Dashboard here */}
-            <Route index element={<></>} />
+            <Route index element={<Dashboard />} />
             <Route path={PRODUCTS} element={<ProductPage />} />
             <Route path={ORDERS} element={<OrderPage />} />
             <Route path={EMPLOYEES} element={<EmployeePage />} />
