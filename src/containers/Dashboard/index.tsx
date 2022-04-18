@@ -7,16 +7,15 @@ import styles from "./styles.module.scss";
 import useSWR from "swr";
 import ListPageLayout from "@/layout/SubPageLayout";
 import { DASHBOARD } from "@/configs";
-import { useMemo } from "react";
 import Chart from "./components/Chart";
+import ListOrder from "./components/ListOrder";
 
 export default function Dashboard() {
     const { data: product, isValidating } = useSWR("/product", getAllProduct, {
         revalidateOnFocus: false,
+        revalidateOnMount: false,
         suspense: true,
     });
-
-    const productPriceData = useMemo(() => product, [product]);
 
     return (
         <ListPageLayout rootDir={DASHBOARD} title="Dashboard">
@@ -55,21 +54,22 @@ export default function Dashboard() {
             </SimpleGrid>
             <Grid gutter="md">
                 <Grid.Col md={6} lg={8}>
-                    <Chart data={productPriceData} />
+                    <Chart data={product} loading={isValidating} />
                 </Grid.Col>
                 <Grid.Col md={6} lg={4}>
-                    <TotalBox
-                        title="Total Products"
-                        loading={isValidating}
-                        amount={product?.length}
-                        icon={
-                            <FaIcons.FaShoppingBag
-                                className={styles.totalProductsIcon}
-                            />
-                        }
-                    />
+                    <Chart data={product} loading={isValidating} />
                 </Grid.Col>
             </Grid>
+            <ListOrder
+                data={[...Array(7).keys()].map(() => ({
+                    id: "2323",
+                    name: "Devon Lane",
+                    email: "devon@example.com",
+                    totalPayment: 77835,
+                    orderState: "Delivered",
+                    date: "07.05.2020",
+                }))}
+            />
         </ListPageLayout>
     );
 }

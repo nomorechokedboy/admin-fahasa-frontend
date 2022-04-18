@@ -19,7 +19,7 @@ export default function TotalBox({
     loading,
 }: TotalBoxProps) {
     return (
-        <Card className={styles.totalBox} radius="sm" withBorder>
+        <Card radius="sm" withBorder>
             <Group>
                 <Skeleton visible={loading} className={styles.iconWrapper}>
                     {icon}

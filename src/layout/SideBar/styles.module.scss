@@ -19,16 +19,20 @@
         max-width: 200px;
     }
 }
+
 .switchWrapper {
     @include flex-center;
+
     margin-top: auto;
     margin-bottom: 50px;
+
     span {
         display: none;
-    }
-    span.active {
-        display: inline;
-        font-weight: bold;
-        margin-left: 10px;
+
+        &.active {
+            display: inline;
+            font-weight: bold;
+            margin-left: 10px;
+        }
     }
 }
