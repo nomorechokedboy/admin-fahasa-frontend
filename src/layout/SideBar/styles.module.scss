@@ -7,7 +7,7 @@
     box-shadow: 0 0.1rem 0.25rem $black-400;
     z-index: 2;
 
-    &.active {
+    &.opened {
         transition: 350ms ease-out;
     }
 
@@ -29,7 +29,7 @@
     span {
         display: none;
 
-        &.active {
+        &.opened {
             display: inline;
             font-weight: bold;
             margin-left: 10px;

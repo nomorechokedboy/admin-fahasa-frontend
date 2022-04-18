@@ -40,8 +40,8 @@ export default function OrderRow({
             </td>
             <td>{date}</td>
             <td className={styles.buttonContainer}>
-                <Button className={styles.button}>Detail</Button>
-                <Menu className={styles.button} control={<Button>...</Button>}>
+                <Button>Detail</Button>
+                <Menu control={<Button>...</Button>}>
                     <Menu.Item>View detail</Menu.Item>
                     <Menu.Item>Edit info</Menu.Item>
                     <Menu.Item color="red">Delete</Menu.Item>
