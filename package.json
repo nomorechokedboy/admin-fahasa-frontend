@@ -1,65 +1,67 @@
 {
-  "name": "admin-fahasa-frontend",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "prepare": "husky install",
-    "test": "cypress run-ct"
-  },
-  "dependencies": {
-    "@mantine/core": "^4.1.0",
-    "@mantine/form": "^4.1.2",
-    "@mantine/hooks": "^4.1.0",
-    "axios": "^0.26.1",
-    "classnames": "^2.3.1",
-    "firebase": "^9.6.10",
-    "joi": "^17.6.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-firebase-hooks": "^5.0.3",
-    "react-icons": "^4.3.1",
-    "react-redux": "^7.2.6",
-    "react-router": "^6.2.2",
-    "react-router-dom": "^6.2.2",
-    "react-rte": "^0.16.5",
-    "recharts": "^2.1.9",
-    "redux": "^4.1.2",
-    "redux-thunk": "^2.4.1",
-    "sass": "^1.49.9",
-    "swr": "^1.2.2"
-  },
-  "devDependencies": {
-    "@cypress/react": "^5.12.4",
-    "@cypress/vite-dev-server": "^2.2.2",
-    "@types/react": "^17.0.33",
-    "@types/react-dom": "^17.0.10",
-    "@types/react-rte": "^0.16.3",
-    "@typescript-eslint/parser": "^5.17.0",
-    "@vitejs/plugin-react": "^1.0.7",
-    "cypress": "^9.5.3",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint_d": "^11.1.1",
-    "husky": "^7.0.0",
-    "lint-staged": ">=10",
-    "prettier": "^2.6.1",
-    "stylelint": "^14.6.1",
-    "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard-scss": "^3.0.0",
-    "typescript": "^4.5.4",
-    "vite": "^2.8.0"
-  },
-  "lint-staged": {
-    "*.{css, scss}": [
-      "prettier --write",
-      "stylelint --fix"
-    ],
-    "*.{ts, tsx}": [
-      "prettier --write",
-      "eslint_d --fix"
-    ]
-  }
+    "name": "admin-fahasa-frontend",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "prepare": "husky install",
+        "test": "cypress run-ct",
+        "prettier": "prettier 'src/**/*.{ts,tsx}' --write",
+        "lint": "eslint_d 'src/**/*.{ts,tsx}' --fix"
+    },
+    "dependencies": {
+        "@mantine/core": "^4.1.0",
+        "@mantine/form": "^4.1.2",
+        "@mantine/hooks": "^4.1.0",
+        "axios": "^0.26.1",
+        "classnames": "^2.3.1",
+        "firebase": "^9.6.10",
+        "joi": "^17.6.0",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-firebase-hooks": "^5.0.3",
+        "react-icons": "^4.3.1",
+        "react-redux": "^7.2.6",
+        "react-router": "^6.2.2",
+        "react-router-dom": "^6.2.2",
+        "react-rte": "^0.16.5",
+        "recharts": "^2.1.9",
+        "redux": "^4.1.2",
+        "redux-thunk": "^2.4.1",
+        "sass": "^1.49.9",
+        "swr": "^1.2.2"
+    },
+    "devDependencies": {
+        "@cypress/react": "^5.12.4",
+        "@cypress/vite-dev-server": "^2.2.2",
+        "@types/react": "^17.0.33",
+        "@types/react-dom": "^17.0.10",
+        "@types/react-rte": "^0.16.3",
+        "@typescript-eslint/parser": "^5.17.0",
+        "@vitejs/plugin-react": "^1.0.7",
+        "cypress": "^9.5.3",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint_d": "^11.1.1",
+        "husky": "^7.0.0",
+        "lint-staged": ">=10",
+        "prettier": "^2.6.1",
+        "stylelint": "^14.6.1",
+        "stylelint-config-prettier": "^9.0.3",
+        "stylelint-config-standard-scss": "^3.0.0",
+        "typescript": "^4.5.4",
+        "vite": "^2.8.0"
+    },
+    "lint-staged": {
+        "*.{css,scss}": [
+            "prettier --write",
+            "stylelint --fix"
+        ],
+        "*.{ts,tsx}": [
+            "prettier --write",
+            "eslint_d --fix"
+        ]
+    }
 }
