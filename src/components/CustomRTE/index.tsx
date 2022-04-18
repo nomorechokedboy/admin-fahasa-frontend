@@ -2,11 +2,11 @@
 // @ts-nocheck
 import RichTextEditor, { EditorValue, ToolbarConfig } from "react-rte";
 import clx from "classnames";
-import { useMantineColorScheme } from "@mantine/core";
 import styles from "./styles.module.scss";
 import { toolbarConfig } from "./configs";
 import Text from "../Text";
 import { DEV } from "@/configs/env";
+import { useColorScheme } from "@mantine/hooks";
 
 interface CustomRTEProps {
     placeholder?: string;
@@ -23,7 +23,7 @@ export default function CustomRTE({
     label,
     ...props
 }: CustomRTEProps) {
-    const { colorScheme } = useMantineColorScheme();
+    const colorScheme = useColorScheme();
     const RTE = DEV ? RichTextEditor : RichTextEditor.default;
 
     return (

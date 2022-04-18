@@ -68,6 +68,10 @@ export default function UploadFile({
 
     useEffect(() => {
         const { name } = form.values;
+        if (!productImage) {
+            setDisableUpload(false);
+            setDisablePreview(true);
+        }
 
         let message = generateUploadMessage(name, productImage);
 

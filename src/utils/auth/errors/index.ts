@@ -1,6 +1,6 @@
 import { AuthErrorCodes } from "firebase/auth";
 
-export const codeToMessage = (code: string): string => {
+export const ErrorCodeToMessage = (code: string): string | null => {
     switch (code) {
         case AuthErrorCodes.NETWORK_REQUEST_FAILED:
             return "Network error!";
@@ -8,7 +8,9 @@ export const codeToMessage = (code: string): string => {
             return "The input gmail is not registed!";
         case AuthErrorCodes.INVALID_PASSWORD:
             return "Wrong password!";
+        case AuthErrorCodes.EMAIL_EXISTS:
+            return "Email already exist!";
     }
 
-    return "Internal Error!";
+    return null;
 };

@@ -65,6 +65,7 @@ const Form = memo<FormProps>(
             _: FormEvent,
         ) => {
             onSubmit(values);
+            handleCancelImage();
         };
 
         return (

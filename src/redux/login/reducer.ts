@@ -1,25 +1,45 @@
-import { isSignedIn } from "@/lib/firebase";
-import { User } from "firebase/auth";
+import { findUserById, isSignedIn } from "@/lib/firebase";
+import BaseUser from "@/types/user";
 import { Action } from "../types";
 import {
-    LoginState,
     AUTH_ERROR,
+    LoginState,
     LOGIN_LOADING,
     LOGIN_SUCCESS,
     LOGOUT,
 } from "./types";
 
+const authUser = await isSignedIn();
+let user: BaseUser | null = {
+    displayName: "",
+    photoURL: "",
+    role: "",
+};
+
+if (authUser) {
+    const snapshot = await findUserById(authUser.uid).once("value");
+    const found = snapshot.val();
+    if (user) {
+        user.displayName = `${found.firstName} ${found.lastName}`;
+        user.role = found.role;
+        user.photoURL = found.photoURL;
+    }
+} else {
+    user = null;
+}
+
 const initialState: LoginState = {
-    user: await isSignedIn(),
+    user,
     loading: false,
     error: "",
 };
 
 export default function LoginReducer(
     state = initialState,
-    action: Action<User | string>,
+    action: Action<LoginState>,
 ): LoginState {
-    switch (action.type) {
+    const { type, payload } = action;
+    switch (type) {
         case LOGIN_LOADING:
             return {
                 ...state,
@@ -29,14 +49,14 @@ export default function LoginReducer(
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                user: action.payload as User,
-                loading: false,
+                user: payload.user,
+                loading: payload.loading,
             };
         case AUTH_ERROR:
             return {
                 ...state,
-                loading: false,
-                error: action.payload as string,
+                error: payload.error,
+                loading: payload.loading,
             };
         case LOGOUT:
             return {

@@ -1,17 +1,40 @@
-import { logIn, logOut } from "@/lib/firebase";
-import { codeToMessage } from "@/utils/auth";
-import { AUTH_ERROR, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT } from "./types";
-import { User } from "firebase/auth";
+import { findUserById, logIn, logOut } from "@/lib/firebase";
+import BaseUser from "@/types/user";
+import { ErrorCodeToMessage } from "@/utils/auth";
 import { Action, StateTree } from "../types";
+import {
+    AUTH_ERROR,
+    LoginState,
+    LOGIN_LOADING,
+    LOGIN_SUCCESS,
+    LOGOUT,
+} from "./types";
 
 export default function login(email: string, password: string) {
     return (dispatch: any) => {
         dispatch(setLoading());
         logIn(email, password)
-            .then((credential) => dispatch(setLoginUser(credential.user)))
-            .catch((e) =>
-                dispatch({ type: AUTH_ERROR, payload: codeToMessage(e.code) }),
-            );
+            .then(async (credential) => {
+                const {
+                    user: { email, uid, photoURL },
+                } = credential;
+                const user: BaseUser = {
+                    displayName: email ? email : "",
+                    photoURL: photoURL ? photoURL : "",
+                    role: "",
+                };
+                const snapshot = await findUserById(uid).once("value");
+                const found = snapshot.val();
+                user.displayName = `${found.firstName} ${found.lastName}`;
+                user.role = found.role;
+                user.photoURL = found.photoURL;
+
+                dispatch(setLoginUser(user));
+            })
+            .catch((e: any) => {
+                dispatch(setLoginError(ErrorCodeToMessage(e.code)!));
+                console.log(e.code);
+            });
     };
 }
 
@@ -21,7 +44,7 @@ export const logout = () => (dispatch: any) => {
             dispatch(setLogout());
         })
         .catch((e) =>
-            dispatch({ type: AUTH_ERROR, payload: codeToMessage(e.code) }),
+            dispatch({ type: AUTH_ERROR, payload: ErrorCodeToMessage(e.code) }),
         );
 };
 
@@ -30,13 +53,21 @@ export const setLoading = (): Action<null> => ({
     type: LOGIN_LOADING,
 });
 
-export const setLoginUser = (user: User): Action<User> => ({
+export const setLoginUser = (user: BaseUser): Action<LoginState> => ({
     type: LOGIN_SUCCESS,
-    payload: user,
+    payload: {
+        error: "",
+        user,
+        loading: false,
+    },
 });
 
-export const setLoginError = (error: string): Action<string> => ({
-    payload: error,
+export const setLoginError = (error: string): Action<LoginState> => ({
+    payload: {
+        error,
+        user: null,
+        loading: false,
+    },
     type: AUTH_ERROR,
 });
 
