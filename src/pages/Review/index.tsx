@@ -1,5 +1,5 @@
 interface ReviewPageProps {}
 
-export default function ReviewPage({}: ReviewPageProps) {
-    return <div>ReviewPage</div>;
+export default function ReviewPage() {
+  return <div>ReviewPage</div>;
 }

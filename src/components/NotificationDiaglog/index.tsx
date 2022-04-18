@@ -1,38 +1,38 @@
-import { Notification, NotificationProps } from "@mantine/core";
-import { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
+import { Notification, NotificationProps } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import styles from './styles.module.scss';
 
 type NotificationDialogProps = NotificationProps & {
-    message?: string;
+  message?: string;
 };
 
 export default function NotificationDialog({
-    message,
-    ...NotificationDialogProps
+  message,
+  ...NotificationDialogProps
 }: NotificationDialogProps) {
-    const [autoClose, setAutoClose] = useState<boolean>(false);
+  const [autoClose, setAutoClose] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     const id = setTimeout(() => {
-    //         setAutoClose(true);
-    //     }, 3000);
+  // useEffect(() => {
+  //     const id = setTimeout(() => {
+  //         setAutoClose(true);
+  //     }, 3000);
 
-    //     return () => {
-    //         setAutoClose(false);
-    //         clearTimeout(id);
-    //     };
-    // }, [message]);
+  //     return () => {
+  //         setAutoClose(false);
+  //         clearTimeout(id);
+  //     };
+  // }, [message]);
 
-    return (
-        <>
-            {!autoClose && (
-                <Notification
-                    className={styles.notification}
-                    {...NotificationDialogProps}
-                >
-                    {message}
-                </Notification>
-            )}
-        </>
-    );
+  return (
+    <>
+      {!autoClose && (
+        <Notification
+          className={styles.notification}
+          {...NotificationDialogProps}
+        >
+          {message}
+        </Notification>
+      )}
+    </>
+  );
 }
