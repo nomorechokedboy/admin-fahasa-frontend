@@ -1,5 +1,6 @@
 import Product, { PartialProduct } from "@/types/product";
-import { Container, useMantineColorScheme } from "@mantine/core";
+import { Container } from "@mantine/core";
+import { useColorScheme } from "@mantine/hooks";
 import Form from "./components/Form";
 import styles from "./styles.module.scss";
 
@@ -11,7 +12,7 @@ export default function ProductForm({
     onSubmit,
     ...productProps
 }: ProductFormProps) {
-    const { colorScheme } = useMantineColorScheme();
+    const colorScheme = useColorScheme();
     console.log("ProductForm render");
 
     return (

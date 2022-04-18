@@ -10,7 +10,6 @@ import {
     Input,
     LoadingOverlay,
     PasswordInput,
-    useMantineColorScheme,
     useMantineTheme,
 } from "@mantine/core";
 import { joiResolver, useForm } from "@mantine/form";
@@ -25,8 +24,7 @@ import loginSchema, { LoginData } from "./validate";
 const LoginForm = () => {
     console.log("LoginForm render");
 
-    const { colorScheme } = useMantineColorScheme();
-    const { colors } = useMantineTheme();
+    const { colors, colorScheme } = useMantineTheme();
     const formStyle: CSSProperties = useMemo(
         () =>
             colorScheme === "dark"

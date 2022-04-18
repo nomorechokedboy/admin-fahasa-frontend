@@ -14,7 +14,7 @@ const AddForm = memo(() => {
     const handleSubmit = (data: Partial<Product>) => {
         console.log({ data });
 
-        createProduct("http://localhost:5001/v1/api/product", data)
+        createProduct("/product", data)
             .then((res) => {
                 const {
                     createdProduct: { name },
@@ -29,11 +29,6 @@ const AddForm = memo(() => {
                             ? error
                             : validateErrorHelper(error);
                     dispatch(setError(errorMessage));
-                    // console.log(
-                    //     Object.entries(e.response?.data.error)
-                    //         .map((el) => el[1])
-                    //         .flat(),
-                    // );
                 }
             });
     };

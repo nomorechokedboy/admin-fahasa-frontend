@@ -19,8 +19,7 @@
     }
 
     &:last-child {
-        display: grid;
-        place-items: center;
+        @include grid-center;
     }
 }
 .dialogContainer {
