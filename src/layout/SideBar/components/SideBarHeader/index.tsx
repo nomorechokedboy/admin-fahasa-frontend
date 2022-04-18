@@ -1,21 +1,16 @@
 import { MouseEventHandler } from "react";
 import { Container, Image, Burger } from "@mantine/core";
-import clx from "classnames";
 import styles from "./styles.module.scss";
 
 type SideBarHeaderProps = {
     onClick?: MouseEventHandler;
-    active: boolean;
+    opened: boolean;
 };
 
-export default function SideBarHeader({ onClick, active }: SideBarHeaderProps) {
+export default function SideBarHeader({ onClick, opened }: SideBarHeaderProps) {
     return (
-        <div
-            className={clx(styles.header, {
-                [styles.active]: active,
-            })}
-        >
-            {active && (
+        <div className={styles.header}>
+            {opened && (
                 <Image
                     className={styles.image}
                     alt="Fahasa logo"
@@ -25,9 +20,9 @@ export default function SideBarHeader({ onClick, active }: SideBarHeaderProps) {
 
             <Container
                 className={styles.sideBarToggle}
-                style={{ paddingRight: active ? 0 : "1rem" }}
+                style={{ paddingRight: opened ? 0 : "1rem" }}
             >
-                <Burger opened={active} onClick={onClick} />
+                <Burger opened={opened} onClick={onClick} />
             </Container>
         </div>
     );

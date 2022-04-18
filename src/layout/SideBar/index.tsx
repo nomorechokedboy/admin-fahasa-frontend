@@ -9,28 +9,28 @@ import styles from "./styles.module.scss";
 
 export default function Sidebar() {
     const onSmallDevice = useMediaQuery("(max-width: 768px)");
-    const [sideBarActive, setSideBarActive] = useState<boolean>(!onSmallDevice);
+    const [sidebarOpenen, setSidebarOpened] = useState<boolean>(!onSmallDevice);
 
     useMemo(() => {
-        setSideBarActive(!onSmallDevice);
+        setSidebarOpened(!onSmallDevice);
     }, [onSmallDevice]);
 
     const showSideBar = () => {
-        setSideBarActive(!onSmallDevice && !sideBarActive);
+        setSidebarOpened(!onSmallDevice && !sidebarOpenen);
     };
 
     return (
         <Navbar
             className={clx(
                 styles.sideBarMenu,
-                sideBarActive ? styles.active : styles.collapsed,
+                sidebarOpenen ? styles.opened : styles.collapsed,
             )}
         >
-            <SideBarHeader onClick={showSideBar} active={sideBarActive} />
-            <SideBarOption active={sideBarActive} />
+            <SideBarHeader onClick={showSideBar} opened={sidebarOpenen} />
+            <SideBarOption opened={sidebarOpenen} />
             <div className={styles.switchWrapper}>
                 <ThemeSwitch />
-                <span className={clx({ [styles.active]: sideBarActive })}>
+                <span className={clx({ [styles.opened]: sidebarOpenen })}>
                     Theme
                 </span>
             </div>
