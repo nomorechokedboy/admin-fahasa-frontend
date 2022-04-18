@@ -1,32 +1,46 @@
+import { createProduct } from "@/api";
+import ProductForm from "@/components/ProductForm";
+import Title from "@/components/Title";
+import { setError, setNotification } from "@/redux";
+import Product from "@/types/product";
+import { validateErrorHelper } from "@/utils/errors";
+import axios from "axios";
+import { memo } from "react";
+import { useDispatch } from "react-redux";
+import styles from "./styles.module.scss";
 
-import * as axios from "axios"
+const AddForm = memo(() => {
+    const dispatch = useDispatch();
+    const handleSubmit = (data: Partial<Product>) => {
+        console.log({ data });
 
-import ProductForm from "../../components/ProductForm";
-export default function AddForm()
-{   
-    const handleSubmit = (data:any) =>{
-        console.log(data)
-        try{
-            axios.default.post("https://fahasa-api-fahasa-nomorechokedboy.cloud.okteto.net/v1/api/product",data)
-        }
-    catch(error)
-    {
-        console.log(error)
-    }
-}
-   
+        createProduct("/product", data)
+            .then((res) => {
+                const {
+                    createdProduct: { name },
+                } = res;
+                dispatch(setNotification(`Product name: ${name} created!`));
+            })
+            .catch((e) => {
+                if (axios.isAxiosError(e)) {
+                    const { error } = e.response?.data;
+                    const errorMessage =
+                        typeof error === "string"
+                            ? error
+                            : validateErrorHelper(error);
+                    dispatch(setError(errorMessage));
+                }
+            });
+    };
 
-    return(
-        <ProductForm 
-        onSubmit={handleSubmit}
-        _id={"ff25a"}
-        name={"hello"} author={"tri"} 
-        genres={"aaaaaaa"}description={""}
-        price={10000} productSupplier={"aaaaaaaaaaa"} 
-        publishingCompany={"aaaaaa"} publicYear={2012}
-        amount={15} image={"https://res.cloudinary.com/fahasa-replica/image/upload/v1648972532/singleProductImage/vsjqqazx9vnb9jwqgtt7.jpg"} />
-    )
+    return (
+        <div className={styles.container}>
+            <div className={styles.title}>
+                <Title>Add new product</Title>
+            </div>
+            <ProductForm onSubmit={handleSubmit} />
+        </div>
+    );
+});
 
-
-
-}
+export default AddForm;

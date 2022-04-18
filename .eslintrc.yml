@@ -9,3 +9,4 @@ env:
 
 rules:
     no-redeclare: 0
+    no-unused-vars: warn

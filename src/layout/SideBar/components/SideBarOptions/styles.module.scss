@@ -15,7 +15,7 @@
         margin: 0 1rem;
 
         &.active {
-            @include flex-align-center;
+            @include flex-items-center;
             @include size(95%, 100%);
 
             padding: 0 16px;

@@ -1,0 +1,27 @@
+@import "@scss/mixins";
+
+.dialogContainer {
+    animation: came-from-left 0.5s;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 400px;
+    min-height: 50px;
+    z-index: 2;
+}
+
+.pagination {
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+@keyframes came-from-left {
+    from {
+        right: -400px;
+    }
+
+    to {
+        right: 30px;
+    }
+}
