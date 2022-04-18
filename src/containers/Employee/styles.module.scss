@@ -1,140 +1,142 @@
-@import "@scss/mixins";
-
 .container
 {
-    padding: 0px;
+    padding: 30px 3%;
+    margin-left: auto;
+    margin-right: auto;
 }
-.title
+.contentHeader
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+}
+
+.mainBox
+{
+    position: relative;
+    box-shadow: 0 0.1rem 0.25rem rgb(0 0 0 / 8%);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(222,226,230,.7);
+    border-radius: 0.25rem;
+}
+.contentTitle
 {
     margin: 0px;
 }
-.mainBox
-{
-    border-radius: 10px;
-    box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
-}
+
 .boxHeader
 {
-    width: 100%;
-    padding: 10px;
-    height: 80px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom:  2px solid rgba(0,0,0,0.2);
+    padding: 1.3rem 1.3rem;
+    margin-bottom: 0;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(222,226,230,.7);
+}
+
+.containerBoxHeader
+{
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    margin-top: calc(0 * -1);
+    margin-right: calc(1.5rem / -2);
+    margin-left: calc(1.5rem / -2);
+}
+
+.searchBox
+{
+    flex: 0 0 auto;
+    width: 50%;
+    
+}
+
+.selectionBox
+{
+    padding-right: calc(1.5rem / 2);
+    padding-left: calc(1.5rem / 2);
+    margin-top: 0;
+    flex: 0 0 auto;
+    width: 25%;
+}
+
+@media(max-width: 770px)
+{
+    .searchBox
+    {
+
+        width: 100%;
+    }
+    
+    .selectionBox
+    {
+        width: 50%;
+    }
 }
 
 .boxBody
 {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.boxBodyContainer
-{
     display: flex;
     flex-flow: row wrap;
 }
-
-.userBox
+.boxBodyContainer
 {
+    padding: 1.3rem;
     
-    width: 190px;
- 
+}
+.userBoxContainer
+{
+    width: 50%;
+}
+.userBox{
+    min-width: 0;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: 0 0.1rem 0.25rem rgb(0 0 0 / 8%);
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    border: rgb(221, 218, 218) solid 2px;
-    margin: 10px;
-
+    background-color: #fff;
+    border: 0 solid rgba(222,226,230,.7);
+    border-radius: 0.25rem;
+    padding: 1.3rem 1.3rem;
 }
 
 .imgContainer
 {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background: linear-gradient(
-    to bottom, 
-    #96d6ff 0%,
-    #96d6ff 60%,
-    transparent 60%,
-    transparent 100%);
-    width: 100%;
-    height: 100px;
+    height: 156px;
     display: flex;
+    align-items: flex-end;
+    border-radius: 0.25rem 0.25rem 0 0;
     justify-content: center;
-    align-items: center;
-
+    background: linear-gradient(180deg, #FFE5A0 70%,white 30%);
 }
-img
+
+.avataImg
 {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
+    border-radius: 100%;
+    border: #fff 3px solid;
 }
-.ButtonEditContainer
+
+.skeletonImg
 {
-    padding: 10px;
+    margin-bottom: 0px;
 }
 
-.buttonEdit
-{
-    border: rgb(221, 218, 218) solid 2px;
-    background-color: #96d6ff;
-    color: #ffff;
-    border-radius: 5px;
-    padding: 5px 20px;
-    font-weight: 700;
-}
-
-
-.userName
-    {
-        font-weight: 700;
-    }
 .userNameContainer
 {
-    padding: 0px 15px;
-    width: 100%;
-    height: 120px;
     text-align: center;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    h3
-    {
-        margin: 0px;
-    
-    }
-    p
-    {
-        font-size: 13px;
-    }
-    
-    .information
-        {
-            color: gray;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            
-        }
 }
 
-.boxFooter
+.informationContainer
 {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
+    width: 100px;
 }
-
-
-
+.information
+{
+    color: #adb5bd;
+    font-size: 1rem;
+}

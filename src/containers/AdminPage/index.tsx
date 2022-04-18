@@ -3,7 +3,7 @@ import Header from "@/layout/Header";
 import Sidebar from "@/layout/SideBar";
 import Display from "../Display";
 import styles from "./styles.module.scss";
-import AddForm from "../AddForm";
+import Employee from "../Employee";
 
 export default function AdminPage() {
     return (
@@ -17,7 +17,7 @@ export default function AdminPage() {
                         <Routes>
                             <Route path="/" element={<>{"Hello"}</>} />
                             <Route path="/products" element={<Display />} />
-                            <Route path="/manage" element={<AddForm />} />
+                            <Route path="/manage" element={<Employee></Employee>} />
                         </Routes>
                     </main>
                 </div>
