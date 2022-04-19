@@ -2,7 +2,7 @@ import { findUserById, isSignedIn } from '@/lib/firebase';
 import BaseUser from '@/types/user';
 import { Action } from '../types';
 import {
-  AUTH_ERROR,
+  CALCEL_LOGIN_LOADING,
   LoginState,
   LOGIN_LOADING,
   LOGIN_SUCCESS,
@@ -31,7 +31,6 @@ if (authUser) {
 const initialState: LoginState = {
   user,
   loading: false,
-  error: '',
 };
 
 export default function LoginReducer(
@@ -44,7 +43,6 @@ export default function LoginReducer(
       return {
         ...state,
         loading: true,
-        error: '',
       };
     case LOGIN_SUCCESS:
       return {
@@ -52,11 +50,10 @@ export default function LoginReducer(
         user: payload.user,
         loading: payload.loading,
       };
-    case AUTH_ERROR:
+    case CALCEL_LOGIN_LOADING:
       return {
         ...state,
-        error: payload.error,
-        loading: payload.loading,
+        loading: false,
       };
     case LOGOUT:
       return {

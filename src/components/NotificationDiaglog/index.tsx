@@ -1,5 +1,8 @@
+import { closeNotification, getNotificationState } from '@/redux';
 import { Notification, NotificationProps } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.scss';
 
 type NotificationDialogProps = NotificationProps & {
@@ -10,27 +13,35 @@ export default function NotificationDialog({
   message,
   ...NotificationDialogProps
 }: NotificationDialogProps) {
-  const [autoClose, setAutoClose] = useState<boolean>(false);
+  const notification = useSelector(getNotificationState);
+  const dispatch = useDispatch();
+  const timeout = useRef<number>();
 
-  // useEffect(() => {
-  //     const id = setTimeout(() => {
-  //         setAutoClose(true);
-  //     }, 3000);
+  const cancelDelay = () => clearInterval(timeout.current);
 
-  //     return () => {
-  //         setAutoClose(false);
-  //         clearTimeout(id);
-  //     };
-  // }, [message]);
+  const handleCloseNotification = () => {
+    timeout.current = setTimeout(() => {
+      dispatch(closeNotification());
+    }, 3000);
+  };
+
+  useEffect(() => {
+    handleCloseNotification();
+
+    return cancelDelay;
+  }, [notification.message]);
 
   return (
     <>
-      {!autoClose && (
+      {notification.message && (
         <Notification
           className={styles.notification}
-          {...NotificationDialogProps}
+          onClose={handleCloseNotification}
+          icon={<AiOutlineClose />}
+          title={notification.isError ? 'Server error' : 'Notification!'}
+          color={notification.isError ? 'red' : 'green'}
         >
-          {message}
+          {notification.message}
         </Notification>
       )}
     </>

@@ -1,3 +1,4 @@
+import NotificationDialog from '@/components/NotificationDiaglog';
 import ProtectedRoute from '@/components/ProtectedPage';
 import { ADMIN, LOGIN } from '@/configs';
 import Layout from '@/layout/Layout';
@@ -34,36 +35,40 @@ function App() {
   console.log('App render');
 
   return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider
-        theme={{ colorScheme }}
-        withGlobalStyles
-        withNormalizeCSS
+    <>
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
       >
-        <BrowserRouter>
-          <Suspense fallback={<LoadingOverlay visible />}>
-            <Routes>
-              <Route index element={<LoginPage />} />
-              <Route path={LOGIN} element={<LoginPage />} />
-              <Route
-                path={ADMIN}
-                element={
-                  <ProtectedRoute isAllowed={!!user}>
-                    <Layout>
-                      <AdminPage />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="*" element={<ErrorPage />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-      </MantineProvider>
-    </ColorSchemeProvider>
+        <MantineProvider
+          theme={{ colorScheme }}
+          withGlobalStyles
+          withNormalizeCSS
+        >
+          <BrowserRouter>
+            <Suspense fallback={<LoadingOverlay visible />}>
+              <Routes>
+                <Route index element={<LoginPage />} />
+                <Route path={LOGIN} element={<LoginPage />} />
+                <Route
+                  path={ADMIN}
+                  element={
+                    <ProtectedRoute isAllowed={!!user}>
+                      <Layout>
+                        <AdminPage />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="*" element={<ErrorPage />} />
+              </Routes>
+            </Suspense>
+            <NotificationDialog />
+          </BrowserRouter>
+          <NotificationDialog />
+        </MantineProvider>
+      </ColorSchemeProvider>
+    </>
   );
 }
 

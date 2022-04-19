@@ -1,5 +1,6 @@
 import { Action, StateTree } from '@/redux/types';
-import NotificationState, { SET_ERRORS, SET_NOTIFICATIONS } from './types';
+import { CLOSE_NOTIFICATION } from '.';
+import NotificationState, { SET_ERROR, SET_NOTIFICATION } from './types';
 
 export const setNotification = (
   message: string,
@@ -8,7 +9,7 @@ export const setNotification = (
     isError: false,
     message,
   },
-  type: SET_NOTIFICATIONS,
+  type: SET_NOTIFICATION,
 });
 
 export const setError = (message: string): Action<NotificationState> => ({
@@ -16,7 +17,15 @@ export const setError = (message: string): Action<NotificationState> => ({
     isError: true,
     message,
   },
-  type: SET_ERRORS,
+  type: SET_ERROR,
+});
+
+export const closeNotification = (): Action<NotificationState> => ({
+  payload: {
+    isError: false,
+    message: '',
+  },
+  type: CLOSE_NOTIFICATION,
 });
 
 export const getNotificationState = (state: StateTree) => state.notification;

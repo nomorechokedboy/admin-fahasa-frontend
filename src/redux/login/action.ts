@@ -1,9 +1,10 @@
 import { findUserById, logIn, logOut } from '@/lib/firebase';
 import BaseUser from '@/types/user';
 import { ErrorCodeToMessage } from '@/utils/auth';
+import { closeNotification, setError } from '..';
 import { Action, StateTree } from '../types';
 import {
-  AUTH_ERROR,
+  CALCEL_LOGIN_LOADING,
   LoginState,
   LOGIN_LOADING,
   LOGIN_SUCCESS,
@@ -32,8 +33,8 @@ export default function login(email: string, password: string) {
         dispatch(setLoginUser(user));
       })
       .catch((e: any) => {
-        dispatch(setLoginError(ErrorCodeToMessage(e.code)!));
-        console.log(e.code);
+        dispatch(setError(ErrorCodeToMessage(e.code)!));
+        dispatch(cancelLoading());
       });
   };
 }
@@ -43,9 +44,7 @@ export const logout = () => (dispatch: any) => {
     .then(() => {
       dispatch(setLogout());
     })
-    .catch((e) =>
-      dispatch({ type: AUTH_ERROR, payload: ErrorCodeToMessage(e.code) }),
-    );
+    .catch((e) => dispatch(setError(ErrorCodeToMessage(e.code)!)));
 };
 
 export const setLoading = (): Action<null> => ({
@@ -53,22 +52,17 @@ export const setLoading = (): Action<null> => ({
   type: LOGIN_LOADING,
 });
 
+export const cancelLoading = (): Action<null> => ({
+  payload: null,
+  type: CALCEL_LOGIN_LOADING,
+});
+
 export const setLoginUser = (user: BaseUser): Action<LoginState> => ({
   type: LOGIN_SUCCESS,
   payload: {
-    error: '',
     user,
     loading: false,
   },
-});
-
-export const setLoginError = (error: string): Action<LoginState> => ({
-  payload: {
-    error,
-    user: null,
-    loading: false,
-  },
-  type: AUTH_ERROR,
 });
 
 export const setLogout = (): Action<null> => ({

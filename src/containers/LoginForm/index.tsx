@@ -1,6 +1,5 @@
-import NotificationDialog from '@/components/NotificationDiaglog';
 import ThemeSwitch from '@/components/ThemeSwitch';
-import login, { getLoginState, setLoginError } from '@/redux/login/action';
+import login, { getLoginState } from '@/redux/login/action';
 import {
   Anchor,
   Button,
@@ -13,7 +12,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { joiResolver, useForm } from '@mantine/form';
-import { CSSProperties, useEffect, useMemo, useState } from 'react';
+import { CSSProperties, useEffect, useMemo } from 'react';
 import { HiLockClosed, HiMail } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -45,17 +44,10 @@ const LoginForm = () => {
 
   const redirect = useNavigate();
   const dispatch = useDispatch();
-  const { error, loading, user } = useSelector(getLoginState);
-  console.log({ error, loading });
-
-  const [open, setOpen] = useState(false);
-  const handleCloseNotification = () => {
-    setOpen(false);
-    dispatch(setLoginError(''));
-  };
+  const { loading, user } = useSelector(getLoginState);
+  console.log({ loading });
 
   const handleSubmit = async ({ email, password }: typeof loginForm.values) => {
-    dispatch(setLoginError(''));
     dispatch(login(email, password));
   };
 
@@ -64,8 +56,7 @@ const LoginForm = () => {
       loginForm.reset();
       redirect('/admin');
     }
-    if (error) setOpen(true);
-  }, [user, error]);
+  }, [user]);
 
   return (
     <Container size={380} className={styles.container}>
@@ -109,16 +100,6 @@ const LoginForm = () => {
           </div>
         </div>
         <LoadingOverlay visible={loading} />
-        {open && (
-          <div className={styles.dialogContainer}>
-            <NotificationDialog
-              onClose={handleCloseNotification}
-              title={'Login error'}
-              message={error}
-              color="red"
-            />
-          </div>
-        )}
       </form>
     </Container>
   );
