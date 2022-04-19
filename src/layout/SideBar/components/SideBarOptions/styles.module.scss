@@ -1,5 +1,18 @@
 @import "@scss/mixins";
 
+@mixin menu-active {
+    background-color: $black-500;
+    color: $black-100;
+
+    & > svg {
+        color: $red-50 !important;
+    }
+}
+
+.menuActive {
+    @include menu-active;
+}
+
 .sideBarText {
     @include flex-center;
 
@@ -14,7 +27,7 @@
         border-radius: 4px;
         margin: 0 1rem;
 
-        &.active {
+        &.opened {
             @include flex-items-center;
             @include size(95%, 100%);
 
@@ -23,16 +36,11 @@
 
         &.collapsed {
             @include flex-center;
-            @include size(100%, 100%);
+            @include size(100%);
         }
 
         &:hover {
-            background-color: $black-500;
-            color: $black-100;
-
-            & > svg {
-                color: $red-50 !important;
-            }
+            @include menu-active;
         }
     }
 }

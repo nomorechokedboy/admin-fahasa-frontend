@@ -1,5 +1,5 @@
 interface OrderPageProps {}
 
-export default function OrderPage({}: OrderPageProps) {
-    return <div>OrderPage</div>;
+export default function OrderPage() {
+  return <div>OrderPage</div>;
 }

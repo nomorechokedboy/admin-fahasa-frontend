@@ -25,5 +25,5 @@ $icon-size: 25px;
 }
 
 .user {
-    @include flex-common(space-between, center);
+    @include flex-center-between;
 }

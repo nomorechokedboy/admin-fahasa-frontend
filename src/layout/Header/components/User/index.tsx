@@ -1,50 +1,50 @@
-import Text from "@/components/Text";
-import { getLoginState } from "@/redux";
+import Text from '@/components/Text';
+import { getLoginState } from '@/redux';
 import {
-    Avatar,
-    Group,
-    UnstyledButton,
-    UnstyledButtonProps,
-} from "@mantine/core";
-import { forwardRef } from "react";
-import { FaChevronDown } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import styles from "./styles.module.scss";
+  Avatar,
+  Group,
+  UnstyledButton,
+  UnstyledButtonProps,
+} from '@mantine/core';
+import { forwardRef } from 'react';
+import { FaChevronDown } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import styles from './styles.module.scss';
 
 interface UserProps extends UnstyledButtonProps {}
 
 const User = forwardRef<HTMLButtonElement, UserProps>(
-    ({ ...buttonProps }, ref) => {
-        const { user } = useSelector(getLoginState);
+  ({ ...buttonProps }, ref) => {
+    const { user } = useSelector(getLoginState);
 
-        console.log({ user });
+    console.log({ user });
 
-        return (
-            <UnstyledButton ref={ref} {...buttonProps}>
-                <Group>
-                    {!user?.photoURL ? (
-                        <Avatar
-                            radius={"lg"}
-                            src={user?.photoURL}
-                            alt={`${user?.displayName} avatar`}
-                        >
-                            {user?.displayName[0].toUpperCase()}
-                        </Avatar>
-                    ) : (
-                        <Avatar
-                            radius={"lg"}
-                            src={user.photoURL}
-                            alt={`${user.displayName} avatar`}
-                        />
-                    )}
-                    <div className={styles.name}>
-                        <Text>{user?.displayName ?? ""}</Text>
-                    </div>
-                    <FaChevronDown />
-                </Group>
-            </UnstyledButton>
-        );
-    },
+    return (
+      <UnstyledButton ref={ref} {...buttonProps}>
+        <Group>
+          {!user?.photoURL ? (
+            <Avatar
+              radius={'lg'}
+              src={user?.photoURL}
+              alt={`${user?.displayName} avatar`}
+            >
+              {user?.displayName[0].toUpperCase()}
+            </Avatar>
+          ) : (
+            <Avatar
+              radius={'lg'}
+              src={user.photoURL}
+              alt={`${user.displayName} avatar`}
+            />
+          )}
+          <div className={styles.name}>
+            <Text>{user?.displayName ?? ''}</Text>
+          </div>
+          <FaChevronDown />
+        </Group>
+      </UnstyledButton>
+    );
+  },
 );
 
 export default User;

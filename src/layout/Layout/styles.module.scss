@@ -1,35 +1,15 @@
 @import "@scss/mixins";
 
 .body {
-    display: flex;
+  display: flex;
 }
 
 .container {
-    height: 100vh;
-    transition: margin-left 0.5s;
-    flex-grow: 1;
-    overflow: auto;
+  height: 100vh;
+  flex: 1;
+  overflow: auto;
 }
 
 .main {
-    padding: 30px 3%;
-    margin: 0 auto;
-    height: calc(100% - $header-height - 1px);
-}
-.notifications {
-    animation: came-from-left 0.5s;
-    position: fixed;
-    top: 30px;
-    right: 30px;
-    width: 400px;
-    min-height: 50px;
-}
-@keyframes came-from-left {
-    from {
-        right: -400px;
-    }
-
-    to {
-        right: 30px;
-    }
+  padding: 30px 3%;
 }

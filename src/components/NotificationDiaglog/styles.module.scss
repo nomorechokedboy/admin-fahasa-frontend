@@ -1,17 +1,18 @@
+@import "@scss/mixins";
+
 .notification {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    left: 0;
+  @include position(fixed, 30px, 30px, null, null);
+
+  animation: came-from-left 0.5s;
+  width: 400px;
+  min-height: 50px;
 }
-
 @keyframes came-from-left {
-    from {
-        right: -400px;
-    }
+  from {
+    right: -400px;
+  }
 
-    to {
-        right: 30px;
-    }
+  to {
+    right: 30px;
+  }
 }

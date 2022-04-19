@@ -69,7 +69,7 @@
     @include position(fixed, 0);
 }
 
-@mixin size($width, $height) {
+@mixin size($width, $height: $width) {
     width: $width;
     height: $height;
 }

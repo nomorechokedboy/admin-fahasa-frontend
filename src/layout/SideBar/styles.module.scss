@@ -7,7 +7,7 @@
     box-shadow: 0 0.1rem 0.25rem $black-400;
     z-index: 2;
 
-    &.active {
+    &.opened {
         transition: 350ms ease-out;
     }
 
@@ -19,16 +19,20 @@
         max-width: 200px;
     }
 }
+
 .switchWrapper {
     @include flex-center;
+
     margin-top: auto;
     margin-bottom: 50px;
+
     span {
         display: none;
-    }
-    span.active {
-        display: inline;
-        font-weight: bold;
-        margin-left: 10px;
+
+        &.opened {
+            display: inline;
+            font-weight: bold;
+            margin-left: 10px;
+        }
     }
 }
