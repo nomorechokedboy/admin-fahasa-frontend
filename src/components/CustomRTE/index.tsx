@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import { toolbarConfig } from './configs';
 import Text from '../Text';
 import { DEV } from '@/configs/env';
-import { useColorScheme } from '@mantine/hooks';
+import { useMantineColorScheme } from '@mantine/core';
 
 interface CustomRTEProps {
   placeholder?: string;
@@ -22,7 +22,7 @@ export default function CustomRTE({
   label,
   ...props
 }: CustomRTEProps) {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useMantineColorScheme();
   const RTE = DEV ? RichTextEditor : RichTextEditor.default;
 
   return (

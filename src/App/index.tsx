@@ -11,10 +11,10 @@ import {
 } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
 import { lazy, Suspense } from 'react';
-import { Provider, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import store from '../redux/store';
 import './App.css';
+
 const AdminPage = lazy(() => import('@/pages/Admin'));
 const ErrorPage = lazy(() => import('@/pages/Error'));
 
