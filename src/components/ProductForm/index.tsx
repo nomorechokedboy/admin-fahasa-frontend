@@ -1,6 +1,5 @@
 import Product, { PartialProduct } from '@/types/product';
 import { Container } from '@mantine/core';
-import { useColorScheme } from '@mantine/hooks';
 import Form from './components/Form';
 import styles from './styles.module.scss';
 
@@ -12,7 +11,6 @@ export default function ProductForm({
   onSubmit,
   ...productProps
 }: ProductFormProps) {
-  const colorScheme = useColorScheme();
   console.log('ProductForm render');
 
   return (
@@ -20,7 +18,9 @@ export default function ProductForm({
       className={styles.container}
       sx={(theme) => ({
         backgroundColor:
-          colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1],
+          theme.colorScheme === 'dark'
+            ? theme.colors.dark[6]
+            : theme.colors.gray[1],
       })}
     >
       <Form onSubmit={onSubmit} {...productProps} />

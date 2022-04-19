@@ -1,6 +1,6 @@
 import { CREATE } from '@/configs';
 import { Button, Stack } from '@mantine/core';
-import { MouseEventHandler, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
