@@ -7,7 +7,7 @@ type OrderRowProps = {
   name: string;
   email: string;
   totalPayment: number;
-  orderState: string;
+  orderStatus: string;
   date: string;
 };
 
@@ -16,7 +16,7 @@ export default function OrderRow({
   name,
   email,
   totalPayment,
-  orderState,
+  orderStatus,
   date,
 }: OrderRowProps) {
   return (
@@ -30,12 +30,12 @@ export default function OrderRow({
       <td>
         <span
           className={clx(styles.orderStateBox, {
-            [styles.delivered]: orderState === 'Delivered',
-            [styles.pending]: orderState === 'Pending',
-            [styles.cancelled]: orderState === 'Cancelled',
+            [styles.delivered]: orderStatus === 'Delivered',
+            [styles.pending]: orderStatus === 'Pending',
+            [styles.cancelled]: orderStatus === 'Cancelled',
           })}
         >
-          {orderState}
+          {orderStatus}
         </span>
       </td>
       <td>{date}</td>

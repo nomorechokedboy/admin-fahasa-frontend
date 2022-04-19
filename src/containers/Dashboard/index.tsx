@@ -1,4 +1,4 @@
-import { Grid, SimpleGrid } from '@mantine/core';
+import { Card, Grid, SimpleGrid } from '@mantine/core';
 import TotalBox from './components/TotalBox';
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
@@ -8,7 +8,8 @@ import useSWR from 'swr';
 import ListPageLayout from '@/layout/SubPageLayout';
 import { DASHBOARD } from '@/configs';
 import Chart from './components/Chart';
-import ListOrder from './components/ListOrder';
+import OrderTable from '@/components/OrderTable';
+import BoxLayout from './components/BoxLayout';
 
 export default function Dashboard() {
   const { data: product, isValidating } = useSWR('/product', getAllProduct, {
@@ -50,16 +51,20 @@ export default function Dashboard() {
           <Chart data={product} loading={isValidating} />
         </Grid.Col>
       </Grid>
-      <ListOrder
-        data={[...Array(7).keys()].map(() => ({
-          id: '2323',
-          name: 'Devon Lane',
-          email: 'devon@example.com',
-          totalPayment: 77835,
-          orderState: 'Delivered',
-          date: '07.05.2020',
-        }))}
-      />
+      <Card radius="sm" withBorder>
+        <BoxLayout title="Lastest orders">
+          <OrderTable
+            data={[...Array(7).keys()].map(() => ({
+              id: '2323',
+              name: 'Devon Lane',
+              email: 'devon@example.com',
+              totalPayment: 77835,
+              orderStatus: 'Delivered',
+              date: '07.05.2020',
+            }))}
+          />
+        </BoxLayout>
+      </Card>
     </ListPageLayout>
   );
 }
