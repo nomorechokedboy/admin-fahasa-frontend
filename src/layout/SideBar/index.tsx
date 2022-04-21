@@ -1,32 +1,37 @@
-import clx from "classnames";
-import SideBarHeader from "./components/SideBarHeader";
-import SideBarOption from "./components/SideBarOptions";
-import styles from "./styles.module.scss";
-import { Aside } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
-import { useMemo, useState } from "react";
+import ThemeSwitch from '@/components/ThemeSwitch';
+import { Navbar } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import clx from 'classnames';
+import { useMemo, useState } from 'react';
+import SideBarHeader from './components/SideBarHeader';
+import SideBarOption from './components/SideBarOptions';
+import styles from './styles.module.scss';
 
 export default function Sidebar() {
-    const onSmallDevice = useMediaQuery("(max-width: 768px)");
-    const [sideBarActive, setSideBarActive] = useState<boolean>(!onSmallDevice);
+  const onSmallDevice = useMediaQuery('(max-width: 768px)');
+  const [sidebarOpenen, setSidebarOpened] = useState<boolean>(!onSmallDevice);
 
-    useMemo(() => {
-        setSideBarActive(!onSmallDevice);
-    }, [onSmallDevice]);
+  useMemo(() => {
+    setSidebarOpened(!onSmallDevice);
+  }, [onSmallDevice]);
 
-    const showSideBar = () => {
-        setSideBarActive(!onSmallDevice && !sideBarActive);
-    };
+  const showSideBar = () => {
+    setSidebarOpened(!onSmallDevice && !sidebarOpenen);
+  };
 
-    return (
-        <Aside
-            className={clx(
-                styles.sideBarMenu,
-                sideBarActive ? styles.active : styles.collapsed,
-            )}
-        >
-            <SideBarHeader onClick={showSideBar} active={sideBarActive} />
-            <SideBarOption active={sideBarActive} />
-        </Aside>
-    );
+  return (
+    <Navbar
+      className={clx(
+        styles.sideBarMenu,
+        sidebarOpenen ? styles.opened : styles.collapsed,
+      )}
+    >
+      <SideBarHeader onClick={showSideBar} opened={sidebarOpenen} />
+      <SideBarOption opened={sidebarOpenen} />
+      <div className={styles.switchWrapper}>
+        <ThemeSwitch />
+        <span className={clx({ [styles.opened]: sidebarOpenen })}>Theme</span>
+      </div>
+    </Navbar>
+  );
 }

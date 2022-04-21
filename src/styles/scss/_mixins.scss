@@ -2,13 +2,13 @@
 
 @mixin flex-common(
   $justify: normal,
-  $align: normal,
+  $items: normal,
   $direction: row,
   $wrap: nowrap
 ) {
   display: flex;
   justify-content: $justify;
-  align-items: $align;
+  align-items: $items;
   flex-flow: $direction $wrap;
 }
 
@@ -20,8 +20,16 @@
   @include flex-common($justify: center);
 }
 
-@mixin flex-align-center {
-  @include flex-common($align: center);
+@mixin flex-center-end {
+  @include flex-common($items: center, $justify: flex-end);
+}
+
+@mixin flex-items-center {
+  @include flex-common($items: center);
+}
+
+@mixin flex-center-between {
+  @include flex-common($justify: space-between, $items: center);
 }
 
 @mixin flex-col {
@@ -61,9 +69,9 @@
   @include position(fixed, 0);
 }
 
-@mixin size($width, $height) {
-    width: $width;
-    height: $height;
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
 }
 
 @mixin text-style($size, $weight) {
@@ -79,6 +87,22 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@mixin center {
+  margin: 0 auto;
+}
+
+@mixin break-point($value) {
+  @media (min-width: $value) {
+    @content;
+  }
+}
+
+@mixin large-screen {
+  @include break-point {
+    @content;
+  }
 }
 
 @mixin desktop() {

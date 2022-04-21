@@ -1,0 +1,25 @@
+@import "@scss/mixins";
+
+.cardSection {
+  @include flex-justify-center;
+}
+
+.buttonContainer {
+  @include flex-row;
+
+  gap: 1rem;
+}
+
+.icon {
+  flex: 1;
+}
+
+@media only screen and (max-width: 1340px) and (min-width: 768px) {
+  .buttonContainer {
+    @include flex-col;
+  }
+
+  .icon {
+    flex: auto;
+  }
+}

@@ -3,23 +3,27 @@
 $icon-size: 25px;
 
 .header {
-    @include flex-common($justify: space-between);
+  @include flex-common($justify: space-between);
 
-    border-bottom: 1px solid $black-400;
-    padding-left: 3%;
-    padding-right: 3%;
-    min-height: $header-height;
+  border-bottom: 1px solid $black-400;
+  padding-left: 3%;
+  padding-right: 3%;
+  min-height: $header-height;
 }
 
 .searchBar {
-    @include flex-align-center;
+  @include flex-items-center;
 
-    height: $header-height;
+  height: $header-height;
 }
 
-.themeIcon {
-    @include flex-common(space-between, center);
+.icon {
+  @include size(25px, 25px);
 
-    width: 90px;
-    margin-left: 1rem;
+  color: $black-300;
+  cursor: pointer;
+}
+
+.user {
+  @include flex-center-between;
 }

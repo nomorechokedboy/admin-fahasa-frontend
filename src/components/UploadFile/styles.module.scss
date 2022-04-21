@@ -1,0 +1,48 @@
+@import "@scss/mixins";
+@import "../ProductForm/components/Form/styles.module.scss";
+
+.upload {
+  @include flex-col-center;
+}
+
+.previewImage {
+  --size: 150px;
+  @include center;
+  @include flex-col-center;
+
+  border: 1px solid $black-200;
+  border-radius: 5px;
+  width: var(--size);
+  min-height: var(--size);
+
+  &.active {
+    border: unset;
+    border-radius: unset;
+  }
+
+  img {
+    object-fit: contain;
+    width: var(--size);
+    height: var(--size);
+    margin-bottom: 20px;
+  }
+
+  @include desktop {
+    --size: 200px;
+  }
+}
+
+.changeButton {
+  margin-left: 20px;
+}
+
+.fileWrapper {
+  @include flex-center;
+
+  margin-top: 20px;
+  min-height: 36px;
+}
+
+.buttonWrapper {
+  @extend .buttonWrapper;
+}

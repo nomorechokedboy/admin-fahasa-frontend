@@ -1,0 +1,82 @@
+.mainBox {
+  position: relative;
+  box-shadow: 0 0.1rem 0.25rem rgb(0 0 0 / 8%);
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 0 solid rgba(222, 226, 230, 70%);
+  border-radius: 0.25rem;
+}
+
+.contentTitle {
+  margin: 0;
+}
+
+.boxHeader {
+  padding: 1.3rem;
+  margin-bottom: 0;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(222, 226, 230, 70%);
+}
+
+.containerBoxHeader {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(0 * -1);
+  justify-content: space-between;
+}
+
+.searchBox {
+  flex: 0 0 auto;
+  margin-bottom: 1rem;
+  width: 33.3333%;
+}
+
+.selectionBox {
+  padding-right: calc(1.5rem / 2);
+  padding-left: calc(1.5rem / 2);
+  margin-top: 0;
+  flex: 0 0 auto;
+  width: 16.6667%;
+}
+
+@media (min-width: 710px) {
+  .boxHeader {
+    padding: 1.3rem 1.8rem 0;
+  }
+
+  .searchBox {
+    margin-right: 30%;
+    width: 33.3333%;
+  }
+
+  .selectionBox {
+    width: 16.6777%;
+  }
+}
+@media (max-width: 800px) {
+  .searchBox {
+    width: 100%;
+    padding: 0 12px;
+  }
+
+  .selectionBox {
+    width: 50%;
+  }
+}
+
+.boxBody {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.boxBodyContainer {
+  padding: 1.3rem;
+}
+
+.boxFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 1.3rem 1.3rem;
+}
