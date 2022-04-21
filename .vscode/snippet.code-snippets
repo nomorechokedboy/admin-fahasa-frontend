@@ -1,0 +1,45 @@
+{
+    "React functional component": {
+        "prefix": "rfc",
+        "body": [
+            "interface ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}Props {\n $1 \n}\n",
+            "export default function ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}({}: ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}Props) {\n return <div>${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}</div> \n}"
+        ],
+        "description": "Create react functional component"
+    },
+    "React memo functional component": {
+        "prefix": "rmfc",
+        "body": [
+            "import { memo } from 'react';\n",
+            "interface ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}Props {\n $1 \n}\n",
+            "const ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/} = memo(({}: ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}Props) => {\n return <div>${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}</div> \n})\n",
+            "export default ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/};"
+        ],
+        "description": "Create memoized react functional component"
+    },
+    "Import styles scss": {
+        "prefix": "styles",
+        "body": "import styles from './styles.module.scss';",
+        "description": "Import styles from scss module"
+    },
+    "Classnames": {
+        "prefix": "clx",
+        "body": "import clx from 'classnames';",
+        "description": "Import classnames"
+    },
+    "Export default": {
+        "prefix": "exp",
+        "body": "export default ${1:first}",
+        "description": "Export default"
+    },
+    "Export default function": {
+        "prefix": "expf",
+        "body": "export default function ${1:fname}(${2:name}: ${3:types}) {\n $0 \n}",
+        "description": "Export default a function"
+    },
+    "Export interface": {
+        "prefix": "expi",
+        "body": "export interface ${1:first} {\n $0 \n}",
+        "description": "Export interface"
+    }
+}
