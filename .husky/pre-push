@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-if [[ $uname != "MINGW*"]] then
+if [ $uname != "MINGW*"]; then
     yarn test && yarn build
-fi;
+fi
