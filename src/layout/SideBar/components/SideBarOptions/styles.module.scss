@@ -1,0 +1,50 @@
+@import "@scss/mixins";
+
+@mixin menu-active {
+    background-color: $black-500;
+    color: $black-100;
+
+    & > svg {
+        color: $red-50 !important;
+    }
+}
+
+.menuActive {
+    @include menu-active;
+}
+
+.sideBarText {
+    @include flex-center;
+
+    padding: 8px 0;
+    margin-left: 0;
+    margin-right: 0;
+    height: 60px;
+
+    & a {
+        @include text-style(20px, bold);
+
+        border-radius: 4px;
+        margin: 0 1rem;
+
+        &.opened {
+            @include flex-items-center;
+            @include size(95%, 100%);
+
+            padding: 0 16px;
+        }
+
+        &.collapsed {
+            @include flex-center;
+            @include size(100%);
+        }
+
+        &:hover {
+            @include menu-active;
+        }
+    }
+}
+
+.sideBarOptionTitle {
+    margin-left: 16px;
+}

@@ -1,0 +1,11 @@
+@import "@scss/mixins";
+
+.title {
+    margin-bottom: 30px;
+}
+
+.container {
+    @include desktop {
+        padding: 0 25%;
+    }
+}

@@ -1,0 +1,15 @@
+@import "@scss/mixins";
+
+.body {
+  display: flex;
+}
+
+.container {
+  height: 100vh;
+  flex: 1;
+  overflow: auto;
+}
+
+.main {
+  padding: 30px 3%;
+}

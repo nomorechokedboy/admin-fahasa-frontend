@@ -1,29 +1,37 @@
-import clx from "classnames";
-import SideBarHeader from "../SideBarHeader";
-import SideBarOption from "../SideBarOptions";
-import styles from "./styles.module.scss";
-import { Navbar } from "@mantine/core";
-import { useToggle } from "@mantine/hooks";
+import ThemeSwitch from '@/components/ThemeSwitch';
+import { Navbar } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import clx from 'classnames';
+import { useMemo, useState } from 'react';
+import SideBarHeader from './components/SideBarHeader';
+import SideBarOption from './components/SideBarOptions';
+import styles from './styles.module.scss';
 
 export default function Sidebar() {
-    const [sideBarActive, sideBarToggle] = useToggle<boolean>(true, [
-        false,
-        true,
-    ]);
+  const onSmallDevice = useMediaQuery('(max-width: 768px)');
+  const [sidebarOpenen, setSidebarOpened] = useState<boolean>(!onSmallDevice);
 
-    const showSideBar = () => {
-        sideBarToggle();
-    };
+  useMemo(() => {
+    setSidebarOpened(!onSmallDevice);
+  }, [onSmallDevice]);
 
-    return (
-        <Navbar
-            className={clx(
-                styles.sideBarMenu,
-                sideBarActive ? styles.active : styles.collapsed,
-            )}
-        >
-            <SideBarHeader onClick={showSideBar} active={sideBarActive} />
-            <SideBarOption active={sideBarActive} />
-        </Navbar>
-    );
+  const showSideBar = () => {
+    setSidebarOpened(!onSmallDevice && !sidebarOpenen);
+  };
+
+  return (
+    <Navbar
+      className={clx(
+        styles.sideBarMenu,
+        sidebarOpenen ? styles.opened : styles.collapsed,
+      )}
+    >
+      <SideBarHeader onClick={showSideBar} opened={sidebarOpenen} />
+      <SideBarOption opened={sidebarOpenen} />
+      <div className={styles.switchWrapper}>
+        <ThemeSwitch />
+        <span className={clx({ [styles.opened]: sidebarOpenen })}>Theme</span>
+      </div>
+    </Navbar>
+  );
 }

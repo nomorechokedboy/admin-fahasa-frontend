@@ -7,11 +7,32 @@
     box-shadow: 0 0.1rem 0.25rem $black-400;
     z-index: 2;
 
-    &.active {
+    &.opened {
         transition: 350ms ease-out;
     }
 
     &.collapsed {
         width: 80px;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        max-width: 200px;
+    }
+}
+
+.switchWrapper {
+    @include flex-center;
+
+    margin-top: auto;
+    margin-bottom: 50px;
+
+    span {
+        display: none;
+
+        &.opened {
+            display: inline;
+            font-weight: bold;
+            margin-left: 10px;
+        }
     }
 }

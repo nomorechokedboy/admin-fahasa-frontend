@@ -1,16 +1,18 @@
 @import "@scss/mixins";
 
+$icon-size: 25px;
+
 .header {
-    display: flex;
+    @include flex-common($justify: space-between);
+
     border-bottom: 1px solid $black-400;
-    justify-content: space-between;
     padding-left: 3%;
     padding-right: 3%;
     min-height: $header-height;
 }
 
 .searchBar {
-    @include flex-align-center;
+    @include flex-items-center;
 
     height: $header-height;
 }
@@ -22,8 +24,6 @@
     cursor: pointer;
 }
 
-.themeIcon {
-    @include flex-common(space-between, center);
-
-    width: 90px;
+.user {
+    @include flex-center-between;
 }

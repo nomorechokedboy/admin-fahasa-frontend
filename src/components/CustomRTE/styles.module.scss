@@ -1,0 +1,25 @@
+@import "@scss/mixins";
+
+.container {
+  @include flex-col;
+
+  width: 100%;
+}
+
+.label {
+  margin-bottom: 4px;
+}
+
+.rteError {
+  border: 1px solid $red-150 !important;
+}
+
+.dark {
+  background-color: #5c5f66 !important;
+}
+
+.error {
+  color: $red-150;
+  font-size: 14px;
+  margin-top: 5px;
+}
