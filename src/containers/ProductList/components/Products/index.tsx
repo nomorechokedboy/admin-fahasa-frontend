@@ -1,5 +1,6 @@
 import { SimpleGrid } from '@mantine/core';
 import { ReactNode } from 'react';
+import styles from './styles.module.scss';
 
 type ProductsProps = {
   children: ReactNode;
@@ -14,6 +15,7 @@ export default function Products({ children }: ProductsProps) {
         { maxWidth: 'sm', cols: 2 },
         { maxWidth: 'xs', cols: 1 },
       ]}
+      className={styles.productList}
     >
       {children}
     </SimpleGrid>

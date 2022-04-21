@@ -1,7 +1,6 @@
-import clx from 'classnames';
 import { ReactNode } from 'react';
 import Header from '../Header';
-import Sidebar from '../SideBar';
+import SideBar from '../SideBar';
 import styles from './styles.module.scss';
 
 interface LayoutProps {
@@ -11,10 +10,10 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className={styles.body}>
-      <Sidebar />
+      <SideBar />
       <div className={styles.container}>
         <Header />
-        <main className={clx(styles.main)}>{children}</main>
+        <main className={styles.main}>{children}</main>
       </div>
     </div>
   );
