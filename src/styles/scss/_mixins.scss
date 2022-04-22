@@ -1,4 +1,4 @@
-@import "./variables";
+@import './variables';
 
 @mixin flex-common(
   $justify: normal,
@@ -95,6 +95,12 @@
 
 @mixin break-point($value) {
   @media (min-width: $value) {
+    @content;
+  }
+}
+
+@mixin small-screen($value) {
+  @media (max-width: $value) {
     @content;
   }
 }

@@ -1,24 +1,21 @@
-@import "@scss/mixins";
+@import '@scss/mixins';
 
-@mixin menu-active {
+@mixin link-active {
   background-color: $black-500;
   color: $black-100;
 
   & > svg {
-    color: $red-50 !important;
+    color: $red-50;
   }
 }
 
 .menuActive {
-  @include menu-active;
+  @include link-active;
 }
 
 .sideBarText {
-  @include flex-center;
-
-  padding: 8px 0;
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0;
+  padding: 0.5rem 0;
   height: 60px;
 
   & a {
@@ -31,7 +28,7 @@
       @include flex-items-center;
       @include size(95%, 100%);
 
-      padding: 0 16px;
+      padding: 0 1rem;
     }
 
     &.collapsed {
@@ -40,11 +37,7 @@
     }
 
     &:hover {
-      @include menu-active;
+      @include link-active;
     }
   }
-}
-
-.sideBarOptionTitle {
-  margin-left: 16px;
 }

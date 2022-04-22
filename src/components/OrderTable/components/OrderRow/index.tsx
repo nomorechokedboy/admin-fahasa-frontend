@@ -1,5 +1,5 @@
-import clx from 'classnames';
 import { Button, Menu, Text } from '@mantine/core';
+import clx from 'classnames';
 import styles from './styles.module.scss';
 
 type OrderRowProps = {

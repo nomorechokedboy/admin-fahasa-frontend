@@ -1,6 +1,7 @@
+@import '@scss/mixins';
+
 .title {
-  font-weight: bold;
-  font-size: 24px;
+  @include text-style(24px, bold);
 }
 
 .lg {

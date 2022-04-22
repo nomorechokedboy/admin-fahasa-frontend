@@ -1,5 +1,5 @@
-@import "@scss/mixins";
-@import "../ProductForm/components/Form/styles.module.scss";
+@import '@scss/mixins';
+@import '../ProductForm/components/Form/styles.module.scss';
 
 .upload {
   @include flex-col-center;
