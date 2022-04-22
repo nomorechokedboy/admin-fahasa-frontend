@@ -1,21 +1,23 @@
-import { TextInput } from '@mantine/core';
+import BurgerMenu from '@/components/BurgerMenu';
+import { Group, TextInput } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineSearch } from 'react-icons/ai';
 import UserMenu from './components/UserMenu';
 import styles from './styles.module.scss';
 
 export default function Header() {
+  const onSmallDevice = useMediaQuery('(max-width: 768px)');
+
   return (
-    <div className={styles.header}>
-      <div className={styles.searchBar}>
-        <TextInput
-          className={styles.input}
-          icon={<AiOutlineSearch className={styles.icon} />}
-          variant="filled"
-          placeholder="Search"
-          radius="md"
-        />
-      </div>
+    <Group position="apart" className={styles.header}>
+      {onSmallDevice && <BurgerMenu />}
+      <TextInput
+        icon={<AiOutlineSearch className={styles.icon} />}
+        variant="filled"
+        placeholder="Search"
+        radius="md"
+      />
       <UserMenu />
-    </div>
+    </Group>
   );
 }

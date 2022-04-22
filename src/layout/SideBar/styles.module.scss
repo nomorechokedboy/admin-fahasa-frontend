@@ -1,38 +1,42 @@
-@import "@scss/mixins";
+@import '@scss/mixins';
 
 .sideBarMenu {
-    width: $sidebar-width;
-    max-width: $sidebar-width;
-    transition: 350ms ease-in;
-    box-shadow: 0 0.1rem 0.25rem $black-400;
-    z-index: 2;
+  width: $sidebar-width;
+  max-width: $sidebar-width;
+  box-shadow: 0 0.1rem 0.25rem $black-400;
+  z-index: 999;
+  transition: width 250ms ease-out;
 
-    &.opened {
-        transition: 350ms ease-out;
-    }
+  &.collapsed {
+    width: 80px;
+    transition: width 250ms ease-in, transform 250ms ease;
+  }
+
+  @include small-screen(992px) {
+    max-width: 200px;
+  }
+
+  @include small-screen(768px) {
+    position: fixed;
 
     &.collapsed {
-        width: 80px;
+      transform: translateX(-80px);
     }
-
-    @media only screen and (max-width: 1200px) {
-        max-width: 200px;
-    }
+  }
 }
 
 .switchWrapper {
-    @include flex-center;
+  @include flex-center;
 
-    margin-top: auto;
-    margin-bottom: 50px;
+  margin: auto 0 50px;
 
-    span {
-        display: none;
+  span {
+    display: none;
 
-        &.opened {
-            display: inline;
-            font-weight: bold;
-            margin-left: 10px;
-        }
+    &.opened {
+      display: inline;
+      font-weight: bold;
+      margin-left: 10px;
     }
+  }
 }
