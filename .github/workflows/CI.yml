@@ -27,3 +27,16 @@ jobs:
           yarn 
           yarn test
           yarn build
+        env:
+          VITE_API: ${{ secrets.VITE_API }}
+          VITE_apiKey: ${{ secrets.VITE_apiKey }}
+          authDomain: ${{ secrets.authDomain }}
+          projectId: ${{ secrets.projectId }}
+          storageBucket: ${{ secrets.storageBucket }}
+          messagingSenderId: ${{ secrets.messagingSenderId }}
+          appId: ${{ secrets.appId }}
+          measurementId: ${{ secrets.measurementId }}
+          VITE_CLOUD_NAME: ${{ secrets.VITE_CLOUD_NAME }}
+          VITE_UPLOAD_PRESET: ${{ secrets.VITE_UPLOAD_PRESET }}
+          VITE_UploadAPI: ${{ secrets.VITE_UploadAPI }}
+          VITE_databaseURL: ${{ secrets.VITE_databaseURL }}
