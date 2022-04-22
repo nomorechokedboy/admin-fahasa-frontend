@@ -9,5 +9,4 @@ export interface Action<T> extends ReduxAction<string> {
 export interface StateTree {
   login: LoginState;
   notification: NotificationState;
-  sidebar: boolean;
 }

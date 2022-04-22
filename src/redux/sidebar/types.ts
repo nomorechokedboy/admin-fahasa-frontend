@@ -1,1 +1,0 @@
-export const SET_SIDEBAR_OPENED = 'SET_SIDEBAR_OPENED';

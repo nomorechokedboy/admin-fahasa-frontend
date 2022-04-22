@@ -1,4 +1,4 @@
-@import '@scss/mixins';
+@import "@scss/mixins";
 
 .notification {
   @include position(fixed, 30px, 30px, null, null);
@@ -7,7 +7,6 @@
   width: 400px;
   min-height: 50px;
 }
-
 @keyframes came-from-left {
   from {
     right: -400px;

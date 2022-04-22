@@ -1,13 +1,13 @@
 import CTA from '@/components/CTA';
+import NotificationDialog from '@/components/NotificationDiaglog';
 import { TO_PRODUCTS } from '@/configs';
 import ListPageLayout from '@/layout/SubPageLayout';
-import { setError } from '@/redux';
 import IProduct from '@/types/product';
 import { Pagination } from '@mantine/core';
-import { Key, useEffect } from 'react';
+import { Key, useState } from 'react';
+import * as AiIcons from 'react-icons/ai';
 import * as BsIcons from 'react-icons/bs';
 import * as FiIcons from 'react-icons/fi';
-import { useDispatch } from 'react-redux';
 import useSWR from 'swr/immutable';
 import { getAllProduct } from '../../api';
 import Product from './components/Product';
@@ -18,18 +18,13 @@ export default function ProductList() {
   const { data, error, isValidating, mutate } = useSWR(
     '/product',
     getAllProduct,
-    {
-      shouldRetryOnError: false,
-    },
   );
-  const dispatch = useDispatch();
-  const hasData = data?.length;
+  const [notiOpened, setNotiOpended] = useState<boolean>(!!error);
+  const hasData = data && data.length;
 
-  console.log('product render');
-
-  useEffect(() => {
-    dispatch(setError(error?.message));
-  }, [dispatch, error]);
+  const handleCloseNotification = () => {
+    setNotiOpended(false);
+  };
 
   const handleReloadClick = () => {
     mutate('/product');
@@ -38,12 +33,25 @@ export default function ProductList() {
   return (
     <ListPageLayout rootDir={TO_PRODUCTS} title="Products List">
       {error ? (
-        <CTA
-          icon={<FiIcons.FiMeh />}
-          message={error.message}
-          label="Reload the page"
-          onClick={handleReloadClick}
-        />
+        <>
+          <CTA
+            icon={<FiIcons.FiMeh />}
+            message={error.message}
+            label="Reload the page"
+            onClick={handleReloadClick}
+          />
+          {notiOpened && (
+            <div className={styles.dialogContainer}>
+              <NotificationDialog
+                onClose={handleCloseNotification}
+                icon={<AiIcons.AiOutlineClose />}
+                title="Fetching error"
+                message={error.message}
+                color="red"
+              />
+            </div>
+          )}
+        </>
       ) : isValidating ? (
         <Products>
           {[...Array(8).keys()].map((value: number) => (

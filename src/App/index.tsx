@@ -63,6 +63,7 @@ function App() {
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </Suspense>
+            <NotificationDialog />
           </BrowserRouter>
           <NotificationDialog />
         </MantineProvider>

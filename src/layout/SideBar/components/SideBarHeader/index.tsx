@@ -1,26 +1,29 @@
-import { Center, Image } from '@mantine/core';
+import { MouseEventHandler } from 'react';
+import { Container, Image, Burger } from '@mantine/core';
 import styles from './styles.module.scss';
-import BurgerMenu from '@/components/BurgerMenu';
 
 type SideBarHeaderProps = {
+  onClick?: MouseEventHandler;
   opened: boolean;
 };
 
-export default function SideBarHeader({ opened }: SideBarHeaderProps) {
+export default function SideBarHeader({ onClick, opened }: SideBarHeaderProps) {
   return (
     <div className={styles.header}>
       {opened && (
-        <Center>
-          <Image
-            alt="Fahasa logo"
-            src="https://jobseekers.vn/wp-content/uploads/2019/05/Quy-Chuan-Logo.png"
-          />
-        </Center>
+        <Image
+          className={styles.image}
+          alt="Fahasa logo"
+          src="https://jobseekers.vn/wp-content/uploads/2019/05/Quy-Chuan-Logo.png"
+        />
       )}
 
-      <div className={styles.sideBarToggle}>
-        <BurgerMenu />
-      </div>
+      <Container
+        className={styles.sideBarToggle}
+        style={{ paddingRight: opened ? 0 : '1rem' }}
+      >
+        <Burger opened={opened} onClick={onClick} />
+      </Container>
     </div>
   );
 }

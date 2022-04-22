@@ -1,9 +1,5 @@
-@import '@scss/mixins';
+@import "@scss/mixins";
 
 .tableWrapper {
   overflow-x: auto;
-}
-
-.header:last-child {
-  text-align: right;
 }

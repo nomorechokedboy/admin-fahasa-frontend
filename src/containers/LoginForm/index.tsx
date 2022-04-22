@@ -27,7 +27,7 @@ const LoginForm = () => {
   const formStyle: CSSProperties = useMemo(
     () =>
       colorScheme === 'dark'
-        ? { backgroundColor: colors.dark[6] }
+        ? { backgroundColor: colors[colorScheme][6] }
         : { boxShadow: '0 0 5px #000' },
     [colorScheme],
   );

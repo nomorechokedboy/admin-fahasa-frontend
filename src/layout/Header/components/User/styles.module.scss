@@ -1,7 +1,6 @@
-@import '@scss/mixins';
+@import "@scss/mixins";
 
 .container {
-  @include flex-center;
-
-  padding: 0 10px;
+    @include flex-center;
+    padding: 0 10px;
 }

@@ -1,47 +1,43 @@
-@import '@scss/mixins';
+@import "@scss/mixins";
 
 .container {
-  @include flex-col-center;
-
-  height: 100vh;
+    @include flex-col-center;
+    height: 100vh;
 }
-
 .form {
-  border-radius: 5px;
-  background-color: #fff;
-  padding: 20px;
-  width: 100%;
-  position: relative;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 20px;
+    width: 100%;
+    position: relative;
 }
-
 .row {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 
-  &.heading {
-    @include flex-center-between;
-  }
+    &.heading {
+        @include flex-center-between;
+    }
 
-  &:last-child {
-    @include grid-center;
-  }
+    &:last-child {
+        @include grid-center;
+    }
 }
-
 .dialogContainer {
-  animation: came-from-left 0.5s;
-  position: fixed;
-  top: 30px;
-  right: 30px;
-  width: 300px;
-  min-height: 50px;
-  z-index: 2;
+    animation: came-from-left 0.5s;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 300px;
+    min-height: 50px;
+    z-index: 2;
 }
 
 @keyframes came-from-right {
-  from {
-    right: -400px;
-  }
+    from {
+        right: -400px;
+    }
 
-  to {
-    right: 30px;
-  }
+    to {
+        right: 30px;
+    }
 }

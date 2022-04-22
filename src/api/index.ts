@@ -1,2 +1,2 @@
-export * from './cloudinary';
-export * from './product';
+export * from "./cloudinary";
+export * from "./product";

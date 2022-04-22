@@ -1,17 +1,13 @@
-@import '@scss/mixins';
-
 .title {
-  @include text-style(24px, bold);
+    font-weight: bold;
+    font-size: 24px;
 }
-
 .lg {
-  font-size: 30px;
+    font-size: 30px;
 }
-
 .sm {
-  font-size: 18px;
+    font-size: 18px;
 }
-
 .fontMedium {
-  font-weight: 500;
+    font-weight: 500;
 }
