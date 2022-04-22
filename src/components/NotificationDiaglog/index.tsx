@@ -1,48 +1,47 @@
 import { closeNotification, getNotificationState } from '@/redux';
-import { Notification, NotificationProps } from '@mantine/core';
+import { Notification } from '@mantine/core';
 import { useEffect, useRef } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.scss';
 
-type NotificationDialogProps = NotificationProps & {
-  message?: string;
-};
-
-export default function NotificationDialog({
-  message,
-  ...NotificationDialogProps
-}: NotificationDialogProps) {
-  const notification = useSelector(getNotificationState);
+export default function NotificationDialog() {
+  const { message, isError } = useSelector(getNotificationState);
   const dispatch = useDispatch();
-  const timeout = useRef<number>();
+  const timeout = useRef<number>(0);
 
-  const cancelDelay = () => clearInterval(timeout.current);
+  const handleClose = () => {
+    dispatch(closeNotification());
+  };
 
-  const handleCloseNotification = () => {
-    timeout.current = setTimeout(() => {
-      dispatch(closeNotification());
-    }, 3000);
+  const handleAutoClose = () => {
+    // auto close after 3s
+    timeout.current = setTimeout(handleClose, 3000);
   };
 
   useEffect(() => {
-    handleCloseNotification();
+    handleAutoClose();
 
     return cancelDelay;
-  }, [notification.message]);
+  }, [message]);
+
+  const cancelDelay = () => {
+    clearTimeout(timeout.current);
+  };
 
   return (
     <>
-      {notification.message && (
+      {message && (
         <Notification
           className={styles.notification}
-          onClose={handleCloseNotification}
+          onMouseEnter={cancelDelay}
+          onMouseLeave={handleAutoClose}
+          onClose={handleClose}
           icon={<AiOutlineClose />}
-          title={notification.isError ? 'Server error' : 'Notification!'}
-          color={notification.isError ? 'red' : 'green'}
-        >
-          {notification.message}
-        </Notification>
+          title={isError ? 'Server error' : 'Notification!'}
+          color={isError ? 'red' : 'green'}
+          children={message}
+        />
       )}
     </>
   );

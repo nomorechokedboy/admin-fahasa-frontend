@@ -1,9 +1,12 @@
-@import "@scss/mixins";
+@import '@scss/mixins';
+
 .rte {
-    height: 200px;
-    overflow: auto;
+  height: 200px;
+  overflow: auto;
 }
+
 .buttonWrapper {
-    @include flex-center-end;
-    margin-top: 20px;
+  @include flex-center-end;
+
+  margin-top: 20px;
 }

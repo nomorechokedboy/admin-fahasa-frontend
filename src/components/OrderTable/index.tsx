@@ -16,7 +16,7 @@ export default function OrderTable({ data, header }: OrderTableProps) {
         <thead>
           <tr>
             {header?.map((h: string, i: Key) => (
-              <th key={i}>{h}</th>
+              <th className={styles.header} key={i} children={h} />
             ))}
           </tr>
         </thead>

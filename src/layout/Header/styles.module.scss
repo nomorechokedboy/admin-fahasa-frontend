@@ -1,29 +1,18 @@
-@import "@scss/mixins";
-
-$icon-size: 25px;
+@import '@scss/mixins';
 
 .header {
-    @include flex-common($justify: space-between);
-
-    border-bottom: 1px solid $black-400;
-    padding-left: 3%;
-    padding-right: 3%;
-    min-height: $header-height;
-}
-
-.searchBar {
-    @include flex-items-center;
-
-    height: $header-height;
+  border-bottom: 1px solid $black-400;
+  padding: 0 3%;
+  min-height: $header-height;
 }
 
 .icon {
-    @include size(25px, 25px);
+  @include size(25px);
 
-    color: $black-300;
-    cursor: pointer;
+  color: $black-300;
+  cursor: pointer;
 }
 
 .user {
-    @include flex-center-between;
+  @include flex-center-between;
 }
