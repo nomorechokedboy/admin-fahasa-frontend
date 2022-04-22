@@ -46,6 +46,9 @@
 .searchBox {
   flex: 0 0 auto;
   width: 50%;
+  @media (max-width: 770px) {
+    width: 100%;
+  }
 }
 
 .selectionBox {
@@ -54,14 +57,7 @@
   margin-top: 0;
   flex: 0 0 auto;
   width: 25%;
-}
-
-@media (max-width: 770px) {
-  .searchBox {
-    width: 100%;
-  }
-
-  .selectionBox {
+  @media (max-width: 770px) {
     width: 50%;
   }
 }
@@ -78,16 +74,13 @@
 .userBoxContainer {
   width: 50%;
   padding: 0.5rem;
-}
-@media (max-width: 500px) {
-  .userBoxContainer {
+  @media (max-width: 500px) {
     width: 100%;
   }
-}
-
-@media (min-width: 1000px) {
-  .userBoxContainer {
-    width: 25%;
+  @media (min-width: 1000px) {
+    .userBoxContainer {
+      width: 25%;
+    }
   }
 }
 
@@ -144,8 +137,11 @@
 .ButtonEditContainer {
   text-align: center;
   padding: 15px;
+  background-color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .buttonEdit {
-  width: 50%;
+  width: 70%;
 }

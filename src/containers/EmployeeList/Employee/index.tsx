@@ -1,4 +1,6 @@
+import { DETAIL, TO_EMPLOYEES } from '@/configs';
 import { Button, Skeleton } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 
 type EmployeePros = {
@@ -7,7 +9,6 @@ type EmployeePros = {
   name: string;
   role: string;
   image: string;
-  handleOnClick: any;
 };
 
 export default function Employee({
@@ -16,8 +17,10 @@ export default function Employee({
   name,
   role,
   image,
-  handleOnClick,
 }: EmployeePros) {
+  const handleDetailClick = () => {
+    console.log('click');
+  };
   return (
     <div className={styles.userBoxContainer}>
       <div className={styles.userBox}>
@@ -31,7 +34,7 @@ export default function Employee({
           >
             <img
               className={styles.avataImg}
-              src="https://cdn-media-2.freecodecamp.org/w1280/5f9c9c8c740569d1a4ca32d2.jpg"
+              src={image}
               width="112"
               height="112"
             />
@@ -52,7 +55,11 @@ export default function Employee({
         </div>
         <div className={styles.ButtonEditContainer}>
           <Skeleton visible={loading}>
-            <Button className={styles.buttonEdit}>Profile</Button>
+            <Link to={`${TO_EMPLOYEES}/${DETAIL}`}>
+              <Button className={styles.buttonEdit} onClick={handleDetailClick}>
+                Profile
+              </Button>
+            </Link>
           </Skeleton>
         </div>
       </div>

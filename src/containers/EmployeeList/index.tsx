@@ -1,8 +1,7 @@
 import { TO_EMPLOYEES } from '@/configs';
 import ListPageLayout from '@/layout/SubPageLayout';
 import { ChevronIcon, Pagination, Select, TextInput } from '@mantine/core';
-import { useState } from 'react';
-import data from './data';
+import { useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 
 import Employee from './Employee';
@@ -10,11 +9,26 @@ import Employee from './Employee';
 interface EmployeeListProps {}
 
 export default function EmployeeList() {
-  const [loading, setLoading] = useState(true);
+  const [employeeList, setEmployeeList] = useState([]);
   const [activePage, setPage] = useState(1);
-  const handleDetailClick = () => {
-    console.log('Click');
+  const [search, setSearch] = useState('');
+  console.log(search);
+  useEffect(() => {
+    fetch('http://localhost:3000/employee')
+      .then((res) => res.json())
+      .then((employees) => {
+        let employeelists = employees.filter((value: any) =>
+          value.name.includes(search),
+        );
+        setEmployeeList(employeelists);
+      });
+  }, [search]);
+
+  const [loading, setLoading] = useState(false);
+  const handleSearch = (e: any) => {
+    setSearch(e.target.value);
   };
+
   return (
     <ListPageLayout rootDir={TO_EMPLOYEES} title="Employees List">
       <div className={styles.mainBox}>
@@ -23,6 +37,7 @@ export default function EmployeeList() {
             <TextInput
               placeholder="Search"
               className={styles.searchBox}
+              onChange={(event) => handleSearch(event)}
             ></TextInput>
             {/* change icon */}
             <Select
@@ -54,13 +69,8 @@ export default function EmployeeList() {
 
         <div className={styles.boxBodyContainer}>
           <div className={styles.boxBody}>
-            {data.slice(0, 5).map((people) => (
-              <Employee
-                key={people.id}
-                {...people}
-                loading={loading}
-                handleOnClick={handleDetailClick}
-              />
+            {employeeList.slice(0, 5).map((employee: any) => (
+              <Employee key={employee.id} {...employee} loading={loading} />
             ))}
           </div>
         </div>
