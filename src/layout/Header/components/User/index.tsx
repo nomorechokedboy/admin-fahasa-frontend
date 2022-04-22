@@ -6,7 +6,6 @@ import {
   UnstyledButton,
   UnstyledButtonProps,
 } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { forwardRef } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
@@ -16,7 +15,6 @@ interface UserProps extends UnstyledButtonProps {}
 
 const User = forwardRef<HTMLButtonElement, UserProps>(
   ({ ...buttonProps }, ref) => {
-    const onSmallDevice = useMediaQuery('(max-width: 768px)');
     const { user } = useSelector(getLoginState);
 
     console.log({ user });
@@ -26,7 +24,7 @@ const User = forwardRef<HTMLButtonElement, UserProps>(
         <Group>
           {!user?.photoURL ? (
             <Avatar
-              radius="lg"
+              radius={'lg'}
               src={user?.photoURL}
               alt={`${user?.displayName} avatar`}
             >
@@ -34,19 +32,15 @@ const User = forwardRef<HTMLButtonElement, UserProps>(
             </Avatar>
           ) : (
             <Avatar
-              radius="lg"
+              radius={'lg'}
               src={user.photoURL}
               alt={`${user.displayName} avatar`}
             />
           )}
-          {!onSmallDevice && (
-            <>
-              <div className={styles.name}>
-                <Text>{user?.displayName ?? ''}</Text>
-              </div>
-              <FaChevronDown />
-            </>
-          )}
+          <div className={styles.name}>
+            <Text>{user?.displayName ?? ''}</Text>
+          </div>
+          <FaChevronDown />
         </Group>
       </UnstyledButton>
     );
