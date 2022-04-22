@@ -5,19 +5,19 @@
   max-width: $sidebar-width;
   box-shadow: 0 0.1rem 0.25rem $black-400;
   z-index: 999;
-
-  &.opened {
-    transition: width 250ms ease-out;
-  }
+  transition: width 250ms ease-out;
 
   &.collapsed {
     width: 80px;
     transition: width 250ms ease-in, transform 250ms ease;
   }
 
+  @include small-screen(992px) {
+    max-width: 200px;
+  }
+
   @include small-screen(768px) {
     position: fixed;
-    max-width: 200px;
 
     &.collapsed {
       transform: translateX(-80px);
@@ -28,8 +28,7 @@
 .switchWrapper {
   @include flex-center;
 
-  margin-top: auto;
-  margin-bottom: 50px;
+  margin: auto 0 50px;
 
   span {
     display: none;
