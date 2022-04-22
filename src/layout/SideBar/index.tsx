@@ -24,10 +24,7 @@ export default function SideBar() {
   return (
     <>
       <Navbar
-        className={clx(
-          styles.sideBarMenu,
-          opened ? styles.opened : styles.collapsed,
-        )}
+        className={clx(styles.sideBarMenu, { [styles.collapsed]: !opened })}
       >
         <SideBarHeader opened={opened} />
         <SideBarOption opened={opened} />

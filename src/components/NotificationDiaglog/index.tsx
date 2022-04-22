@@ -8,20 +8,19 @@ import styles from './styles.module.scss';
 export default function NotificationDialog() {
   const { message, isError } = useSelector(getNotificationState);
   const dispatch = useDispatch();
-  const timeout = useRef<number>();
+  const timeout = useRef<number>(0);
 
-  const handleManualCloseNotification = () => {
+  const handleClose = () => {
     dispatch(closeNotification());
   };
 
-  const handleAutoCloseNotification = () => {
-    timeout.current = setTimeout(() => {
-      dispatch(closeNotification());
-    }, 3000);
+  const handleAutoClose = () => {
+    // auto close after 3s
+    timeout.current = setTimeout(handleClose, 3000);
   };
 
   useEffect(() => {
-    handleAutoCloseNotification();
+    handleAutoClose();
 
     return cancelDelay;
   }, [message]);
@@ -36,13 +35,13 @@ export default function NotificationDialog() {
         <Notification
           className={styles.notification}
           onMouseEnter={cancelDelay}
-          onClose={handleManualCloseNotification}
+          onMouseLeave={handleAutoClose}
+          onClose={handleClose}
           icon={<AiOutlineClose />}
           title={isError ? 'Server error' : 'Notification!'}
           color={isError ? 'red' : 'green'}
-        >
-          {message}
-        </Notification>
+          children={message}
+        />
       )}
     </>
   );

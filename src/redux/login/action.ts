@@ -30,6 +30,7 @@ export default function login(email: string, password: string) {
         user.role = found.role;
         user.photoURL = found.photoURL;
 
+        dispatch(closeNotification());
         dispatch(setLoginUser(user));
       })
       .catch((e: any) => {

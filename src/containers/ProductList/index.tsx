@@ -1,7 +1,7 @@
 import CTA from '@/components/CTA';
 import { TO_PRODUCTS } from '@/configs';
 import ListPageLayout from '@/layout/SubPageLayout';
-import { setNotification } from '@/redux';
+import { setError } from '@/redux';
 import IProduct from '@/types/product';
 import { Pagination } from '@mantine/core';
 import { Key, useEffect } from 'react';
@@ -18,14 +18,17 @@ export default function ProductList() {
   const { data, error, isValidating, mutate } = useSWR(
     '/product',
     getAllProduct,
+    {
+      shouldRetryOnError: false,
+    },
   );
   const dispatch = useDispatch();
-  const hasData = data && data.length;
+  const hasData = data?.length;
+
+  console.log('product render');
 
   useEffect(() => {
-    if (error) {
-      dispatch(setNotification(error.message));
-    }
+    dispatch(setError(error?.message));
   }, [dispatch, error]);
 
   const handleReloadClick = () => {
