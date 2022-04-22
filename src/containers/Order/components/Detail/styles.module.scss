@@ -1,0 +1,64 @@
+@import '@scss/mixins';
+
+.cardHeader {
+  padding: 1.3rem;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(222, 226, 230, 70%);
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+
+h2 {
+  margin-left: 1.3rem;
+}
+
+.cardHeader:first-child {
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.calendarIcons {
+  font-size: 24px;
+}
+
+b {
+  font-weight: 600px;
+}
+
+small {
+  font-size: 0.875em;
+  line-height: 1.25;
+}
+
+.mutedText {
+  color: #adb5bd !important;
+  display: block;
+}
+
+.cardIcons {
+  padding: 15px;
+  border-radius: 50%;
+  background-color: #3167eb33;
+  align-items: center;
+}
+
+.infoIcons {
+  font-size: 22px;
+}
+
+.cardInfoContainer {
+  padding: 20px;
+}
+
+.avatarCardInfo {
+  color: #3167eb;
+}
+
+.tableContainer {
+  border: 1px solid rgba(108, 117, 125, 25%) !important;
+}
+
+.noteContainer {
+  padding-top: 24px;
+}
