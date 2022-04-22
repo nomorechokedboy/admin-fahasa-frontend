@@ -1,13 +1,13 @@
-@import "@scss/mixins";
+@import '@scss/mixins';
 
 .iconWrapper {
-    @include flex-center;
-    @include size(48px);
+  @include flex-center;
+  @include size(48px);
 
-    border-radius: 50%;
-    background-color: $black-500;
+  border-radius: 50%;
+  background-color: $black-500;
 
-    svg {
-        @include size(25px);
-    }
+  svg {
+    @include size(25px);
+  }
 }

@@ -1,17 +1,17 @@
-@import "@scss/mixins";
+@import '@scss/mixins';
 
 .contentHeader {
-    @include flex-center-between;
+  @include flex-center-between;
 }
 
 .totalSalesIcon {
-    color: $blue-100;
+  color: $blue-100;
 }
 
 .totalOrdersIcon {
-    color: $green-100;
+  color: $green-100;
 }
 
 .totalProductsIcon {
-    color: $orange-100;
+  color: $orange-100;
 }

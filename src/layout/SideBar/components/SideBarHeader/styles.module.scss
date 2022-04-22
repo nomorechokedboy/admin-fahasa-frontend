@@ -1,19 +1,14 @@
-@import "@scss/mixins";
+@import '@scss/mixins';
 
 .header {
-    @include flex-center-between;
+  @include flex-justify-center;
 
-    padding: 0 0.5rem;
-}
-
-.menu {
-    @include flex-center;
-
-    font-size: 2rem;
+  padding: 0 0.5rem;
+  gap: 1rem;
 }
 
 .sideBarToggle {
-    @include flex-center;
+  @include flex-center;
 
-    height: $header-height;
+  height: $header-height;
 }
