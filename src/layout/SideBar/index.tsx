@@ -1,37 +1,43 @@
 import ThemeSwitch from '@/components/ThemeSwitch';
-import { Navbar } from '@mantine/core';
+import { getSideBarState, setSideBarOpened } from '@/redux';
+import { Navbar, Overlay } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import clx from 'classnames';
-import { useMemo, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SideBarHeader from './components/SideBarHeader';
 import SideBarOption from './components/SideBarOptions';
 import styles from './styles.module.scss';
 
-export default function Sidebar() {
+export default function SideBar() {
+  const dispatch = useDispatch();
   const onSmallDevice = useMediaQuery('(max-width: 768px)');
-  const [sidebarOpenen, setSidebarOpened] = useState<boolean>(!onSmallDevice);
+  const opened = useSelector(getSideBarState);
+  const overlay = opened && onSmallDevice;
 
-  useMemo(() => {
-    setSidebarOpened(!onSmallDevice);
-  }, [onSmallDevice]);
-
-  const showSideBar = () => {
-    setSidebarOpened(!onSmallDevice && !sidebarOpenen);
-  };
+  // This was used to make sidebar auto open
+  // when changing to large device (and close on small device)
+  useEffect(() => {
+    dispatch(setSideBarOpened(!onSmallDevice));
+  }, [dispatch, onSmallDevice]);
 
   return (
-    <Navbar
-      className={clx(
-        styles.sideBarMenu,
-        sidebarOpenen ? styles.opened : styles.collapsed,
-      )}
-    >
-      <SideBarHeader onClick={showSideBar} opened={sidebarOpenen} />
-      <SideBarOption opened={sidebarOpenen} />
-      <div className={styles.switchWrapper}>
-        <ThemeSwitch />
-        <span className={clx({ [styles.opened]: sidebarOpenen })}>Theme</span>
-      </div>
-    </Navbar>
+    <>
+      <Navbar
+        className={clx(
+          styles.sideBarMenu,
+          opened ? styles.opened : styles.collapsed,
+        )}
+      >
+        <SideBarHeader opened={opened} />
+        <SideBarOption opened={opened} />
+        <div className={styles.switchWrapper}>
+          <ThemeSwitch />
+          <span className={clx({ [styles.opened]: opened })}>Theme</span>
+        </div>
+      </Navbar>
+
+      {overlay && <Overlay opacity={0.6} color="#000" />}
+    </>
   );
 }

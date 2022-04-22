@@ -1,19 +1,19 @@
-@import "@scss/mixins";
+@import '@scss/mixins';
 
 .container {
-    --icon-size: 120px;
-    @include flex-col-center;
+  --icon-size: 120px;
+  @include flex-col-center;
 
-    height: inherit;
-    gap: 25px;
+  height: inherit;
+  gap: 25px;
 }
 
 .iconWrapper {
-    svg,
-    img {
-        @include size(var(--icon-size));
-        @include desktop {
-            --icon-size: 240px;
-        }
+  svg,
+  img {
+    @include size(var(--icon-size));
+    @include desktop {
+      --icon-size: 240px;
     }
+  }
 }
