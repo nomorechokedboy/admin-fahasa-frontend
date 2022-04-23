@@ -3,9 +3,9 @@ import styles from './styles.module.scss';
 import { AiTwotoneCalendar, AiFillPrinter } from 'react-icons/ai';
 import { ImLocation } from 'react-icons/im';
 import { Paper, Button, Grid, Select, Textarea, Stack } from '@mantine/core';
-import CardInfo from '../CardInfo';
-import TableDetail from '../TableDetail';
-import PaymentInfo from '../PaymentInfo';
+import CardInfo from './components/CardInfo';
+import TableDetail from '../Detail/components/TableDetail';
+import PaymentInfo from '../Detail/components/PaymentInfo';
 export default function Detail() {
   return (
     <Paper shadow="sm" p="lg">

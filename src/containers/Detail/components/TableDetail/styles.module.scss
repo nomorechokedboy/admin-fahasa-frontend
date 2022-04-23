@@ -3,3 +3,8 @@
 .tableContainer {
   border: 1px solid rgba(108, 117, 125, 25%) !important;
 }
+
+th,
+td :last-child {
+  align-items: end;
+}

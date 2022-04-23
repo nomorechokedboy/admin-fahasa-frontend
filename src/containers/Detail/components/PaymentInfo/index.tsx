@@ -1,6 +1,5 @@
 import styles from './styles.module.scss';
-import react from 'react';
-import { Card, Image, Group, Text, Grid, Avatar } from '@mantine/core';
+import { Card, Group, Text, Avatar } from '@mantine/core';
 
 interface PaymentInfoProps {
   title: string;

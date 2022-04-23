@@ -11,7 +11,7 @@ type OrderTableProps = {
   rootDir?: string;
 };
 
-export default function OrderTable({ data, header, rootDir }: OrderTableProps) {
+export default function OrderTable({ data, header }: OrderTableProps) {
   return (
     <div className={styles.tableWrapper}>
       <Table verticalSpacing="sm" highlightOnHover fontSize="md">
