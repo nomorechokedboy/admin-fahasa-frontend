@@ -10,4 +10,7 @@ export const databaseURL = import.meta.env.VITE_databaseURL;
 export const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
 export const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
 export const UploadAPI = import.meta.env.VITE_UploadAPI;
+export const testAccount = import.meta.env.VITE_testAccount;
+export const testPassword = import.meta.env.VITE_testPassword;
+export const testUsername = import.meta.env.VITE_testUsername;
 export const DEV = import.meta.env.DEV;
