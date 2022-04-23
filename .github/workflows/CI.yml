@@ -39,3 +39,6 @@ jobs:
           VITE_UPLOAD_PRESET: ${{ secrets.VITE_UPLOAD_PRESET }}
           VITE_UploadAPI: ${{ secrets.VITE_UploadAPI }}
           VITE_databaseURL: ${{ secrets.VITE_databaseURL }}
+          VITE_testAccount: ${{ secrets.VITE_testAccount }}
+          VITE_testPassword: ${{ secrets.VITE_testPassword }}
+          VITE_testUsername: ${{ secrets.VITE_testUsername }}
