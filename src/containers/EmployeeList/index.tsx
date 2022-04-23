@@ -3,7 +3,7 @@ import ListPageLayout from '@/layout/SubPageLayout';
 import { ChevronIcon, Pagination, Select, TextInput } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import styles from './styles.module.scss';
-
+import IEmployee from '@/types/employee';
 import Employee from './Employee';
 
 interface EmployeeListProps {}
@@ -12,13 +12,12 @@ export default function EmployeeList() {
   const [employeeList, setEmployeeList] = useState([]);
   const [activePage, setPage] = useState(1);
   const [search, setSearch] = useState('');
-  console.log(search);
   useEffect(() => {
     fetch('http://localhost:3000/employee')
       .then((res) => res.json())
       .then((employees) => {
-        let employeelists = employees.filter((value: any) =>
-          value.name.includes(search),
+        let employeelists = employees.filter((value: IEmployee) =>
+          value.name.toLowerCase().includes(search.toLowerCase()),
         );
         setEmployeeList(employeelists);
       });

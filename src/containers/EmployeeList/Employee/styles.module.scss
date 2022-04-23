@@ -74,13 +74,11 @@
 .userBoxContainer {
   width: 50%;
   padding: 0.5rem;
+  @media (min-width: 1000px) {
+    width: 25%;
+  }
   @media (max-width: 500px) {
     width: 100%;
-  }
-  @media (min-width: 1000px) {
-    .userBoxContainer {
-      width: 25%;
-    }
   }
 }
 
