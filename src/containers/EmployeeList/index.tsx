@@ -1,7 +1,13 @@
 import { TO_EMPLOYEES } from '@/configs';
 import ListPageLayout from '@/layout/SubPageLayout';
-import { ChevronIcon, Pagination, Select, TextInput } from '@mantine/core';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import {
+  ChevronIcon,
+  Pagination,
+  Select,
+  Stack,
+  TextInput,
+} from '@mantine/core';
+import { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
 import Employee from './Employee';
@@ -22,8 +28,8 @@ export default function EmployeeList() {
       setSearch(event.target.value);
     }, 600);
   };
+
   useEffect(() => {
-    console.log(search);
     fetch('http://localhost:3000/employee')
       .then((res) => res.json())
       .then((employees) => {
@@ -38,7 +44,7 @@ export default function EmployeeList() {
 
   return (
     <ListPageLayout rootDir={TO_EMPLOYEES} title="Employees List">
-      <div className={styles.mainBox}>
+      <Stack className={styles.mainBox}>
         <header className={styles.boxHeader}>
           <div className={styles.containerBoxHeader}>
             <TextInput
@@ -85,7 +91,7 @@ export default function EmployeeList() {
         <div className={styles.boxFooter}>
           <Pagination total={10} page={activePage} onChange={setPage} />
         </div>
-      </div>
+      </Stack>
     </ListPageLayout>
   );
 }

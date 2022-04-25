@@ -43,7 +43,7 @@ export default function Employee({
         <div className={styles.userNameContainer}>
           <Skeleton
             visible={loading}
-            height="3.5rem"
+            height="3rem"
             className={styles.userNameSkeleton}
           >
             <h4 className={styles.userName}>{name}</h4>

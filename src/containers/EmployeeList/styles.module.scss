@@ -1,11 +1,11 @@
+@import '@scss/mixins';
+
 .mainBox {
   position: relative;
   box-shadow: 0 0.1rem 0.25rem rgb(0 0 0 / 8%);
-  flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-clip: border-box;
-  border: 0 solid rgba(222, 226, 230, 70%);
+  border: 1 solid rgba(222, 226, 230, 70%);
   border-radius: 0.25rem;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .boxFooter {
-  display: flex;
-  justify-content: flex-end;
+  @include flex-center-end;
+
   margin: 0 1.3rem 1.3rem;
 }
