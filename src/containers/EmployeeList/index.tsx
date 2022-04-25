@@ -1,7 +1,7 @@
 import { TO_EMPLOYEES } from '@/configs';
 import ListPageLayout from '@/layout/SubPageLayout';
 import { ChevronIcon, Pagination, Select, TextInput } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
 import Employee from './Employee';
@@ -12,21 +12,29 @@ export default function EmployeeList() {
   const [employeeList, setEmployeeList] = useState([]);
   const [activePage, setPage] = useState(1);
   const [search, setSearch] = useState('');
+  const typingTimeOut = useRef<any>(null);
+
+  const handleChangeSearch = (event: any) => {
+    if (typingTimeOut.current) {
+      clearTimeout(typingTimeOut.current);
+    }
+    typingTimeOut.current = setTimeout(() => {
+      setSearch(event.target.value);
+    }, 600);
+  };
   useEffect(() => {
+    console.log(search);
     fetch('http://localhost:3000/employee')
       .then((res) => res.json())
       .then((employees) => {
         let employeelists = employees.filter((value: IEmployee) =>
-          value.name.toLowerCase().includes(search.toLowerCase()),
+          value.name.toLowerCase().includes(search.trim().toLowerCase()),
         );
         setEmployeeList(employeelists);
       });
   }, [search]);
 
   const [loading, setLoading] = useState(false);
-  const handleSearch = (e: any) => {
-    setSearch(e.target.value);
-  };
 
   return (
     <ListPageLayout rootDir={TO_EMPLOYEES} title="Employees List">
@@ -34,11 +42,11 @@ export default function EmployeeList() {
         <header className={styles.boxHeader}>
           <div className={styles.containerBoxHeader}>
             <TextInput
+              ref={typingTimeOut}
               placeholder="Search"
               className={styles.searchBox}
-              onChange={(event) => handleSearch(event)}
+              onChange={(event) => handleChangeSearch(event)}
             ></TextInput>
-            {/* change icon */}
             <Select
               rightSection={<ChevronIcon />}
               rightSectionWidth={30}
@@ -68,7 +76,7 @@ export default function EmployeeList() {
 
         <div className={styles.boxBodyContainer}>
           <div className={styles.boxBody}>
-            {employeeList.slice(0, 5).map((employee: any) => (
+            {employeeList.map((employee: any) => (
               <Employee key={employee.id} {...employee} loading={loading} />
             ))}
           </div>
