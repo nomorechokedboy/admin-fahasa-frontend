@@ -4,7 +4,7 @@ import { HiOutlineArrowSmLeft } from 'react-icons/hi';
 import { ReactNode } from 'react';
 import styles from './styles.module.scss';
 
-type HeaderDetailPros = {
+type HeaderDetailProps = {
   linkPrePage: string;
   children: ReactNode;
 };
@@ -12,7 +12,7 @@ type HeaderDetailPros = {
 export default function DetailHeader({
   children,
   linkPrePage,
-}: HeaderDetailPros) {
+}: HeaderDetailProps) {
   return (
     <Stack className={styles.container}>
       <div className={styles.contentheader}>

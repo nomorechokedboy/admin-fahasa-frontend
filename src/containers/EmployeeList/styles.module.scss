@@ -5,7 +5,6 @@
   box-shadow: 0 0.1rem 0.25rem rgb(0 0 0 / 8%);
   min-width: 0;
   word-wrap: break-word;
-  border: 1 solid rgba(222, 226, 230, 70%);
   border-radius: 0.25rem;
 }
 
@@ -14,7 +13,6 @@
 }
 
 .boxHeader {
-  padding: 1.3rem;
   margin-bottom: 0;
   background-color: transparent;
   border-bottom: 1px solid rgba(222, 226, 230, 70%);
@@ -24,8 +22,8 @@
 }
 
 .containerBoxHeader {
-  display: flex;
-  flex-wrap: wrap;
+  @include flex-common($wrap: wrap);
+
   margin-top: calc(0 * -1);
   justify-content: space-between;
 }
@@ -33,7 +31,7 @@
 .searchBox {
   flex: 0 0 auto;
   margin-bottom: 1rem;
-  width: 33.3333%;
+  width: calc(100% / 3);
   @media (min-width: 710px) {
     margin-right: 30%;
     width: 33.3333%;
@@ -49,18 +47,19 @@
   padding-left: calc(1.5rem / 2);
   margin-top: 0;
   flex: 0 0 auto;
-  width: 16.6667%;
+  width: calc(100% / 6);
+  @media (min-width: 710px) {
+    width: calc(100% / 6);
+  }
   @media (max-width: 800px) {
     width: 50%;
   }
-  @media (min-width: 710px) {
-    width: 16.6777%;
-  }
+
+  margin-bottom: 10px;
 }
 
 .boxBody {
-  display: flex;
-  flex-flow: row wrap;
+  @include flex-common($direction: row, $wrap: wrap);
 }
 
 .boxBodyContainer {

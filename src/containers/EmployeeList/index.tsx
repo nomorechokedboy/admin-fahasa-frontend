@@ -1,6 +1,7 @@
 import { TO_EMPLOYEES } from '@/configs';
 import ListPageLayout from '@/layout/SubPageLayout';
 import {
+  Box,
   ChevronIcon,
   Pagination,
   Select,
@@ -11,11 +12,21 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
 import Employee from './Employee';
-
+import useSWR from 'swr';
+import { getAllEmployee } from '@/api/employee';
+import fakedata from './data';
 interface EmployeeListProps {}
 
 export default function EmployeeList() {
-  const [employeeList, setEmployeeList] = useState([]);
+  const { data, error, isValidating, mutate } = useSWR(
+    '/employee',
+    getAllEmployee,
+    {
+      shouldRetryOnError: false,
+    },
+  );
+
+  const [employeeList, setEmployeeList] = useState([{}]); /// fix to array when try real api
   const [activePage, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const typingTimeOut = useRef<any>(null);
@@ -27,31 +38,47 @@ export default function EmployeeList() {
     typingTimeOut.current = setTimeout(() => {
       setSearch(event.target.value);
     }, 600);
-  };
 
-  useEffect(() => {
-    fetch('http://localhost:3000/employee')
-      .then((res) => res.json())
-      .then((employees) => {
-        let employeelists = employees.filter((value: IEmployee) =>
-          value.name.toLowerCase().includes(search.trim().toLowerCase()),
-        );
-        setEmployeeList(employeelists);
+    useEffect(() => {
+      //Data
+      // let filter = fakedata.filter((value: IEmployee) =>{
+      //   value.name.toLowerCase().includes(search.toLowerCase().trim());
+      // })
+      // setEmployeeList(filter);
+      let filter = fakedata.filter((value) => {
+        value.name.toLowerCase().includes(search.toLowerCase().trim());
       });
-  }, [search]);
+      setEmployeeList(filter);
+    }, [search]);
+  };
 
   const [loading, setLoading] = useState(false);
 
   return (
     <ListPageLayout rootDir={TO_EMPLOYEES} title="Employees List">
-      <Stack className={styles.mainBox}>
+      <Box
+        sx={(theme) => ({
+          display: 'block',
+          backgroundColor:
+            theme.colorScheme === 'dark'
+              ? theme.colors.dark[4]
+              : theme.colors.gray[1],
+          color:
+            theme.colorScheme === 'dark'
+              ? theme.colors.blue[4]
+              : theme.colors.blue[7],
+          textAlign: 'center',
+          borderRadius: theme.radius.md,
+        })}
+        className={styles.mainBox}
+      >
         <header className={styles.boxHeader}>
           <div className={styles.containerBoxHeader}>
             <TextInput
               ref={typingTimeOut}
               placeholder="Search"
               className={styles.searchBox}
-              onChange={(event) => handleChangeSearch(event)}
+              onChange={handleChangeSearch}
             ></TextInput>
             <Select
               rightSection={<ChevronIcon />}
@@ -59,11 +86,7 @@ export default function EmployeeList() {
               styles={{ rightSection: { pointerEvents: 'none' } }}
               placeholder="All"
               className={styles.selectionBox}
-              data={[
-                { value: 'all', label: 'All' },
-                { value: 'ascending', label: 'Ascending' },
-                { value: 'descending', label: 'Descending' },
-              ]}
+              data={[]}
             />
             <Select
               placeholder="Gender:All"
@@ -71,11 +94,7 @@ export default function EmployeeList() {
               rightSectionWidth={30}
               styles={{ rightSection: { pointerEvents: 'none' } }}
               className={styles.selectionBox}
-              data={[
-                { value: 'all', label: 'All' },
-                { value: 'male', label: 'Male' },
-                { value: 'female', label: 'Female' },
-              ]}
+              data={[]}
             />
           </div>
         </header>
@@ -91,7 +110,7 @@ export default function EmployeeList() {
         <div className={styles.boxFooter}>
           <Pagination total={10} page={activePage} onChange={setPage} />
         </div>
-      </Stack>
+      </Box>
     </ListPageLayout>
   );
 }

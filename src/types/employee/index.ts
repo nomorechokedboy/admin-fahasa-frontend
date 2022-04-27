@@ -3,4 +3,6 @@ export default interface Employee {
   name: String;
   image: String;
   role: String;
+  gender: String;
+  birthday: string;
 }

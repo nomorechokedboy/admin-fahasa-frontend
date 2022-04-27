@@ -42,8 +42,8 @@
 }
 
 .containerBoxHeader {
-  display: flex;
-  flex-wrap: wrap;
+  @include flex-common($wrap: wrap);
+
   margin-top: 0;
   margin-right: calc(1.5rem / -2);
   margin-left: calc(1.5rem / -2);
@@ -92,8 +92,6 @@
   margin-bottom: 20px;
   position: relative;
   box-shadow: 0 0.1rem 0.25rem rgb(0 0 0 / 8%);
-  display: flex;
-  flex-flow: column nowrap;
   background-color: transparent;
   border: 0 solid rgba(222, 226, 230, 70%);
   border-radius: 0.25rem;
@@ -104,7 +102,7 @@
   @include flex-col-center;
 
   border-radius: 0.25rem 0.25rem 0 0;
-  background: linear-gradient(180deg, blue 70%, white 30%);
+  background: linear-gradient(180deg, #6fdfdf 70%, transparent 30%);
 }
 
 .avataImg {
@@ -120,7 +118,7 @@
   @include flex-col-center;
 
   text-align: center;
-  background-color: white;
+  background-color: transparent;
 }
 
 .informationContainer {
@@ -137,7 +135,7 @@
 .ButtonEditContainer {
   text-align: center;
   padding: 20px;
-  background-color: white;
+  background-color: transparent;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
