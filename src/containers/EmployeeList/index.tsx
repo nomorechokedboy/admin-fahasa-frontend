@@ -1,13 +1,6 @@
 import { TO_EMPLOYEES } from '@/configs';
 import ListPageLayout from '@/layout/SubPageLayout';
-import {
-  Box,
-  ChevronIcon,
-  Pagination,
-  Select,
-  Stack,
-  TextInput,
-} from '@mantine/core';
+import { Box, ChevronIcon, Pagination, Select, TextInput } from '@mantine/core';
 import { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
@@ -18,15 +11,15 @@ import fakedata from './data';
 interface EmployeeListProps {}
 
 export default function EmployeeList() {
-  const { data, error, isValidating, mutate } = useSWR(
-    '/employee',
-    getAllEmployee,
-    {
-      shouldRetryOnError: false,
-    },
-  );
+  // const { data, error, isValidating, mutate } = useSWR(
+  //   '/employee',
+  //   getAllEmployee,
+  //   {
+  //     shouldRetryOnError: false,
+  //   },
+  // );
 
-  const [employeeList, setEmployeeList] = useState([{}]); /// fix to array when try real api
+  const [employeeList, setEmployeeList] = useState(fakedata); /// fix to array when try real api
   const [activePage, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const typingTimeOut = useRef<any>(null);
@@ -38,19 +31,17 @@ export default function EmployeeList() {
     typingTimeOut.current = setTimeout(() => {
       setSearch(event.target.value);
     }, 600);
-
-    useEffect(() => {
-      //Data
-      // let filter = fakedata.filter((value: IEmployee) =>{
-      //   value.name.toLowerCase().includes(search.toLowerCase().trim());
-      // })
-      // setEmployeeList(filter);
-      let filter = fakedata.filter((value) => {
-        value.name.toLowerCase().includes(search.toLowerCase().trim());
-      });
-      setEmployeeList(filter);
-    }, [search]);
   };
+  useEffect(() => {
+    let filter = fakedata.filter((value) => {
+      if (search === '') {
+        return value;
+      } else {
+        return value.name.toLowerCase().includes(search.toLowerCase().trim());
+      }
+    });
+    setEmployeeList(filter);
+  }, [search]);
 
   const [loading, setLoading] = useState(false);
 
@@ -86,7 +77,11 @@ export default function EmployeeList() {
               styles={{ rightSection: { pointerEvents: 'none' } }}
               placeholder="All"
               className={styles.selectionBox}
-              data={[]}
+              data={[
+                { value: 'all', label: 'All' },
+                { value: 'ascending', label: 'Ascending' },
+                { value: 'descending', label: 'Descending' },
+              ]}
             />
             <Select
               placeholder="Gender:All"
@@ -94,15 +89,19 @@ export default function EmployeeList() {
               rightSectionWidth={30}
               styles={{ rightSection: { pointerEvents: 'none' } }}
               className={styles.selectionBox}
-              data={[]}
+              data={[
+                { value: 'all', label: 'All' },
+                { value: 'male', label: 'Male' },
+                { value: 'female', label: 'Female' },
+              ]}
             />
           </div>
         </header>
 
         <div className={styles.boxBodyContainer}>
           <div className={styles.boxBody}>
-            {employeeList.map((employee: any) => (
-              <Employee key={employee.id} {...employee} loading={loading} />
+            {employeeList.map((employee: any, index) => (
+              <Employee key={index} {...employee} loading={loading} />
             ))}
           </div>
         </div>
