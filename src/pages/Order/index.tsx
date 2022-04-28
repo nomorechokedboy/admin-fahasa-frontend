@@ -1,5 +1,4 @@
 import { DETAIL } from '@/configs';
-
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 const ErrorPage = lazy(() => import('@/pages/Error'));

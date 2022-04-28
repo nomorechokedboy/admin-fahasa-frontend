@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { Card, Group, Text, Avatar } from '@mantine/core';
+import { Card, Group, Text, Image } from '@mantine/core';
 
 interface PaymentInfoProps {
   title: string;
@@ -26,7 +26,7 @@ export default function PaymentInfo({
         </Group>
 
         <Group noWrap spacing={10} mt={10}>
-          <Avatar size={25}> {image}</Avatar>
+          <Image width={30} height={20} src={image} />
 
           <Text size="md" weight={400}>
             Master Card: {id}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Table, Group, Text, ScrollArea } from '@mantine/core';
 import styles from './styles.module.scss';
 
-interface tableDetailProps {
+interface TableDetailProps {
   data: {
     image: string;
     name: string;
@@ -12,7 +12,7 @@ interface tableDetailProps {
   }[];
 }
 
-export default function TableDetail({ data }: tableDetailProps) {
+export default function TableDetail({ data }: TableDetailProps) {
   const rows = data.map((item) => (
     <tr key={item.name}>
       <td>

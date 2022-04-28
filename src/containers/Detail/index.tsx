@@ -2,22 +2,33 @@ import { FaUser, FaTruck } from 'react-icons/fa';
 import styles from './styles.module.scss';
 import { AiTwotoneCalendar, AiFillPrinter } from 'react-icons/ai';
 import { ImLocation } from 'react-icons/im';
-import { Paper, Button, Grid, Select, Textarea, Stack } from '@mantine/core';
+import {
+  Paper,
+  Button,
+  Grid,
+  Select,
+  Textarea,
+  Stack,
+  Text,
+  Group,
+} from '@mantine/core';
 import CardInfo from './components/CardInfo';
 import TableDetail from '../Detail/components/TableDetail';
 import PaymentInfo from '../Detail/components/PaymentInfo';
 export default function Detail() {
   return (
     <Paper shadow="sm" p="lg">
-      <h2>Order Details</h2>
+      <h2 className={styles.detailHeader}>Order Details</h2>
       <Paper p="lg" className={styles.cardHeader}>
         <Grid columns={12} justify="Space-between">
           <Grid.Col md={6} lg={6}>
-            <span>
+            <Group>
               <AiTwotoneCalendar className={styles.calendarIcons} />
-              <b>Thurs, April 21, 2022, 9:40PM</b>
-            </span>
-            <small className={styles.mutedText}>Order ID: 3453012</small>
+              <Text weight={600}>Thurs, April 21, 2022, 9:40PM</Text>
+            </Group>
+            <Text size="xs" className={styles.mutedText}>
+              Order ID: 3453012
+            </Text>
           </Grid.Col>
           <Grid.Col md={6} lg={6}>
             <Grid justify="flex-end" align="center">
