@@ -1,6 +1,7 @@
 import { FaUser, FaTruck } from 'react-icons/fa';
 import styles from './styles.module.scss';
 import { AiTwotoneCalendar, AiFillPrinter } from 'react-icons/ai';
+import { BiArrowBack } from 'react-icons/bi';
 import { ImLocation } from 'react-icons/im';
 import {
   Paper,
@@ -15,10 +16,20 @@ import {
 import CardInfo from './components/CardInfo';
 import TableDetail from '../Detail/components/TableDetail';
 import PaymentInfo from '../Detail/components/PaymentInfo';
+import { Link } from 'react-router-dom';
 export default function Detail() {
   return (
     <Paper shadow="sm" p="lg">
-      <h2 className={styles.detailHeader}>Order Details</h2>
+      <Group>
+        <Link to="/admin/orders" replace>
+          <Button color="gray" size="md">
+            <BiArrowBack />
+          </Button>
+        </Link>
+        <Text weight={700} className={styles.detailHeader}>
+          Order Details
+        </Text>
+      </Group>
       <Paper p="lg" className={styles.cardHeader}>
         <Grid columns={12} justify="Space-between">
           <Grid.Col md={6} lg={6}>
