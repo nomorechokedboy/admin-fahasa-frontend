@@ -14,14 +14,15 @@ import {
   Group,
 } from '@mantine/core';
 import CardInfo from './components/CardInfo';
-import TableDetail from '../Detail/components/TableDetail';
-import PaymentInfo from '../Detail/components/PaymentInfo';
+import TableDetail from './components/TableDetail';
+import PaymentInfo from './components/PaymentInfo';
 import { Link } from 'react-router-dom';
-export default function Detail() {
+import { TO_ORDERS } from '@/configs';
+export default function OrderDetail() {
   return (
     <Paper shadow="sm" p="lg">
       <Group>
-        <Link to="/admin/orders" replace>
+        <Link to={`${TO_ORDERS}`}>
           <Button color="gray" size="md">
             <BiArrowBack />
           </Button>
