@@ -19,9 +19,17 @@ export default function Employees({
   const [search, setSearch] = useState('');
   const [gender, setGender] = useState('all');
   const [arrange, setArrange] = useState('all');
-
   const typingTimeOut = useRef<any>(null);
-
+  const ascending = (a: String, b: String) => {
+    if (a > b) return 1;
+    if (a < b) return -1;
+    return 0;
+  };
+  const descending = (a: String, b: String) => {
+    if (a < b) return 1;
+    if (a > b) return -1;
+    return 0;
+  };
   const handleChangeSearch = (event: any) => {
     if (typingTimeOut.current) {
       clearTimeout(typingTimeOut.current);
@@ -30,7 +38,6 @@ export default function Employees({
       setSearch(event.target.value);
     }, 600);
   };
-
   useEffect(() => {
     let filter = listEmployees.filter((value: IEmployee) => {
       if (search === '') {
@@ -41,8 +48,7 @@ export default function Employees({
     });
     setEmployeeList(filter);
   }, [search]);
-  console.log((activePage - 1) * 8);
-
+  console.log(arrange);
   return (
     <Box
       sx={(theme) => ({
@@ -74,8 +80,9 @@ export default function Employees({
             styles={{ rightSection: { pointerEvents: 'none' } }}
             placeholder="All"
             className={styles.selectionBox}
+            onChange={(event) => setArrange(event!)}
             data={[
-              { value: '', label: 'All' },
+              { value: 'all', label: 'All' },
               { value: 'ascending', label: 'Ascending' },
               { value: 'descending', label: 'Descending' },
             ]}
@@ -86,8 +93,10 @@ export default function Employees({
             rightSectionWidth={30}
             styles={{ rightSection: { pointerEvents: 'none' } }}
             className={styles.selectionBox}
+            value={gender}
+            onChange={(event) => setGender(event!)}
             data={[
-              { value: '', label: 'All' },
+              { value: 'all', label: 'All' },
               { value: 'male', label: 'Male' },
               { value: 'female', label: 'Female' },
             ]}
@@ -98,6 +107,16 @@ export default function Employees({
       <div className={styles.boxBodyContainer}>
         <div className={styles.boxBody}>
           {employeeList
+            .filter((value) =>
+              gender === 'all' ? -1 : value.gender === gender,
+            )
+            .sort((a, b) =>
+              arrange === 'all'
+                ? 0
+                : arrange === 'descending'
+                ? descending(a.id.toLowerCase(), b.id.toLocaleLowerCase())
+                : ascending(a.id.toLowerCase(), b.id.toLocaleLowerCase()),
+            )
             .slice((activePage - 1) * 8, activePage * 8)
             .map((employee: any, index) => (
               <Employee key={index} {...employee} loading={isValidating} />

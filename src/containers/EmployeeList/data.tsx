@@ -2,7 +2,7 @@ import IEmployee from '@/types/employee';
 
 const fakeData: Array<IEmployee> = [
   {
-    id: '1aaaa',
+    id: 'aaba8',
     name: 'Nguyen van a',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwB3S74HoevgAx-lS43ivixW0Uz0WlKBLSdg&usqp=CAU',
@@ -11,25 +11,25 @@ const fakeData: Array<IEmployee> = [
     birthday: '22/2/2002',
   },
   {
-    id: '2aaaa',
-    name: 'Nguyen van B',
-    image: 'https://www.personality-database.com/profile_images/55225.png',
-    role: 'employee',
-    gender: 'male',
-    birthday: '22/2/2002',
-  },
-  {
-    id: '3aaaa',
-    name: 'Ma Nguyen D',
+    id: 'abca2',
+    name: 'A Nguyen D',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROUBXI2IOHviI-AM4JBqFo-RkHBHXiEUVpRg&usqp=CAU',
     role: 'employee',
     gender: 'male',
     birthday: '22/2/2002',
   },
+  {
+    id: 'aaaa3',
+    name: 'Nguyen van B',
+    image: 'https://www.personality-database.com/profile_images/55225.png',
+    role: 'employee',
+    gender: 'male',
+    birthday: '22/2/2002',
+  },
 
   {
-    id: '4aaaa',
+    id: 'a5aaa',
     name: 'Le Lai',
     image:
       'https://i.pinimg.com/280x280_RS/56/2a/00/562a005b38ca84265cbc0a1ebab430d8.jpg',
@@ -38,7 +38,7 @@ const fakeData: Array<IEmployee> = [
     birthday: '22/2/2002',
   },
   {
-    id: '5aaaa',
+    id: 'aa4aa',
     name: 'Vo Van A',
     image:
       'https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2021/12/21121801002956.jpg',
@@ -47,7 +47,7 @@ const fakeData: Array<IEmployee> = [
     birthday: '22/2/2002',
   },
   {
-    id: '6aaaa',
+    id: '6aaa',
     name: 'Nguyen Minh Chien',
     image:
       'https://i.pinimg.com/736x/8a/8e/44/8a8e44c6e97b5aa7d7a3e45918ff1f5d.jpg',
@@ -70,7 +70,7 @@ const fakeData: Array<IEmployee> = [
     image:
       'https://i.pinimg.com/280x280_RS/56/2a/00/562a005b38ca84265cbc0a1ebab430d8.jpg',
     role: 'employee',
-    gender: 'male',
+    gender: 'female',
     birthday: '22/2/2002',
   },
   {
@@ -84,12 +84,12 @@ const fakeData: Array<IEmployee> = [
   },
 
   {
-    id: '10aaaa',
+    id: '1aba',
     name: 'Le Loi',
     image:
       'https://i.pinimg.com/280x280_RS/56/2a/00/562a005b38ca84265cbc0a1ebab430d8.jpg',
     role: 'employee',
-    gender: 'male',
+    gender: 'female',
     birthday: '22/2/2002',
   },
 ];
