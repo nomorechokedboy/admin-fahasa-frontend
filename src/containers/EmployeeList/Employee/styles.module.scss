@@ -18,15 +18,9 @@
 }
 
 .mainBox {
-  position: relative;
-  box-shadow: 0 0.1rem 0.25rem rgb(0 0 0 / 8%);
   @include flex-col;
 
-  min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 0 solid rgba(222, 226, 230, 70%);
   border-radius: 0.25rem;
 }
 
@@ -87,6 +81,10 @@
   }
 }
 
+.card {
+  padding: 0;
+}
+
 .imgContainer {
   height: 156px;
   @include flex-col-center;
@@ -98,10 +96,19 @@
 .avataImg {
   border-radius: 100%;
   border: #fff 3px solid;
+  width: 112px;
+  height: 112px;
 }
 
 .skeletonImg {
   margin-bottom: 0;
+  height: 112px;
+  width: 112px;
+  border-radius: 150%;
+}
+
+.userNameSkeleton {
+  height: 3rem;
 }
 
 .userNameContainer {

@@ -1,5 +1,11 @@
-import { Box, ChevronIcon, Pagination, Select, TextInput } from '@mantine/core';
-import { useEffect, useRef, useState } from 'react';
+import {
+  ChevronIcon,
+  Pagination,
+  Paper,
+  Select,
+  TextInput,
+} from '@mantine/core';
+import { useRef, useState } from 'react';
 import Employee from '../Employee';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
@@ -38,22 +44,7 @@ export default function Employees({
     }, 600);
   };
   return (
-    <Box
-      sx={(theme) => ({
-        display: 'block',
-        backgroundColor:
-          theme.colorScheme === 'dark'
-            ? theme.colors.dark[4]
-            : theme.colors.gray[1],
-        color:
-          theme.colorScheme === 'dark'
-            ? theme.colors.blue[4]
-            : theme.colors.blue[7],
-        textAlign: 'center',
-        borderRadius: theme.radius.md,
-      })}
-      className={styles.mainBox}
-    >
+    <Paper shadow="xs" withBorder className={styles.mainBox}>
       <header className={styles.boxHeader}>
         <div className={styles.containerBoxHeader}>
           <TextInput
@@ -65,10 +56,10 @@ export default function Employees({
           <Select
             rightSection={<ChevronIcon />}
             rightSectionWidth={30}
-            styles={{ rightSection: { pointerEvents: 'none' } }}
             placeholder="All"
             className={styles.selectionBox}
             onChange={setArrange}
+            value={arrange}
             data={[
               { value: 'all', label: 'All' },
               { value: 'ascending', label: 'Ascending' },
@@ -79,7 +70,6 @@ export default function Employees({
             placeholder="Gender:All"
             rightSection={<ChevronIcon />}
             rightSectionWidth={30}
-            styles={{ rightSection: { pointerEvents: 'none' } }}
             className={styles.selectionBox}
             onChange={setGender}
             value={gender}
@@ -102,8 +92,8 @@ export default function Employees({
               arrange === 'all'
                 ? 0
                 : arrange === 'descending'
-                ? descending(a.id.toLowerCase(), b.id.toLocaleLowerCase())
-                : ascending(a.id.toLowerCase(), b.id.toLocaleLowerCase()),
+                ? descending(a.name.toLowerCase(), b.name.toLocaleLowerCase())
+                : ascending(a.name.toLowerCase(), b.name.toLocaleLowerCase()),
             )
             .slice((activePage - 1) * 8, activePage * 8)
             .map((employee: any, index) => (
@@ -115,6 +105,6 @@ export default function Employees({
       <div className={styles.boxFooter}>
         <Pagination total={pageNumber} page={activePage} onChange={setPage} />
       </div>
-    </Box>
+    </Paper>
   );
 }

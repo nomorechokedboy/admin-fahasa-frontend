@@ -1,5 +1,5 @@
 import { DETAIL, TO_EMPLOYEES } from '@/configs';
-import { Box, Button, Skeleton } from '@mantine/core';
+import { Button, Card, Skeleton } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 
@@ -23,50 +23,14 @@ export default function Employee({
   };
   return (
     <div className={styles.userBoxContainer}>
-      <Box
-        sx={(theme) => ({
-          display: 'block',
-          backgroundColor:
-            theme.colorScheme === 'dark'
-              ? theme.colors.dark[5]
-              : theme.colors.gray[0],
-          color:
-            theme.colorScheme === 'dark'
-              ? theme.colors.blue[4]
-              : theme.colors.blue[7],
-          textAlign: 'center',
-          borderRadius: theme.radius.md,
-
-          '&:hover': {
-            backgroundColor:
-              theme.colorScheme === 'dark'
-                ? theme.colors.dark[6]
-                : theme.colors.gray[1],
-          },
-        })}
-      >
+      <Card withBorder className={styles.card}>
         <div className={styles.imgContainer}>
-          <Skeleton
-            visible={loading}
-            height={112}
-            circle
-            mb="xl"
-            className={styles.skeletonImg}
-          >
-            <img
-              className={styles.avataImg}
-              src={image}
-              width="112"
-              height="112"
-            />
+          <Skeleton visible={loading} className={styles.skeletonImg}>
+            <img className={styles.avataImg} src={image} />
           </Skeleton>
         </div>
         <div className={styles.userNameContainer}>
-          <Skeleton
-            visible={loading}
-            height="3rem"
-            className={styles.userNameSkeleton}
-          >
+          <Skeleton visible={loading} className={styles.userNameSkeleton}>
             <h4 className={styles.userName}>{name}</h4>
           </Skeleton>
           <Skeleton visible={loading} className={styles.informationContainer}>
@@ -85,7 +49,7 @@ export default function Employee({
             </Button>
           </Link>
         </div>
-      </Box>
+      </Card>
     </div>
   );
 }
