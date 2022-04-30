@@ -1,62 +1,42 @@
 @import '@scss/mixins';
 
-.box {
-  box-shadow: 0 0.1rem 0.25rem rgb(0 0 0 / 8%);
-  border-radius: 0.25rem;
-  border: 0 solid rgba(222, 226, 230, 70%);
-}
-
-.avatar {
-  margin-right: 10px;
-  @media (max-width: 500px) {
-    margin: 0;
-  }
-}
-
 .boxHeader {
-  height: 150px;
-  background-color: #fd8a14;
+  height: 30px;
+  background-color: #6fdfdf;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
 
 .boxBody {
-  padding: 1.3rem;
+  @include flex-center-between;
+
+  align-items: center;
+  padding: 20px;
+  @media (max-width: 850px) {
+    flex-flow: column;
+  }
 }
 
 .function {
-  margin-top: -120px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  @media (max-width: 500px) {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-@media (max-width: 500px) {
-  .buttonDelete {
-    margin-top: 20px;
-    align-self: flex-end;
-  }
-}
+  @include flex-common(space-between, center, column, nowrap);
 
-.divider {
-  margin: 20px 0;
+  width: 30%;
 }
 
 .information {
-  padding-left: 10px;
-}
-
-.imageContainer {
-  display: flex;
-  align-items: center;
-  @media (max-width: 500px) {
-    flex-flow: column nowrap;
+  width: 60%;
+  @media (max-width: 850px) {
+    width: 100%;
   }
 }
 
-.title {
-  padding-left: 100px;
+.line {
+  @include flex-justify-center;
+
+  margin: 10px;
+}
+
+.imageContainer {
+  border-radius: 5px;
+  border: 2px solid #4dabf7;
 }

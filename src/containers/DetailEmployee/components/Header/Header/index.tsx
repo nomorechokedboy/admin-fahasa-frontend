@@ -4,10 +4,10 @@ import { HiOutlineArrowSmLeft } from 'react-icons/hi';
 import { ReactNode } from 'react';
 import styles from './styles.module.scss';
 
-type HeaderDetailProps = {
+interface HeaderDetailProps {
   linkPrePage: string;
   children: ReactNode;
-};
+}
 
 export default function DetailHeader({
   children,

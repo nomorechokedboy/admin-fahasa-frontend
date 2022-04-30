@@ -4,7 +4,7 @@ import Employee from '../Employee';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
 
-interface employeesProps {
+interface EmployeesProps {
   listEmployees: Array<IEmployee>;
   isValidating: boolean;
   pageNumber: number;
@@ -13,42 +13,30 @@ export default function Employees({
   listEmployees,
   isValidating,
   pageNumber,
-}: employeesProps) {
+}: EmployeesProps) {
   const [employeeList, setEmployeeList] = useState(listEmployees);
   const [activePage, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const [gender, setGender] = useState('all');
-  const [arrange, setArrange] = useState('all');
+  const [gender, setGender] = useState<string | null>('all');
+  const [arrange, setArrange] = useState<string | null>('all');
   const typingTimeOut = useRef<any>(null);
-  const ascending = (a: String, b: String) => {
-    if (a > b) return 1;
-    if (a < b) return -1;
-    return 0;
-  };
-  const descending = (a: String, b: String) => {
-    if (a < b) return 1;
-    if (a > b) return -1;
-    return 0;
-  };
+  const ascending = (a: string, b: string) => a.localeCompare(b);
+  const descending = (a: string, b: string) => b.localeCompare(a);
   const handleChangeSearch = (event: any) => {
     if (typingTimeOut.current) {
       clearTimeout(typingTimeOut.current);
     }
     typingTimeOut.current = setTimeout(() => {
-      setSearch(event.target.value);
+      let search = event.target.value;
+      let filter = listEmployees.filter((value: IEmployee) => {
+        if (search === '') {
+          return value;
+        } else {
+          return value.name.toLowerCase().includes(search.toLowerCase().trim());
+        }
+      });
+      setEmployeeList(filter);
     }, 600);
   };
-  useEffect(() => {
-    let filter = listEmployees.filter((value: IEmployee) => {
-      if (search === '') {
-        return value;
-      } else {
-        return value.name.toLowerCase().includes(search.toLowerCase().trim());
-      }
-    });
-    setEmployeeList(filter);
-  }, [search]);
-  console.log(arrange);
   return (
     <Box
       sx={(theme) => ({
@@ -80,7 +68,7 @@ export default function Employees({
             styles={{ rightSection: { pointerEvents: 'none' } }}
             placeholder="All"
             className={styles.selectionBox}
-            onChange={(event) => setArrange(event!)}
+            onChange={setArrange}
             data={[
               { value: 'all', label: 'All' },
               { value: 'ascending', label: 'Ascending' },
@@ -93,8 +81,8 @@ export default function Employees({
             rightSectionWidth={30}
             styles={{ rightSection: { pointerEvents: 'none' } }}
             className={styles.selectionBox}
+            onChange={setGender}
             value={gender}
-            onChange={(event) => setGender(event!)}
             data={[
               { value: 'all', label: 'All' },
               { value: 'male', label: 'Male' },

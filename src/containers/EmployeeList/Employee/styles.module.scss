@@ -87,16 +87,6 @@
   }
 }
 
-.userBox {
-  min-width: 0;
-  margin-bottom: 20px;
-  position: relative;
-  box-shadow: 0 0.1rem 0.25rem rgb(0 0 0 / 8%);
-  background-color: transparent;
-  border: 0 solid rgba(222, 226, 230, 70%);
-  border-radius: 0.25rem;
-}
-
 .imgContainer {
   height: 156px;
   @include flex-col-center;
