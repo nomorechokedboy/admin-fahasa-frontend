@@ -61,8 +61,7 @@
       "stylelint --fix"
     ],
     "*.{ts,tsx}": [
-      "prettier --write",
-      "eslint_d --fix"
+      "prettier --write"
     ]
   }
 }
