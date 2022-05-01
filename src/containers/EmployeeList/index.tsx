@@ -1,30 +1,33 @@
+import { getAllEmployee } from '@/api/employee';
 import { TO_EMPLOYEES } from '@/configs';
 import ListPageLayout from '@/layout/SubPageLayout';
-import styles from './styles.module.scss';
+import { ReactNode } from 'react';
 import useSWR from 'swr';
-import { getAllEmployee } from '@/api/employee';
-import fakedata from './data';
 import Employees from './Employees';
 
-interface EmployeeListProps {}
-
 export default function EmployeeList() {
-  // const { data, error, isValidating, mutate } = useSWR(
-  //   '/employee',
-  //   getAllEmployee,
-  //   {
-  //     shouldRetryOnError: false,
-  //   },
-  // );
-  const pageNumber = Math.ceil(fakedata.length / 8);
+  const { data, error, isValidating, mutate } = useSWR(
+    '/employee',
+    getAllEmployee,
+  );
+
+  let List: ReactNode;
+
+  if (data) {
+    const pageNumber = Math.ceil(data.length / 8);
+
+    List = (
+      <Employees
+        listEmployees={data}
+        isValidating={false}
+        pageNumber={pageNumber}
+      />
+    );
+  }
 
   return (
     <ListPageLayout rootDir={TO_EMPLOYEES} title="Employees List">
-      <Employees
-        listEmployees={fakedata}
-        isValidating={false}
-        pageNumber={pageNumber}
-      ></Employees>
+      {List}
     </ListPageLayout>
   );
 }

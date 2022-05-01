@@ -27,7 +27,6 @@ const fakeData: Array<IEmployee> = [
     gender: 'male',
     birthday: '22/2/2002',
   },
-
   {
     id: 'a5aaa',
     name: 'Le Lai',

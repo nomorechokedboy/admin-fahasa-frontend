@@ -5,7 +5,7 @@ import {
   Select,
   TextInput,
 } from '@mantine/core';
-import { useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import Employee from '../Employee';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
@@ -24,13 +24,14 @@ export default function Employees({
   const [activePage, setPage] = useState(1);
   const [gender, setGender] = useState<string | null>('all');
   const [arrange, setArrange] = useState<string | null>('all');
-  const typingTimeOut = useRef<any>(null);
+  const typingTimeOut = useRef<any>();
   const ascending = (a: string, b: string) => a.localeCompare(b);
   const descending = (a: string, b: string) => b.localeCompare(a);
-  const handleChangeSearch = (event: any) => {
+  const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     if (typingTimeOut.current) {
       clearTimeout(typingTimeOut.current);
     }
+
     typingTimeOut.current = setTimeout(() => {
       let search = event.target.value;
       let filter = listEmployees.filter((value: IEmployee) => {
