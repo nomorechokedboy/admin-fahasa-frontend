@@ -9,9 +9,9 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "test": "cypress run-ct",
-    "prettier": "prettier ./src/**/*.{ts,tsx} --write",
-    "lint": "eslint_d ./src/**/*.{ts,tsx} --fix",
-    "stylelint": "stylelint 'src/**/*.{css,scss}' --fix"
+    "test:e2e": "cypress open-ct",
+    "prettier": "prettier 'src/**/*.{ts,tsx}' --write",
+    "lint": "eslint_d 'src/**/*.{ts,tsx}' --fix"
   },
   "dependencies": {
     "@mantine/core": "^4.1.0",
@@ -59,6 +59,10 @@
     "*.{css,scss}": [
       "prettier --write",
       "stylelint --fix"
+    ],
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint_d --fix"
     ]
   }
 }
