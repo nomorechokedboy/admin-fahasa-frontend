@@ -10,7 +10,7 @@
     "prepare": "husky install",
     "test": "cypress run-ct",
     "test:e2e": "cypress open-ct",
-    "prettier": "prettier 'src/**/*.{ts,tsx}' --write",
+    "prettier": "prettier src/**/*.{ts,tsx} --write",
     "lint": "eslint_d 'src/**/*.{ts,tsx}' --fix"
   },
   "dependencies": {

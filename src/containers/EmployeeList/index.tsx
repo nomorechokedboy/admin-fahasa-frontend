@@ -16,13 +16,7 @@ export default function EmployeeList() {
   if (data) {
     const pageNumber = Math.ceil(data.length / 8);
 
-    List = (
-      <Employees
-        listEmployees={data}
-        isValidating={false}
-        pageNumber={pageNumber}
-      />
-    );
+    List = <Employees listEmployees={data} isValidating={false} />;
   }
 
   return (

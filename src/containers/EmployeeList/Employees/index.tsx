@@ -5,7 +5,7 @@ import {
   Select,
   TextInput,
 } from '@mantine/core';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useMemo, useRef, useState } from 'react';
 import Employee from '../Employee';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
@@ -13,12 +13,10 @@ import IEmployee from '@/types/employee';
 interface EmployeesProps {
   listEmployees: Array<IEmployee>;
   isValidating: boolean;
-  pageNumber: number;
 }
 export default function Employees({
   listEmployees,
   isValidating,
-  pageNumber,
 }: EmployeesProps) {
   const [employeeList, setEmployeeList] = useState(listEmployees);
   const [activePage, setPage] = useState(1);
@@ -27,11 +25,21 @@ export default function Employees({
   const typingTimeOut = useRef<any>();
   const ascending = (a: string, b: string) => a.localeCompare(b);
   const descending = (a: string, b: string) => b.localeCompare(a);
+
+  let filter = employeeList
+    .filter((value) => (gender === 'all' ? -1 : value.gender === gender))
+    .sort((a, b) =>
+      arrange === 'all'
+        ? 0
+        : arrange === 'descending'
+        ? descending(a.name.toLowerCase(), b.name.toLocaleLowerCase())
+        : ascending(a.name.toLowerCase(), b.name.toLocaleLowerCase()),
+    );
+
   const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     if (typingTimeOut.current) {
       clearTimeout(typingTimeOut.current);
     }
-
     typingTimeOut.current = setTimeout(() => {
       let search = event.target.value;
       let filter = listEmployees.filter((value: IEmployee) => {
@@ -44,6 +52,7 @@ export default function Employees({
       setEmployeeList(filter);
     }, 600);
   };
+
   return (
     <Paper shadow="xs" withBorder className={styles.mainBox}>
       <header className={styles.boxHeader}>
@@ -85,26 +94,19 @@ export default function Employees({
 
       <div className={styles.boxBodyContainer}>
         <div className={styles.boxBody}>
-          {employeeList
-            .filter((value) =>
-              gender === 'all' ? -1 : value.gender === gender,
-            )
-            .sort((a, b) =>
-              arrange === 'all'
-                ? 0
-                : arrange === 'descending'
-                ? descending(a.name.toLowerCase(), b.name.toLocaleLowerCase())
-                : ascending(a.name.toLowerCase(), b.name.toLocaleLowerCase()),
-            )
+          {filter
             .slice((activePage - 1) * 8, activePage * 8)
             .map((employee: any, index) => (
               <Employee key={index} {...employee} loading={isValidating} />
             ))}
         </div>
       </div>
-
       <div className={styles.boxFooter}>
-        <Pagination total={pageNumber} page={activePage} onChange={setPage} />
+        <Pagination
+          total={Math.ceil(filter.length / 8)}
+          page={activePage}
+          onChange={setPage}
+        />
       </div>
     </Paper>
   );
