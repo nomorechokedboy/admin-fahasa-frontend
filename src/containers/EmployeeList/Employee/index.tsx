@@ -5,10 +5,10 @@ import styles from './styles.module.scss';
 
 interface EmployeeProps {
   loading: boolean;
-  id: string;
-  name: string;
-  role: string;
-  image: string;
+  id?: String;
+  name?: String;
+  role?: String;
+  image?: string;
 }
 
 export default function Employee({

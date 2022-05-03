@@ -1,8 +1,8 @@
 export default interface Employee {
-  readonly id: String;
-  name: String;
-  image: String;
-  role: String;
-  gender: String;
+  readonly id: string;
+  name: string;
+  image: string;
+  role: string;
+  gender: string;
   birthday: string;
 }

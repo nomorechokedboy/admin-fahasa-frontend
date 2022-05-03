@@ -54,6 +54,7 @@ export default function DetailEmployee() {
                 variant="outline"
                 className={styles.deleteButton}
                 loading={loading}
+                onClick={handleModalClick}
               >
                 Delete
               </Button>

@@ -5,13 +5,13 @@ import {
   Select,
   TextInput,
 } from '@mantine/core';
-import { ChangeEvent, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, Key, useMemo, useRef, useState } from 'react';
 import Employee from '../Employee';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
 
 interface EmployeesProps {
-  listEmployees: Array<IEmployee>;
+  listEmployees?: Array<IEmployee>;
   isValidating: boolean;
 }
 export default function Employees({
@@ -26,7 +26,7 @@ export default function Employees({
   const ascending = (a: string, b: string) => a.localeCompare(b);
   const descending = (a: string, b: string) => b.localeCompare(a);
 
-  let filter = employeeList
+  let filter = employeeList!
     .filter((value) => (gender === 'all' ? -1 : value.gender === gender))
     .sort((a, b) =>
       arrange === 'all'
@@ -42,7 +42,7 @@ export default function Employees({
     }
     typingTimeOut.current = setTimeout(() => {
       let search = event.target.value;
-      let filter = listEmployees.filter((value: IEmployee) => {
+      let filter = listEmployees!.filter((value: IEmployee) => {
         if (search === '') {
           return value;
         } else {
@@ -65,6 +65,7 @@ export default function Employees({
           ></TextInput>
           <Select
             rightSection={<ChevronIcon />}
+            styles={{ rightSection: { pointerEvents: 'none' } }}
             rightSectionWidth={30}
             placeholder="All"
             className={styles.selectionBox}
@@ -80,6 +81,7 @@ export default function Employees({
             placeholder="Gender:All"
             rightSection={<ChevronIcon />}
             rightSectionWidth={30}
+            styles={{ rightSection: { pointerEvents: 'none' } }}
             className={styles.selectionBox}
             onChange={setGender}
             value={gender}
@@ -96,7 +98,7 @@ export default function Employees({
         <div className={styles.boxBody}>
           {filter
             .slice((activePage - 1) * 8, activePage * 8)
-            .map((employee: any, index) => (
+            .map((employee: IEmployee, index: Key) => (
               <Employee key={index} {...employee} loading={isValidating} />
             ))}
         </div>
