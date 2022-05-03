@@ -19,8 +19,6 @@ const User = forwardRef<HTMLButtonElement, UserProps>(
     const onSmallDevice = useMediaQuery('(max-width: 768px)');
     const { user } = useSelector(getLoginState);
 
-    console.log({ user });
-
     return (
       <UnstyledButton ref={ref} {...buttonProps}>
         <Group>

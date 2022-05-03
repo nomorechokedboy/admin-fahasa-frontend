@@ -14,7 +14,7 @@ const AddForm = memo(() => {
   const handleSubmit = (data: Partial<Product>) => {
     console.log({ data });
 
-    createProduct('/product', data)
+    createProduct(data)
       .then((res) => {
         const {
           createdProduct: { name },

@@ -30,7 +30,6 @@ function App() {
   };
 
   const { user } = useSelector(getLoginState);
-  console.log({ user });
 
   console.log('App render');
 

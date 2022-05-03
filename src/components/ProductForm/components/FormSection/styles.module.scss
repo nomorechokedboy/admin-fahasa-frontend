@@ -1,10 +1,12 @@
 @import '@scss/mixins';
 
 .row {
+  --spacing: 20px;
   @include flex-col;
 
+  gap: var(--spacing);
   border-bottom: 1px solid #ddd;
-  padding: 20px 0;
+  padding: var(--spacing) 0;
 
   @include desktop {
     @include flex-row;
@@ -12,8 +14,6 @@
 }
 
 .colLeft {
-  margin-bottom: 20px;
-
   @include desktop {
     flex: 0.3;
     margin-bottom: unset;
