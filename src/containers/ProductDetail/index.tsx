@@ -49,12 +49,12 @@ export default function ProductDetail() {
 
   const handleSubmit = (data: Partial<Product>) => {
     id &&
-      updateProduct(id, data)
+      updateProduct(id, data, db)
         .then((res) => {
           const {
             updated: { name, _id: newId },
           } = res;
-          redirect(`${TO_PRODUCTS}/${DETAIL}/${newId}`);
+          redirect(`${TO_PRODUCTS}/${DETAIL}/${newId}?db=${db}`);
           dispatch(setNotification(`Product name: ${name} updated!`));
           dispatch(setDisableProduct());
         })

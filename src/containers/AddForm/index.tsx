@@ -1,20 +1,22 @@
 import { createProduct } from '@/api';
 import ProductForm from '@/components/ProductForm';
 import Title from '@/components/Title';
-import { setError, setNotification } from '@/redux';
+import { getDatabaseState, setError, setNotification } from '@/redux';
 import Product from '@/types/product';
 import { validateErrorHelper } from '@/utils/errors';
 import axios from 'axios';
 import { memo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.scss';
 
 const AddForm = memo(() => {
   const dispatch = useDispatch();
+  const db = useSelector(getDatabaseState);
+
   const handleSubmit = (data: Partial<Product>) => {
     console.log({ data });
 
-    createProduct(data)
+    createProduct(data, db)
       .then((res) => {
         const {
           createdProduct: { name },
@@ -36,7 +38,7 @@ const AddForm = memo(() => {
       <div className={styles.title}>
         <Title>Add new product</Title>
       </div>
-      <ProductForm onSubmit={handleSubmit} />
+      <ProductForm loading={false} onSubmit={handleSubmit} />
     </div>
   );
 });

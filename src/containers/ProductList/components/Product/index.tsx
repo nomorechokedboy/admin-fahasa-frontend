@@ -1,14 +1,14 @@
 import { deleteProduct } from '@/api';
 import ConfirmModal from '@/components/ConfirmModal';
 import { DETAIL, TO_PRODUCTS } from '@/configs';
-import { setError, setNotification } from '@/redux';
+import { getDatabaseState, setError, setNotification } from '@/redux';
 import { validateErrorHelper } from '@/utils';
 import { Button, Card, Image, Skeleton, Stack, Text } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import axios from 'axios';
 import { BiDetail } from 'react-icons/bi';
 import { BsFillTrashFill } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 
@@ -30,6 +30,8 @@ export default function Product({
   handleDeleteCache,
 }: ProductProps) {
   const dispatch = useDispatch();
+  const db = useSelector(getDatabaseState);
+
   const [isModalOpen, toggleModal] = useToggle(false, [true, false]);
   const redirect = useNavigate();
 
@@ -39,7 +41,7 @@ export default function Product({
 
   const handleConfirmDelete = () => {
     _id &&
-      deleteProduct(_id)
+      deleteProduct(_id, db)
         .then((res) => {
           const {
             success,
@@ -60,7 +62,7 @@ export default function Product({
             dispatch(setError(errorMessage));
           }
         })
-        .finally(() => toggleModal);
+        .finally(() => toggleModal());
   };
 
   const handleToDetail = () => {
