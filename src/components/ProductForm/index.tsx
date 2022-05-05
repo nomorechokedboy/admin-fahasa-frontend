@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 interface ProductFormProps extends PartialProduct {
   disabled?: true;
   onSubmit: (data: Partial<Product>) => void;
-  loading: boolean;
+  loading?: boolean;
 }
 
 export default function ProductForm({
