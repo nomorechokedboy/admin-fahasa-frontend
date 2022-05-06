@@ -30,7 +30,7 @@ export const updateEmployee = (employee: Employee) => {
     status: 200,
     error: '',
     data: fakeData.map((emp) =>
-      emp.id === employee.id ? { ...emp, ...employee } : employee,
+      emp.id === employee.id ? { ...emp, ...employee } : emp,
     ),
   };
   return res.data;
