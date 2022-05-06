@@ -33,6 +33,7 @@ export const updateEmployee = (employee: Employee) => {
       emp.id === employee.id ? { ...emp, ...employee } : employee,
     ),
   };
+  return res.data;
 };
 
 export const deleteEmployee = (id: string) => {
@@ -41,5 +42,5 @@ export const deleteEmployee = (id: string) => {
     error: '',
     data: fakeData.filter((data) => data.id !== id),
   };
-  return res;
+  return res.data;
 };

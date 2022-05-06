@@ -33,7 +33,7 @@ export default function DetailEmployee() {
     modalOpenToggle();
   };
   const handleOkClick = () => {
-    if (deleteEmployee(id!).status === 200) {
+    if (deleteEmployee(id!)) {
       console.log('deleted');
       navigate('../', { replace: true });
     } else {
