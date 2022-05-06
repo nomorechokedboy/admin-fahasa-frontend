@@ -34,7 +34,7 @@ export default function ProductList() {
   const handleReloadClick = () => {
     mutate('/product');
   };
-
+  console.log(data);
   return (
     <ListPageLayout rootDir={TO_PRODUCTS} title="Products List">
       {error ? (

@@ -9,6 +9,7 @@ interface EmployeeProps {
   name?: String;
   role?: String;
   image?: string;
+  salary?: number;
 }
 
 export default function Employee({
@@ -39,7 +40,7 @@ export default function Employee({
           </Skeleton>
         </div>
         <div className={styles.ButtonEditContainer}>
-          <Link to={`${TO_EMPLOYEES}/${DETAIL}`}>
+          <Link to={`${TO_EMPLOYEES}/${DETAIL}/${id}`}>
             <Button
               loading={loading}
               className={styles.buttonEdit}

@@ -9,6 +9,8 @@ const fakeData: Array<IEmployee> = [
     role: 'employee',
     gender: 'male',
     birthday: '22/2/2002',
+    email: 'hello@gmail.com',
+    salary: 2000,
   },
   {
     id: 'abca2',
@@ -18,6 +20,8 @@ const fakeData: Array<IEmployee> = [
     role: 'employee',
     gender: 'male',
     birthday: '22/2/2002',
+    email: 'hello@gmail.com',
+    salary: 2000,
   },
   {
     id: 'aaaa3',
@@ -26,6 +30,8 @@ const fakeData: Array<IEmployee> = [
     role: 'employee',
     gender: 'male',
     birthday: '22/2/2002',
+    email: 'hello@gmail.com',
+    salary: 2000,
   },
   {
     id: 'a5aaa',
@@ -35,6 +41,8 @@ const fakeData: Array<IEmployee> = [
     role: 'employee',
     gender: 'male',
     birthday: '22/2/2002',
+    email: 'hello@gmail.com',
+    salary: 2000,
   },
   {
     id: 'aa4aa',
@@ -44,6 +52,8 @@ const fakeData: Array<IEmployee> = [
     role: 'employee',
     gender: 'male',
     birthday: '22/2/2002',
+    email: 'hello@gmail.com',
+    salary: 2000,
   },
   {
     id: '6aaa',
@@ -53,6 +63,8 @@ const fakeData: Array<IEmployee> = [
     role: 'employee',
     gender: 'male',
     birthday: '22/2/2002',
+    email: 'hello@gmail.com',
+    salary: 2000,
   },
   {
     id: '7aaaa',
@@ -62,6 +74,8 @@ const fakeData: Array<IEmployee> = [
     role: 'employee',
     gender: 'female',
     birthday: '22/2/2002',
+    email: 'hello@gmail.com',
+    salary: 2000,
   },
   {
     id: '8aaaa',
@@ -71,6 +85,8 @@ const fakeData: Array<IEmployee> = [
     role: 'employee',
     gender: 'female',
     birthday: '22/2/2002',
+    email: 'hello@gmail.com',
+    salary: 2000,
   },
   {
     id: '9aaaa',
@@ -80,6 +96,8 @@ const fakeData: Array<IEmployee> = [
     role: 'employee',
     gender: 'male',
     birthday: '22/2/2002',
+    email: 'hello@gmail.com',
+    salary: 2000,
   },
 
   {
@@ -90,6 +108,8 @@ const fakeData: Array<IEmployee> = [
     role: 'employee',
     gender: 'female',
     birthday: '22/2/2002',
+    email: 'hello@gmail.com',
+    salary: 2000,
   },
 ];
 

@@ -33,15 +33,15 @@ export default function EmployeeList() {
           label="Reload the page"
           onClick={handleReloadClick}
         />
-      ) : isValidating ? (
-        <CTA icon={<BsIcons.BsFillPeopleFill />} message="Loading" />
+      ) : !error && !data ? (
+        <Employees listEmployees={[...Array(8)]} isValidating={true} />
       ) : !data?.length ? (
         <CTA
           icon={<BsIcons.BsFillPersonXFill />}
-          message="There is no current employees, please add new product!"
+          message="There is no current employees, please add new Employee!"
         />
       ) : (
-        <Employees listEmployees={data!} isValidating={isValidating} />
+        <Employees listEmployees={data} isValidating={isValidating} />
       )}
     </ListPageLayout>
   );

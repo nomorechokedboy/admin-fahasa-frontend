@@ -19,7 +19,7 @@ export default function EmployeePage() {
   return (
     <Routes>
       <Route index element={<EmployeeList />} />
-      <Route path={DETAIL} element={<DetailEmployee />} />
+      <Route path={DETAIL + '/:id'} element={<DetailEmployee />} />
       <Route
         path={CREATE}
         element={

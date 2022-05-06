@@ -5,4 +5,6 @@ export default interface Employee {
   role: string;
   gender: string;
   birthday: string;
+  email: string;
+  salary: number;
 }

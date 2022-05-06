@@ -30,6 +30,8 @@ describe('Employee api test', () => {
       role: 'employee',
       gender: 'male',
       birthday: '22/2/2002',
+      email: 'hello@gmail.com',
+      salary: 2000,
     };
 
     const result = fakeData.map((el) =>

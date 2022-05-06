@@ -1,0 +1,11 @@
+@import '@scss/mixins';
+
+.iconWrapper {
+  svg,
+  img {
+    @include size(var(--icon-size));
+    @include desktop {
+      --icon-size: 240px;
+    }
+  }
+}

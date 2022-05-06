@@ -5,7 +5,7 @@ import {
   Select,
   TextInput,
 } from '@mantine/core';
-import { ChangeEvent, Key, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, Key, useEffect, useMemo, useRef, useState } from 'react';
 import Employee from '../Employee';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
@@ -25,6 +25,9 @@ export default function Employees({
   const typingTimeOut = useRef<any>();
   const ascending = (a: string, b: string) => a.localeCompare(b);
   const descending = (a: string, b: string) => b.localeCompare(a);
+  useEffect(() => {
+    setEmployeeList(listEmployees);
+  }, [listEmployees]);
 
   let filter = employeeList!
     .filter((value) => (gender === 'all' ? -1 : value.gender === gender))
