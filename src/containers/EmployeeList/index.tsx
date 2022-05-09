@@ -18,7 +18,9 @@ export default function EmployeeList() {
       shouldRetryOnError: false,
     },
   );
-  const handleReloadClick = () => {};
+  const handleReloadClick = () => {
+    mutate();
+  };
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setError(error?.message));

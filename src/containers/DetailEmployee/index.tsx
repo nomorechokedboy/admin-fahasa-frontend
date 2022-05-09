@@ -4,43 +4,52 @@ import CTA from '@/components/CTA';
 import { TO_EMPLOYEES } from '@/configs';
 import { Button, Image, Group, Text, Skeleton, Paper } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
-import * as BsIcons from 'react-icons/bs';
 import * as FiIcons from 'react-icons/fi';
 import { AiOutlineFieldNumber } from 'react-icons/ai';
 import { FaBirthdayCake, FaMoneyBillWaveAlt, FaUserAlt } from 'react-icons/fa';
-import * as IamIcons from 'react-icons/im';
 import { MdEmail, MdWork } from 'react-icons/md';
 import { useParams, useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
 import DetailHeader from './components/Header';
 import styles from './styles.module.scss';
-import Inform from './components/Inform';
-
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setError } from '@/redux';
 export default function DetailEmployee() {
   const [isModalOpen, modalOpenToggle] = useToggle(false, [true, false]);
-  const [isInformOpen, setInform] = useToggle(false, [true, false]);
   let { id } = useParams();
   let navigate = useNavigate();
-  let loading = true;
+  const dispatch = useDispatch();
+
   const { data, error } = useSWR(['/employee', id!], getEmployee, {
     shouldRetryOnError: false,
   });
-  if (data) {
-    loading = false;
-  }
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!error && !data) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [data]);
 
   const handleModalClick = () => {
     modalOpenToggle();
   };
   const handleOkClick = () => {
-    if (deleteEmployee(id!)) {
-      console.log('deleted');
-      navigate('../', { replace: true });
-    } else {
-      console.log('deleted failed');
-      setInform(!isInformOpen);
-    }
+    deleteEmployee(id!)
+      .then((data) => {
+        console.log(data);
+        navigate('../', { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+        modalOpenToggle(!isModalOpen);
+        dispatch(setError(error?.message));
+      });
   };
+
   const handleReloadClick = () => {};
 
   return (
@@ -52,12 +61,6 @@ export default function DetailEmployee() {
         onOkClick={handleOkClick}
         size="xs"
         centered
-      />
-      <Inform
-        icon={<IamIcons.ImSad2 />}
-        message="Something wrong happended"
-        opened={isInformOpen}
-        onClose={() => setInform(!isInformOpen)}
       />
 
       <DetailHeader linkPrePage={`${TO_EMPLOYEES}`}>

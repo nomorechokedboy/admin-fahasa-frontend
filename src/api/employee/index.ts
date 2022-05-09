@@ -25,7 +25,8 @@ export const getEmployee = async (url: string, id: string) => {
   return res.data;
 };
 
-export const updateEmployee = (employee: Employee) => {
+export const updateEmployee = async (employee: Employee) => {
+  await delay(1000);
   const res = {
     status: 200,
     error: '',
@@ -33,14 +34,18 @@ export const updateEmployee = (employee: Employee) => {
       emp.id === employee.id ? { ...emp, ...employee } : emp,
     ),
   };
+
   return res.data;
 };
 
-export const deleteEmployee = (id: string) => {
+export const deleteEmployee = async (id: string) => {
   const res = {
-    status: 500,
-    error: '',
+    status: 200,
+    error: 'loi roi',
     data: fakeData.filter((data) => data.id !== id),
   };
+  if (res.status === 200) {
+    throw new Error(res.error);
+  }
   return res.data;
 };
