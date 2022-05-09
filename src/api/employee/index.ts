@@ -44,7 +44,7 @@ export const deleteEmployee = async (id: string) => {
     error: 'loi roi',
     data: fakeData.filter((data) => data.id !== id),
   };
-  if (res.status === 200) {
+  if (res.status === 500) {
     throw new Error(res.error);
   }
   return res.data;

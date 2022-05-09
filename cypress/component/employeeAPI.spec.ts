@@ -41,7 +41,7 @@ describe('Employee api test', () => {
     const data = await updateEmployee(updated);
 
     expect(data).length.to.be.greaterThan(0);
-    expect(data).to.eq(result);
+    expect(data).to.deep.eq(result);
   });
 
   it('should delete employee in the list', async () => {
@@ -51,6 +51,6 @@ describe('Employee api test', () => {
     const data = await deleteEmployee(deletedId);
 
     expect(data).length.to.be.greaterThan(0);
-    expect(data).to.eq(deletedList);
+    expect(data).to.deep.eq(deletedList);
   });
 });
