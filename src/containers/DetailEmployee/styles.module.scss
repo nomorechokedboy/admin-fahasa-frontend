@@ -1,0 +1,76 @@
+@import '@scss/mixins';
+
+.boxHeader {
+  height: 30px;
+  background-color: #6fdfdf;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.boxBody {
+  @include flex-center-between;
+
+  align-items: center;
+  padding: 20px;
+  @media (max-width: 850px) {
+    flex-flow: column;
+  }
+}
+
+.function {
+  @include flex-common(space-between, center, column, nowrap);
+
+  width: 30%;
+}
+
+.information {
+  width: 60%;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  @media (max-width: 850px) {
+    width: 100%;
+  }
+}
+
+.line {
+  @include flex-justify-center;
+
+  margin: 10px;
+}
+
+.imageContainer {
+  border-radius: 5px;
+  border: 2px solid #4dabf7;
+}
+
+.container {
+  text-align: center;
+  border-radius: 5px;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.deleteButton {
+  margin: 10px;
+  width: 230px;
+
+  &:hover {
+    color: white;
+    background-color: red;
+  }
+}
+
+.informationBox {
+  border: 1px solid #1c7ed6;
+  color: #1c7ed6;
+}
+
+.avatar {
+  width: 230px;
+  height: 220px;
+  border-radius: 5px;
+}
