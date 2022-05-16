@@ -5,7 +5,7 @@ import {
   Select,
   TextInput,
 } from '@mantine/core';
-import { ChangeEvent, Key, useEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, Key, useEffect, useRef, useState } from 'react';
 import Employee from '../Employee';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
@@ -35,8 +35,8 @@ export default function Employees({
       arrange === 'all'
         ? 0
         : arrange === 'descending'
-        ? descending(a.name.toLowerCase(), b.name.toLocaleLowerCase())
-        : ascending(a.name.toLowerCase(), b.name.toLocaleLowerCase()),
+        ? descending(a.name.toLowerCase(), b.name.toLowerCase())
+        : ascending(a.name.toLowerCase(), b.name.toLowerCase()),
     );
 
   const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {

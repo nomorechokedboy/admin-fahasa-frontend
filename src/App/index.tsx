@@ -64,7 +64,7 @@ function App() {
               </Routes>
             </Suspense>
           </BrowserRouter>
-          <NotificationDialog />
+          <NotificationDialog opened={false} />
         </MantineProvider>
       </ColorSchemeProvider>
     </>

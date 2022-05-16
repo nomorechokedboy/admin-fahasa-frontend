@@ -1,5 +1,16 @@
+import ReviewList from '@/containers/ReviewsList';
+import { Route, Routes } from 'react-router';
+import ErrorPage from '../Error';
+
 interface ReviewPageProps {}
 
 export default function ReviewPage() {
-  return <div>ReviewPage</div>;
+  return (
+    <Routes>
+      <Route index element={<ReviewList />} />
+      <Route path={'/'} element={<></>} />
+      <Route path={'/'} element={<></>} />
+      <Route path="*" element={<ErrorPage />} />
+    </Routes>
+  );
 }

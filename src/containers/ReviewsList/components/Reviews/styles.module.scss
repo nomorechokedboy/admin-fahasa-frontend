@@ -1,0 +1,53 @@
+@import '@scss/mixins';
+
+.boxHeader {
+  padding: 1.3rem 1.8rem 0;
+}
+
+.searchBox {
+  width: 40%;
+  @media (max-width: 756px) {
+    width: 100%;
+  }
+}
+
+.containerSelectionBox {
+  width: 40%;
+  @include flex-center-between;
+
+  @media (max-width: 756px) {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+.containerBoxHeader {
+  @include flex-center-between;
+  @media (max-width: 756px) {
+    @include flex-common($justify: center, $direction: column);
+  }
+}
+
+.selectionBox {
+  margin: 0 10px;
+  @media (max-width: 756px) {
+    margin: 0;
+    width: 48%;
+  }
+}
+
+.boxFooter {
+  @include flex-center-end;
+
+  margin: 0 1.8rem 1.3rem;
+}
+
+.boxBodyContainer {
+  padding: 1.3rem;
+}
+
+.forResponsive {
+  @media (max-width: 756px) {
+    display: none;
+  }
+}
