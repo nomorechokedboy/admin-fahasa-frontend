@@ -2,8 +2,4 @@
 
 .container {
   display: flex;
-
-  @media (max-width: 756px) {
-    visibility: hidden;
-  }
 }

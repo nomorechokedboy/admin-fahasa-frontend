@@ -8,8 +8,6 @@ export default function ReviewPage() {
   return (
     <Routes>
       <Route index element={<ReviewList />} />
-      <Route path={'/'} element={<></>} />
-      <Route path={'/'} element={<></>} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
