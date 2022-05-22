@@ -24,7 +24,7 @@ interface ReviewProps {
   date?: string;
   isLoading: boolean;
   content?: string;
-  onDelete: any;
+  onDelete: (id: string) => void;
 }
 
 export default function Review({

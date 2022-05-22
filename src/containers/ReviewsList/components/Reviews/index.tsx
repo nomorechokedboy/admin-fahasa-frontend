@@ -30,6 +30,7 @@ export default function Reviews({
     }
     typingTimeOut.current = setTimeout(() => {
       let search = event.target.value;
+      setPage(1);
       let filter = listReviews!.filter((value: IReview) => {
         if (search === '') {
           return value;
@@ -42,6 +43,7 @@ export default function Reviews({
       setReviewList(filter);
     }, 600);
   };
+
   let filter = reviewLists!
     .filter((value) =>
       selectedStars === 'all' ? -1 : value.stars === Number(selectedStars!),
@@ -54,9 +56,14 @@ export default function Reviews({
         : ascending(a.id.toLowerCase(), b.id.toLowerCase()),
     );
 
+  const handleChangeStars = (value: string) => {
+    setSelectedStars(value);
+    setPage(1);
+  };
   const updateDelete = (id: string) => {
     setReviewList(reviewLists?.filter((value) => value.id !== id));
   };
+
   return (
     <Paper shadow="xs" withBorder className={styles.mainBox}>
       <header className={styles.boxHeader}>
@@ -87,7 +94,7 @@ export default function Reviews({
               rightSectionWidth={30}
               placeholder="All"
               className={styles.selectionBox}
-              onChange={setSelectedStars}
+              onChange={handleChangeStars}
               value={selectedStars}
               data={[
                 { value: 'all', label: 'Stars: All' },
@@ -115,15 +122,17 @@ export default function Reviews({
             </tr>
           </thead>
           <tbody>
-            {filter?.map((review: IReview, index) => (
-              <tr key={index}>
-                <Review
-                  onDelete={updateDelete}
-                  {...review}
-                  isLoading={isValidating}
-                />
-              </tr>
-            ))}
+            {filter
+              ?.slice((activePage - 1) * 10, activePage * 10)
+              .map((review: IReview, index) => (
+                <tr key={index}>
+                  <Review
+                    onDelete={updateDelete}
+                    {...review}
+                    isLoading={isValidating}
+                  />
+                </tr>
+              ))}
           </tbody>
         </Table>
       </div>
