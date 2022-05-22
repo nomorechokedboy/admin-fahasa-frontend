@@ -1,4 +1,3 @@
-import Review from '@/types/review';
 import { delay } from '../employee';
 import fakeDataReview from './mockData';
 
