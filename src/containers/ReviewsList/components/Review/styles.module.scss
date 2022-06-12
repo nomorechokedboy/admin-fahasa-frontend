@@ -1,0 +1,45 @@
+@import '@scss/mixins';
+
+.container {
+  height: 60px;
+}
+
+.elementContainer {
+  padding: 7px 0;
+  display: flex;
+  justify-content: flex-start;
+  word-wrap: break-word;
+}
+
+.textName {
+  max-width: 400px;
+  word-wrap: break-word;
+}
+
+.functionContainer {
+  display: flex;
+  justify-content: flex-end;
+
+  @media (max-width: 860px) {
+    flex-flow: column nowrap;
+    align-items: flex-end;
+    justify-content: center;
+  }
+}
+
+.forResponsive {
+  @media (max-width: 756px) {
+    display: none;
+  }
+}
+
+.menu {
+  margin-left: 10px;
+  @media (max-width: 860px) {
+    margin: 5px 0;
+  }
+}
+
+.modalContainer {
+  margin: 10px 0;
+}
