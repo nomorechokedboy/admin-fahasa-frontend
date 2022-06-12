@@ -1,5 +1,6 @@
 export default interface Product {
   _id: string;
+  sku: string;
   name: string;
   author: string;
   genres: string;

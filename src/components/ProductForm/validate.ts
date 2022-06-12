@@ -2,7 +2,7 @@ import Product from '@/types/product';
 import Joi from 'joi';
 
 const productFormSchema = Joi.object<Product>({
-  _id: Joi.string().min(5).message('Invalid Sku'),
+  sku: Joi.string().min(5).message('Invalid Sku'),
   amount: Joi.number().min(1).message('Invalid amount'),
   author: Joi.string().min(3).max(20).message('Invalid author name'),
   description: Joi.string()

@@ -1,11 +1,11 @@
-import Product, { PartialProduct } from '@/types/product';
+import { PartialProduct } from '@/types/product';
 import { Container } from '@mantine/core';
 import Form from './components/Form';
 import styles from './styles.module.scss';
 
 interface ProductFormProps extends PartialProduct {
-  disabled?: true;
-  onSubmit: (data: Partial<Product>) => void;
+  disabled?: boolean;
+  onSubmit: (data: PartialProduct) => void;
   loading?: boolean;
 }
 

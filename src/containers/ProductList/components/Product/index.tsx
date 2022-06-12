@@ -45,6 +45,7 @@ export default function Product({
             success,
             deleted: { name },
           } = res;
+
           if (success) {
             dispatch(
               setNotification(`Product with name: ${name} has been deleted!`),

@@ -21,7 +21,6 @@ export default function ProductList() {
     { shouldRetryOnError: false },
   );
   const dispatch = useDispatch();
-  const hasData = data?.length;
 
   console.log('product list render');
 
@@ -51,13 +50,13 @@ export default function ProductList() {
             label="Reload the page"
             onClick={handleReload}
           />
-        ) : isValidating ? (
+        ) : !data ? (
           <Products>
             {[...Array(8).keys()].map((value: number) => (
               <Product key={value} loading />
             ))}
           </Products>
-        ) : !hasData ? (
+        ) : !data.length ? (
           <CTA
             icon={<BsIcons.BsCartX />}
             message="There is no current product, please add new product!"

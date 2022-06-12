@@ -9,7 +9,7 @@ import { useMantineColorScheme } from '@mantine/core';
 
 interface CustomRTEProps {
   className?: string;
-  readOnly?: true;
+  readOnly?: boolean;
   placeholder?: string;
   value: EditorValue;
   onChange?: (inputValue: EditorValue) => void;

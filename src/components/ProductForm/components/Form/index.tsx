@@ -1,29 +1,34 @@
+import { createGenre, getAllGenre } from '@/api';
 import CustomRTE from '@/components/CustomRTE';
 import UploadFile from '@/components/UploadFile';
 import useUploadFile from '@/hooks/useUploadFile';
 import useValidate from '@/hooks/useValidate';
-import Product, { PartialProduct } from '@/types/product';
+import { PartialProduct } from '@/types/product';
+import { validateErrorHelper } from '@/utils';
 import {
   Button,
   Image,
   MultiSelect,
   NativeSelect,
   NumberInput,
+  Select,
   Skeleton,
   TextInput,
 } from '@mantine/core';
 import { joiResolver, useForm } from '@mantine/form';
 import { UseFormInput } from '@mantine/form/lib/use-form';
+import axios from 'axios';
 import { FormEvent, memo } from 'react';
 import RichTextEditor, { EditorValue } from 'react-rte';
-import { defaultProduct, genresData, PublicYearData } from '../../data';
+import useSWR from 'swr';
+import { defaultProduct, PublicYearData } from '../../data';
 import productFormSchema from '../../validate';
 import FormSection from '../FormSection';
 import styles from './styles.module.scss';
 
 interface FormProps extends PartialProduct {
-  disabled?: true;
-  onSubmit: (data: Partial<Product>) => void;
+  disabled?: boolean;
+  onSubmit: (data: PartialProduct) => void;
   loading?: boolean;
 }
 
@@ -33,18 +38,18 @@ const Form = memo<FormProps>(
 
     const [productImage, handleChangeImage, handleCancelImage] =
       useUploadFile();
-    const useFormInput: UseFormInput<PartialProduct> =
-      JSON.stringify(productProps) !== JSON.stringify({})
-        ? {
-            initialValues: {
-              ...productProps,
-            },
-          }
-        : defaultProduct;
+    const useFormInput: UseFormInput<PartialProduct> = productProps._id
+      ? {
+          initialValues: {
+            ...productProps,
+          },
+        }
+      : defaultProduct;
     const form = useForm<PartialProduct>({
       ...useFormInput,
       schema: joiResolver(productFormSchema),
     });
+
     console.log({ errors: form.errors, values: form.values });
 
     const [productDesc, descriptionError, handleDescriptionChange, resetDesc] =
@@ -66,18 +71,39 @@ const Form = memo<FormProps>(
             },
             RichTextEditor.createEmptyValue(),
           );
-    const genresArray = productProps.genres && [productProps.genres];
-    const [genres, genresError, handleGenresChange, resetGenres] = genresArray
+
+    // const genresArray = productProps.genres && [productProps.genres];
+    const { data: genresArray } = useSWR('/genre', getAllGenre);
+
+    const [genres, genresError, handleGenresChange] = genresArray
       ? useValidate<string[]>(
           form.errors.genres,
           (values) => {
-            form.setFieldValue('genres', values.join(' '));
+            form.setFieldValue('genres', values.join(', '));
           },
-          genresArray,
+          genresArray.map((value: any) => value.name),
         )
       : useValidate<string[]>(form.errors.genres, (values) => {
-          form.setFieldValue('genres', values.join(' '));
+          form.setFieldValue('genres', values.join(', '));
         });
+
+    const handleCreateGenre = async (query: any) => {
+      createGenre(query)
+        .then((res) => {
+          const {
+            createdGenre: { name },
+          } = res;
+          console.log(`Genre name: ${name} created!`);
+        })
+        .catch((e) => {
+          if (axios.isAxiosError(e)) {
+            const { error } = e.response?.data;
+            const errorMessage =
+              typeof error === 'string' ? error : validateErrorHelper(error);
+            console.error(errorMessage);
+          }
+        });
+    };
 
     const handleSubmit = async (values: typeof form.values, _: FormEvent) => {
       onSubmit(values);
@@ -110,7 +136,7 @@ const Form = memo<FormProps>(
               placeholder="Enter sku here..."
               disabled={disabled}
               required
-              {...form.getInputProps('_id')}
+              {...form.getInputProps('sku')}
             />
           </Skeleton>
           <Skeleton visible={loading}>
@@ -205,18 +231,26 @@ const Form = memo<FormProps>(
         </FormSection>
         <FormSection label="4. Genres" loading={loading}>
           <Skeleton visible={loading}>
-            <MultiSelect
-              className={styles.input}
-              data={genresData}
-              disabled={disabled}
-              value={genres}
-              onChange={handleGenresChange}
-              placeholder="Select genres..."
-              nothingFound="Nothing found"
-              clearable
-              searchable
-              error={genresError}
-            />
+            {genresArray && (
+              <MultiSelect
+                className={styles.input}
+                data={genresArray.map((value: any) => ({
+                  value: value._id,
+                  label: value.name,
+                }))}
+                disabled={disabled}
+                value={genres}
+                onChange={handleGenresChange}
+                placeholder="Select genres..."
+                nothingFound="Nothing found"
+                clearable
+                searchable
+                creatable
+                getCreateLabel={(query) => `+ Create "${query}"`}
+                onCreate={handleCreateGenre}
+                error={genresError}
+              />
+            )}
           </Skeleton>
         </FormSection>
         <FormSection label="5. Media" loading={loading}>
@@ -226,7 +260,7 @@ const Form = memo<FormProps>(
           <Skeleton visible={loading}>
             <div className={styles.buttonWrapper}>
               <Button color="green" type="submit">
-                {productProps ? 'Update product' : 'Add product'}
+                {productProps._id ? 'Update product' : 'Add product'}
               </Button>
             </div>
           </Skeleton>

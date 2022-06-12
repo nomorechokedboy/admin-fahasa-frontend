@@ -10,7 +10,7 @@ import {
   setNotification,
   toggleDisabledProduct,
 } from '@/redux';
-import Product from '@/types/product';
+import { PartialProduct } from '@/types/product';
 import { validateErrorHelper } from '@/utils';
 import { Button, Skeleton, Title } from '@mantine/core';
 import axios from 'axios';
@@ -41,7 +41,7 @@ export default function ProductDetail() {
     mutate(`/product/${id}`);
   };
 
-  const handleSubmit = (data: Partial<Product>) => {
+  const handleSubmit = (data: PartialProduct) => {
     id &&
       updateProduct(id, data)
         .then((res) => {

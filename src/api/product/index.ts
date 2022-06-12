@@ -18,3 +18,9 @@ export const updateProduct = (id: string, updateProduct: Partial<Product>) =>
 
 export const deleteProduct = (id: string) =>
   axiosClient.delete(`/product/${id}`).then((res) => res.data);
+
+export const getAllGenre = (url: string) =>
+  axiosClient.get(url).then((res) => res.data);
+
+export const createGenre = (newGenre: string) =>
+  axiosClient.post('/genre', newGenre).then((res) => res.data);
