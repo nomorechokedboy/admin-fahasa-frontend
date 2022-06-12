@@ -5,7 +5,7 @@ import {
   Select,
   TextInput,
 } from '@mantine/core';
-import { ChangeEvent, Key, useEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, Key, useEffect, useRef, useState } from 'react';
 import Employee from '../Employee';
 import styles from './styles.module.scss';
 import IEmployee from '@/types/employee';
@@ -35,16 +35,20 @@ export default function Employees({
       arrange === 'all'
         ? 0
         : arrange === 'descending'
-        ? descending(a.name.toLowerCase(), b.name.toLocaleLowerCase())
-        : ascending(a.name.toLowerCase(), b.name.toLocaleLowerCase()),
+        ? descending(a.name.toLowerCase(), b.name.toLowerCase())
+        : ascending(a.name.toLowerCase(), b.name.toLowerCase()),
     );
-
+  const handleChangeGender = (value: string) => {
+    setGender(value);
+    setPage(1);
+  };
   const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     if (typingTimeOut.current) {
       clearTimeout(typingTimeOut.current);
     }
     typingTimeOut.current = setTimeout(() => {
       let search = event.target.value;
+      setPage(1);
       let filter = listEmployees!.filter((value: IEmployee) => {
         if (search === '') {
           return value;
@@ -86,7 +90,7 @@ export default function Employees({
             rightSectionWidth={30}
             styles={{ rightSection: { pointerEvents: 'none' } }}
             className={styles.selectionBox}
-            onChange={setGender}
+            onChange={handleChangeGender}
             value={gender}
             data={[
               { value: 'all', label: 'All' },
