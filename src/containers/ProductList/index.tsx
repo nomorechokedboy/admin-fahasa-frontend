@@ -16,57 +16,70 @@ import styles from './styles.module.scss';
 
 export default function ProductList() {
   const { data, error, isValidating, mutate } = useSWR(
-    '/product',
+    `/product`,
     getAllProduct,
-    {
-      shouldRetryOnError: false,
-    },
+    { shouldRetryOnError: false },
   );
   const dispatch = useDispatch();
   const hasData = data?.length;
 
-  console.log('product render');
+  console.log('product list render');
+
+  const handleReload = () => {
+    mutate('/product');
+  };
+
+  const handleDeleteCache = async (id: string) => {
+    const updatedProducts: Array<IProduct> = data.filter(
+      (product: IProduct) => product._id !== id,
+    );
+
+    await mutate(updatedProducts, false);
+  };
 
   useEffect(() => {
     dispatch(setError(error?.message));
   }, [dispatch, error]);
 
-  const handleReloadClick = () => {
-    mutate('/product');
-  };
-  console.log(data);
   return (
-    <ListPageLayout rootDir={TO_PRODUCTS} title="Products List">
-      {error ? (
-        <CTA
-          icon={<FiIcons.FiMeh />}
-          message={error.message}
-          label="Reload the page"
-          onClick={handleReloadClick}
-        />
-      ) : isValidating ? (
-        <Products>
-          {[...Array(8).keys()].map((value: number) => (
-            <Product key={value} loading />
-          ))}
-        </Products>
-      ) : !hasData ? (
-        <CTA
-          icon={<BsIcons.BsCartX />}
-          message="There is no current product, please add new product!"
-        />
-      ) : (
-        <>
+    <>
+      <ListPageLayout rootDir={TO_PRODUCTS} title="Products List">
+        {error ? (
+          <CTA
+            icon={<FiIcons.FiMeh />}
+            message={error.message}
+            label="Reload the page"
+            onClick={handleReload}
+          />
+        ) : isValidating ? (
           <Products>
-            {data.map((product: IProduct, index: Key) => (
-              <Product key={index} loading={isValidating} {...product} />
+            {[...Array(8).keys()].map((value: number) => (
+              <Product key={value} loading />
             ))}
           </Products>
-          <div className={styles.pagination}>
-            <Pagination total={5} />
-          </div>
-        </>
-      )}
-    </ListPageLayout>
+        ) : !hasData ? (
+          <CTA
+            icon={<BsIcons.BsCartX />}
+            message="There is no current product, please add new product!"
+          />
+        ) : (
+          <>
+            <Products>
+              {data.map((product: IProduct, index: Key) => (
+                <Product
+                  key={index}
+                  handleDeleteCache={handleDeleteCache}
+                  loading={isValidating}
+                  {...product}
+                />
+              ))}
+            </Products>
+            <div className={styles.pagination}>
+              <Pagination total={5} />
+            </div>
+          </>
+        )}
+      </ListPageLayout>
+    </>
   );
 }

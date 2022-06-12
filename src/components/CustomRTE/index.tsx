@@ -8,8 +8,9 @@ import { DEV } from '@/configs/env';
 import { useMantineColorScheme } from '@mantine/core';
 
 interface CustomRTEProps {
-  placeholder?: string;
   className?: string;
+  readOnly?: true;
+  placeholder?: string;
   value: EditorValue;
   onChange?: (inputValue: EditorValue) => void;
   error?: string;

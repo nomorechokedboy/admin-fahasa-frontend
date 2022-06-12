@@ -12,9 +12,7 @@ import styles from './styles.module.scss';
 const AddForm = memo(() => {
   const dispatch = useDispatch();
   const handleSubmit = (data: Partial<Product>) => {
-    console.log({ data });
-
-    createProduct('/product', data)
+    createProduct(data)
       .then((res) => {
         const {
           createdProduct: { name },

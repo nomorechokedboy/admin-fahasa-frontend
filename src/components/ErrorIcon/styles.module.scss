@@ -1,0 +1,12 @@
+@import '@scss/mixins';
+
+.image {
+  --size: 200px;
+
+  width: var(--size);
+  height: fit-content;
+
+  @include desktop {
+    --size: 400px;
+  }
+}

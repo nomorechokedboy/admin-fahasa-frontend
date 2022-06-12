@@ -1,0 +1,18 @@
+@import '@scss/mixins';
+
+.heading {
+  @include flex-center-between;
+
+  margin: 0 auto 30px;
+  column-gap: 20px;
+}
+
+.editBtnSkeleton {
+  width: fit-content;
+}
+
+.container {
+  @include desktop {
+    padding: 0 25%;
+  }
+}
