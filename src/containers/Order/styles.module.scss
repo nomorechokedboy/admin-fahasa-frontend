@@ -1,0 +1,30 @@
+@import '@scss/mixins';
+
+.adminOrderContainer {
+  @include flex-common(space-evenly, center);
+  @include flex-col;
+}
+
+.card {
+  @include flex-col;
+
+  position: relative;
+  box-shadow: 0 0.1rem 0.25rem rgb(0 0 0 / 8%);
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 0 solid rgba(222, 226, 230, 70%);
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem !important;
+}
+
+.cardBody {
+  flex: 1 1 auto;
+  padding: 1.3rem;
+}
+
+.cardHeader:first-child {
+  padding: 1.3rem;
+  border-bottom: 1px solid rgba(222, 226, 230, 70%);
+  border-radius: 0.25rem 0.25rem 0 0;
+}

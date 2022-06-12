@@ -3,10 +3,12 @@ import { Table } from '@mantine/core';
 import { Key } from 'react';
 import Order from '@/types/order';
 import styles from './styles.module.scss';
+import { TO_ORDERS } from '@/configs';
 
 type OrderTableProps = {
   header?: string[];
   data: Order[];
+  rootDir?: string;
 };
 
 export default function OrderTable({ data, header }: OrderTableProps) {
@@ -22,7 +24,7 @@ export default function OrderTable({ data, header }: OrderTableProps) {
         </thead>
         <tbody>
           {data.map((o: Order, i: Key) => (
-            <OrderRow key={i} {...o} />
+            <OrderRow rootDir={TO_ORDERS} key={i} {...o} />
           ))}
         </tbody>
       </Table>

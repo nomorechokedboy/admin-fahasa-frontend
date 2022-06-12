@@ -1,5 +1,4 @@
 import Employee from '@/types/employee';
-import { data } from 'cypress/types/jquery';
 import fakeData from './mockData';
 
 export const delay = (ms: number) =>

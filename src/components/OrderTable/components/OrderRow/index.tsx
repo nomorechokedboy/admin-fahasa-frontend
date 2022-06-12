@@ -1,7 +1,9 @@
-import { Button, Menu, Text } from '@mantine/core';
 import clx from 'classnames';
-import styles from './styles.module.scss';
+import { Button, Menu, Text } from '@mantine/core';
+import { Link } from 'react-router-dom';
 
+import styles from './styles.module.scss';
+import { DETAIL } from '@/configs';
 type OrderRowProps = {
   id: string;
   name: string;
@@ -9,6 +11,7 @@ type OrderRowProps = {
   totalPayment: number;
   orderStatus: string;
   date: string;
+  rootDir?: string;
 };
 
 export default function OrderRow({
@@ -18,6 +21,7 @@ export default function OrderRow({
   totalPayment,
   orderStatus,
   date,
+  rootDir,
 }: OrderRowProps) {
   return (
     <tr>
@@ -40,7 +44,9 @@ export default function OrderRow({
       </td>
       <td>{date}</td>
       <td className={styles.buttonContainer}>
-        <Button>Detail</Button>
+        <Link to={`${rootDir}/${DETAIL}`}>
+          <Button>Detail</Button>
+        </Link>
         <Menu control={<Button>...</Button>}>
           <Menu.Item>View detail</Menu.Item>
           <Menu.Item>Edit info</Menu.Item>

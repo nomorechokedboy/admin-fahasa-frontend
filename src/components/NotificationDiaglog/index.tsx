@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.scss';
+import { TiTick } from 'react-icons/ti';
 
 export default function NotificationDialog() {
   const { message, isError } = useSelector(getNotificationState);
@@ -37,7 +38,7 @@ export default function NotificationDialog() {
           onMouseEnter={cancelDelay}
           onMouseLeave={handleAutoClose}
           onClose={handleClose}
-          icon={<AiOutlineClose />}
+          icon={isError ? <AiOutlineClose /> : <TiTick />}
           title={isError ? 'Server error' : 'Notification!'}
           color={isError ? 'red' : 'green'}
           children={message}
