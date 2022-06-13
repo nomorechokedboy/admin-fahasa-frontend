@@ -78,16 +78,17 @@ export default function Form() {
       ]);
       console.log(user);
       if (user.uid !== null) {
+        console.log('type', types);
         createEmployee('/user', {
           fullName: `${firstName}  ${lastName}`,
           salary,
           uid: user.uid,
           email,
           gender: 'male',
-          phoneNumber: '123455589',
+          phoneNumber: '15321346821',
           types,
           birthdate,
-        });
+        }).catch((error) => console.log(error));
       } else {
         console.log('sai me m roi');
       }
