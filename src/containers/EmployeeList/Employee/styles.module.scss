@@ -127,6 +127,12 @@
   color: #adb5bd;
   font-size: 1rem;
   margin: 0;
+  width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-transform: capitalize;
 }
 
 .ButtonEditContainer {

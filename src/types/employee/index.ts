@@ -1,10 +1,13 @@
 export default interface Employee {
-  readonly id: string;
-  name: string;
+  readonly _id: string;
+  readonly uid: string;
+  fullName: string;
   image: string;
-  role: string;
+  types: string;
+  address: string;
+  phoneNumber: string;
   gender: string;
-  birthday: string;
+  birthdate: Date;
   email: string;
   salary: number;
 }

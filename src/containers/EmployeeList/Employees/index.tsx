@@ -35,8 +35,8 @@ export default function Employees({
       arrange === 'all'
         ? 0
         : arrange === 'descending'
-        ? descending(a.name.toLowerCase(), b.name.toLowerCase())
-        : ascending(a.name.toLowerCase(), b.name.toLowerCase()),
+        ? descending(a.fullName.toLowerCase(), b.fullName.toLowerCase())
+        : ascending(a.fullName.toLowerCase(), b.fullName.toLowerCase()),
     );
   const handleChangeGender = (value: string) => {
     setGender(value);
@@ -53,7 +53,9 @@ export default function Employees({
         if (search === '') {
           return value;
         } else {
-          return value.name.toLowerCase().includes(search.toLowerCase().trim());
+          return value.fullName
+            .toLowerCase()
+            .includes(search.toLowerCase().trim());
         }
       });
       setEmployeeList(filter);

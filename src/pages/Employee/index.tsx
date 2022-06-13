@@ -24,7 +24,7 @@ export default function EmployeePage() {
         path={CREATE}
         element={
           <ProtectedRoute
-            isAllowed={!!user && user.role === 'admin'}
+            isAllowed={!!user && user.role === 'employee'}
             redirectLink={TO_EMPLOYEES}
           >
             <AddEmployee />

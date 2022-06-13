@@ -5,9 +5,10 @@ import { TO_EMPLOYEES } from '@/configs';
 import { Button, Image, Group, Text, Skeleton, Paper } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import * as FiIcons from 'react-icons/fi';
-import { AiOutlineFieldNumber } from 'react-icons/ai';
+import { AiOutlineFieldNumber, AiFillHome } from 'react-icons/ai';
 import { FaBirthdayCake, FaMoneyBillWaveAlt, FaUserAlt } from 'react-icons/fa';
-import { MdEmail, MdWork } from 'react-icons/md';
+import { MdEmail } from 'react-icons/md';
+import { BsFillTelephoneFill } from 'react-icons/bs';
 import { useParams, useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
 import DetailHeader from './components/Header';
@@ -18,14 +19,15 @@ import { setError } from '@/redux';
 export default function DetailEmployee() {
   const [isModalOpen, modalOpenToggle] = useToggle(false, [true, false]);
   let { id } = useParams();
+  console.log(id);
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { data, error } = useSWR(['/employee', id!], getEmployee, {
+  const { data, error } = useSWR(['/user', id!], getEmployee, {
     shouldRetryOnError: false,
   });
   const [loading, setLoading] = useState(true);
-
+  console.log(data);
   useEffect(() => {
     if (!error && !data) {
       setLoading(true);
@@ -38,7 +40,7 @@ export default function DetailEmployee() {
     modalOpenToggle();
   };
   const handleOkClick = () => {
-    deleteEmployee(id!)
+    deleteEmployee('/user', id!)
       .then((data) => {
         console.log(data);
         navigate('../', { replace: true });
@@ -86,7 +88,7 @@ export default function DetailEmployee() {
                   </Skeleton>
                   <Skeleton width={230} visible={loading}>
                     <Text weight={700} size="lg">
-                      {data?.name}
+                      {data?.fullName}
                     </Text>
                   </Skeleton>
                 </div>
@@ -106,21 +108,21 @@ export default function DetailEmployee() {
                   <Group className={styles.line}>
                     <AiOutlineFieldNumber size={30} />
                     <Skeleton width={230} visible={loading}>
-                      <Text className={styles.text}>{data?.id}</Text>
+                      <Text className={styles.text}>{data?.uid}</Text>
                     </Skeleton>
                   </Group>
 
                   <Group className={styles.line}>
                     <FaUserAlt size={30} />
                     <Skeleton width={230} visible={loading}>
-                      <Text className={styles.text}>{data?.name}</Text>
+                      <Text className={styles.text}>{data?.fullName}</Text>
                     </Skeleton>
                   </Group>
 
                   <Group className={styles.line}>
                     <FaBirthdayCake size={30} />
                     <Skeleton width={230} visible={loading}>
-                      <Text className={styles.text}>{data?.birthday}</Text>
+                      <Text className={styles.text}>{data?.birthdate}</Text>
                     </Skeleton>
                   </Group>
                   <Group className={styles.line}>
@@ -131,11 +133,19 @@ export default function DetailEmployee() {
                   </Group>
 
                   <Group className={styles.line}>
-                    <MdWork size={30} />
+                    <AiFillHome size={30} />
                     <Skeleton width={230} visible={loading}>
-                      <Text className={styles.text}>{data?.role}</Text>
+                      <Text className={styles.text}>{data?.uid}</Text>
                     </Skeleton>
                   </Group>
+
+                  <Group className={styles.line}>
+                    <BsFillTelephoneFill size={30} />
+                    <Skeleton width={230} visible={loading}>
+                      <Text className={styles.text}>{data?.phoneNumber}</Text>
+                    </Skeleton>
+                  </Group>
+
                   <Group className={styles.line}>
                     <FaMoneyBillWaveAlt size={30} />
                     <Skeleton width={230} visible={loading}>

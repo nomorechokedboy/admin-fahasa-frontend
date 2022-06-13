@@ -1,3 +1,4 @@
+import axiosClient from '@/lib/axiosClient';
 import Employee from '@/types/employee';
 import fakeData from './mockData';
 
@@ -5,22 +6,15 @@ export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function getAllEmployee(url: string) {
-  await delay(3000);
-  const res = {
-    status: 200,
-    error: '',
-    data: fakeData,
-  };
+  const res = await axiosClient.get(url);
   return res.data;
 }
 
+export const createEmployee = (url: string, newEmployee: Partial<any>) =>
+  axiosClient.post(url, newEmployee).then((res) => res.data);
+
 export const getEmployee = async (url: string, id: string) => {
-  await delay(3000);
-  const res = {
-    status: 200,
-    error: '',
-    data: fakeData.find((data) => data.id === id),
-  };
+  const res = await axiosClient.get(url + '/' + id);
   return res.data;
 };
 
@@ -30,21 +24,16 @@ export const updateEmployee = async (employee: Employee) => {
     status: 200,
     error: '',
     data: fakeData.map((emp) =>
-      emp.id === employee.id ? { ...emp, ...employee } : emp,
+      emp._id === employee._id ? { ...emp, ...employee } : emp,
     ),
   };
 
   return res.data;
 };
 
-export const deleteEmployee = async (id: string) => {
-  const res = {
-    status: 200,
-    error: 'loi roi',
-    data: fakeData.filter((data) => data.id !== id),
-  };
-  if (res.status === 500) {
-    throw new Error(res.error);
-  }
-  return res.data;
+export const deleteEmployee = async (url: string, id: string) => {
+  const res = await axiosClient
+    .delete(url + '/' + id)
+    .catch((e) => console.log(e));
+  return res;
 };
