@@ -8,14 +8,15 @@ interface CTAProps {
   onClick?(): void;
   label?: string;
   title?: string;
+  leftIcon?: ReactNode;
 }
 
 export default function CTA({
   icon,
   message,
   label,
-  onClick,
   title,
+  ...buttonProps
 }: CTAProps) {
   return (
     <div className={styles.container}>
@@ -24,7 +25,7 @@ export default function CTA({
       <Text size="lg" align="center">
         {message}
       </Text>
-      {label && <Button onClick={onClick}>{label}</Button>}
+      {label && <Button {...buttonProps}>{label}</Button>}
     </div>
   );
 }

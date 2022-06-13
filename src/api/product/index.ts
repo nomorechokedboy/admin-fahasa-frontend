@@ -7,5 +7,20 @@ export async function getAllProduct(url: string) {
   return res.data;
 }
 
-export const createProduct = (url: string, newProduct: Partial<Product>) =>
-  axiosClient.post(url, newProduct).then((res) => res.data);
+export const getProduct = (url: string) =>
+  axiosClient.get(url).then((res) => res.data);
+
+export const createProduct = (newProduct: Partial<Product>) =>
+  axiosClient.post('/product', newProduct).then((res) => res.data);
+
+export const updateProduct = (id: string, updateProduct: Partial<Product>) =>
+  axiosClient.put(`/product/${id}`, updateProduct).then((res) => res.data);
+
+export const deleteProduct = (id: string) =>
+  axiosClient.delete(`/product/${id}`).then((res) => res.data);
+
+export const getAllGenre = (url: string) =>
+  axiosClient.get(url).then((res) => res.data);
+
+export const createGenre = (payload: { name: string; description: string }) =>
+  axiosClient.post('/genre', payload).then((res) => res.data);

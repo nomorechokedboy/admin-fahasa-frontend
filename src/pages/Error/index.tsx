@@ -1,25 +1,21 @@
 import CTA from '@/components/CTA';
-import { DASHBOARD } from '@/configs';
+import ErrorIcon from '@/components/ErrorIcon';
 import { memo } from 'react';
 import { useNavigate } from 'react-router';
 
 const ErrorPage = memo(() => {
   const redirect = useNavigate();
   const handleBackToMain = () => {
-    redirect(DASHBOARD);
+    redirect(-1);
   };
   return (
-    <div>
-      <CTA
-        message="You've found a secret page on our service. Unfortunately, this is a 404 error page"
-        icon={
-          <img src="http://www.cyrilfougeray.com/img/posts/panic_rust/panics.svg" />
-        }
-        label="Back to main"
-        title="Error 404 - Not Found!"
-        onClick={handleBackToMain}
-      />
-    </div>
+    <CTA
+      message="You've found a secret page on our service. Unfortunately, this is a 404 error page"
+      icon={<ErrorIcon />}
+      label="Back to previous page"
+      title="Error 404 - Not Found!"
+      onClick={handleBackToMain}
+    />
   );
 });
 
