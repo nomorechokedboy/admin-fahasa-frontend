@@ -12,12 +12,13 @@ import { useDispatch } from 'react-redux';
 
 export default function EmployeeList() {
   const { data, error, isValidating, mutate } = useSWR(
-    '/employee',
+    '/user',
     getAllEmployee,
     {
       shouldRetryOnError: false,
     },
   );
+
   const handleReloadClick = () => {
     mutate();
   };
@@ -43,7 +44,10 @@ export default function EmployeeList() {
           message="There is no current employees, please add new Employee!"
         />
       ) : (
-        <Employees listEmployees={data} isValidating={isValidating} />
+        <Employees
+          listEmployees={data.filter((value: any) => value.deleted !== true)}
+          isValidating={isValidating}
+        />
       )}
     </ListPageLayout>
   );

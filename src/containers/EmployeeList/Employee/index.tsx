@@ -5,8 +5,9 @@ import styles from './styles.module.scss';
 
 interface EmployeeProps {
   loading: boolean;
-  id?: String;
-  name?: String;
+  _id?: String;
+  uid?: String;
+  fullName?: String;
   role?: String;
   image?: string;
   salary?: number;
@@ -14,8 +15,9 @@ interface EmployeeProps {
 
 export default function Employee({
   loading,
-  id,
-  name,
+  _id,
+  uid,
+  fullName,
   role,
   image,
 }: EmployeeProps) {
@@ -32,15 +34,15 @@ export default function Employee({
         </div>
         <div className={styles.userNameContainer}>
           <Skeleton visible={loading} className={styles.userNameSkeleton}>
-            <h4 className={styles.userName}>{name}</h4>
+            <h4 className={styles.userName}>{fullName}</h4>
           </Skeleton>
           <Skeleton visible={loading} className={styles.informationContainer}>
-            <p className={styles.information}>id: {id}</p>
+            <p className={styles.information}>id: {uid}</p>
             <p className={styles.information}>{role}</p>
           </Skeleton>
         </div>
         <div className={styles.ButtonEditContainer}>
-          <Link to={`${TO_EMPLOYEES}/${DETAIL}/${id}`}>
+          <Link to={`${TO_EMPLOYEES}/${DETAIL}/${uid}`}>
             <Button
               loading={loading}
               className={styles.buttonEdit}
