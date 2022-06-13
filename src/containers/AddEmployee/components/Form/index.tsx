@@ -89,8 +89,6 @@ export default function Form() {
           types,
           birthdate,
         }).catch((error) => console.log(error));
-      } else {
-        console.log('sai me m roi');
       }
 
       dispatch(
