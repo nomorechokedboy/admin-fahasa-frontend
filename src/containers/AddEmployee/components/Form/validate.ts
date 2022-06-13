@@ -4,7 +4,7 @@ export default interface RegisterData {
   email: string;
   password: string;
   confirmPassword: string;
-  role: string;
+  types: string;
   firstName: string;
   lastName: string;
   birthdate: Date;
@@ -26,7 +26,7 @@ export const registerSchema = Joi.object<RegisterData>({
   password: Joi.string()
     .min(8)
     .message('Password should contains at least 8 characters'),
-  role: Joi.string(),
+  types: Joi.string(),
   salary: Joi.number()
     .min(30000)
     .message('Salary must be greater than 30.000đ'),

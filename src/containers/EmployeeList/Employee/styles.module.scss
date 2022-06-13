@@ -1,0 +1,148 @@
+@import '@scss/mixins';
+
+.container {
+  padding: 30px 3%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.userName {
+  padding: 0;
+  margin: 0;
+}
+
+.contentHeader {
+  @include flex-center-between;
+
+  margin-bottom: 30px;
+}
+
+.mainBox {
+  @include flex-col;
+
+  word-wrap: break-word;
+  border-radius: 0.25rem;
+}
+
+.contentTitle {
+  margin: 0;
+}
+
+.boxHeader {
+  padding: 1.3rem;
+  margin-bottom: 0;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(222, 226, 230, 70%);
+}
+
+.containerBoxHeader {
+  @include flex-common($wrap: wrap);
+
+  margin-top: 0;
+  margin-right: calc(1.5rem / -2);
+  margin-left: calc(1.5rem / -2);
+}
+
+.searchBox {
+  flex: 0 0 auto;
+  width: 50%;
+  @media (max-width: 770px) {
+    width: 100%;
+  }
+}
+
+.selectionBox {
+  padding-right: calc(1.5rem / 2);
+  padding-left: calc(1.5rem / 2);
+  margin-top: 0;
+  flex: 0 0 auto;
+  width: 25%;
+  @media (max-width: 770px) {
+    width: 50%;
+  }
+}
+
+.boxBody {
+  @include flex-row;
+}
+
+.boxBodyContainer {
+  padding: 1.3rem;
+}
+
+.userBoxContainer {
+  width: 50%;
+  padding: 0.5rem;
+  @include desktop {
+    width: 25%;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+}
+
+.card {
+  padding: 0;
+}
+
+.imgContainer {
+  height: 156px;
+  @include flex-col-center;
+
+  border-radius: 0.25rem 0.25rem 0 0;
+  background: linear-gradient(180deg, #6fdfdf 70%, transparent 30%);
+}
+
+.avataImg {
+  border-radius: 100%;
+  border: #fff 3px solid;
+  width: 112px;
+  height: 112px;
+}
+
+.skeletonImg {
+  margin-bottom: 0;
+  height: 112px;
+  width: 112px;
+  border-radius: 150%;
+}
+
+.userNameSkeleton {
+  height: 3rem;
+}
+
+.userNameContainer {
+  @include flex-col-center;
+
+  text-align: center;
+  background-color: transparent;
+}
+
+.informationContainer {
+  width: 70%;
+  text-align: center;
+}
+
+.information {
+  color: #adb5bd;
+  font-size: 1rem;
+  margin: 0;
+  width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-transform: capitalize;
+}
+
+.ButtonEditContainer {
+  text-align: center;
+  padding: 20px;
+  background-color: transparent;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.buttonEdit {
+  width: 70%;
+}

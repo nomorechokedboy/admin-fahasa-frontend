@@ -1,13 +1,13 @@
 import CTA from '@/components/CTA';
-import NotificationDialog from '@/components/NotificationDiaglog';
 import { TO_PRODUCTS } from '@/configs';
 import ListPageLayout from '@/layout/SubPageLayout';
-import IProduct from '@/types/product';
+import { setError } from '@/redux';
+import IProduct, { ProductResponse } from '@/types/product';
 import { Pagination } from '@mantine/core';
-import { Key, useState } from 'react';
-import * as AiIcons from 'react-icons/ai';
+import { Key, useEffect } from 'react';
 import * as BsIcons from 'react-icons/bs';
 import * as FiIcons from 'react-icons/fi';
+import { useDispatch } from 'react-redux';
 import useSWR from 'swr/immutable';
 import { getAllProduct } from '../../api';
 import Product from './components/Product';
@@ -16,65 +16,77 @@ import styles from './styles.module.scss';
 
 export default function ProductList() {
   const { data, error, isValidating, mutate } = useSWR(
-    '/product',
+    `/product`,
     getAllProduct,
+    { shouldRetryOnError: false },
   );
-  const [notiOpened, setNotiOpended] = useState<boolean>(!!error);
-  const hasData = data && data.length;
 
-  const handleCloseNotification = () => {
-    setNotiOpended(false);
-  };
+  const dispatch = useDispatch();
 
-  const handleReloadClick = () => {
+  console.log('product list render');
+
+  const handleReload = () => {
     mutate('/product');
   };
 
+  const handleDeleteCache = async (id: string) => {
+    const updatedProducts: Array<IProduct> = data.filter(
+      (product: IProduct) => product._id !== id,
+    );
+
+    await mutate(updatedProducts, false);
+  };
+
+  useEffect(() => {
+    dispatch(setError(error?.message));
+  }, [dispatch, error]);
+
   return (
-    <ListPageLayout rootDir={TO_PRODUCTS} title="Products List">
-      {error ? (
-        <>
+    <>
+      <ListPageLayout rootDir={TO_PRODUCTS} title="Products List">
+        {error ? (
           <CTA
             icon={<FiIcons.FiMeh />}
             message={error.message}
             label="Reload the page"
-            onClick={handleReloadClick}
+            onClick={handleReload}
           />
-          {notiOpened && (
-            <div className={styles.dialogContainer}>
-              <NotificationDialog
-                onClose={handleCloseNotification}
-                icon={<AiIcons.AiOutlineClose />}
-                title="Fetching error"
-                message={error.message}
-                color="red"
-              />
-            </div>
-          )}
-        </>
-      ) : isValidating ? (
-        <Products>
-          {[...Array(8).keys()].map((value: number) => (
-            <Product key={value} loading />
-          ))}
-        </Products>
-      ) : !hasData ? (
-        <CTA
-          icon={<BsIcons.BsCartX />}
-          message="There is no current product, please add new product!"
-        />
-      ) : (
-        <>
+        ) : !data ? (
           <Products>
-            {data.map((product: IProduct, index: Key) => (
-              <Product key={index} loading={isValidating} {...product} />
+            {[...Array(8).keys()].map((value: number) => (
+              <Product key={value} loading />
             ))}
           </Products>
-          <div className={styles.pagination}>
-            <Pagination total={5} />
-          </div>
-        </>
-      )}
-    </ListPageLayout>
+        ) : !data.length ? (
+          <CTA
+            icon={<BsIcons.BsCartX />}
+            message="There is no current product, please add new product!"
+          />
+        ) : (
+          <>
+            <Products>
+              {data.map(
+                (product: ProductResponse, index: Key) =>
+                  !product.deleted && (
+                    <Product
+                      key={index}
+                      handleDeleteCache={handleDeleteCache}
+                      loading={isValidating}
+                      image={product.image}
+                      name={product.name}
+                      price={product.price[0].amount}
+                      _id={product._id}
+                      slug={product.slug}
+                    />
+                  ),
+              )}
+            </Products>
+            <div className={styles.pagination}>
+              <Pagination total={5} />
+            </div>
+          </>
+        )}
+      </ListPageLayout>
+    </>
   );
 }

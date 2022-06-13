@@ -7,6 +7,8 @@ export interface Action<T> extends ReduxAction<string> {
 }
 
 export interface StateTree {
+  disabled: boolean;
   login: LoginState;
   notification: NotificationState;
+  sidebar: boolean;
 }

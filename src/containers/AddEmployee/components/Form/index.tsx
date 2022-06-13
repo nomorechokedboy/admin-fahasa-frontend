@@ -18,16 +18,30 @@ import RegisterData, { registerSchema } from './validate';
 import { DatePicker } from '@mantine/dates';
 import {
   ErrorCodeToMessage,
+  validateErrorHelper,
   VietNameseFormatter,
   VietNameseParser,
 } from '@/utils';
 import ToDate from '@/utils/date';
 import { useDispatch } from 'react-redux';
 import { setError, setNotification } from '@/redux';
+import useSWR from 'swr';
+import { getAllUserType } from '@/api/userType';
+import { createEmployee } from '@/api';
+import axios from 'axios';
 
 interface FormProps {}
 
 export default function Form() {
+  const { data, error } = useSWR('/usertype', getAllUserType);
+
+  var listRights =
+    data &&
+    data.map((dataArray: any) => ({
+      label: dataArray.name,
+      value: dataArray._id,
+    }));
+
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const form = useForm<RegisterData>({
@@ -38,7 +52,7 @@ export default function Form() {
       password: '',
       firstName: '',
       lastName: '',
-      role: 'employee',
+      types: listRights && listRights[0].value,
       salary: 0,
     },
     schema: joiResolver(registerSchema),
@@ -46,25 +60,36 @@ export default function Form() {
 
   const handleSubmit = async (values: typeof form.values) => {
     setLoading(true);
-    const { email, password, firstName, lastName, role, birthdate, salary } =
+    const { email, password, firstName, lastName, types, birthdate, salary } =
       values;
-    console.log(form.values);
-
     try {
       const { user } = await registerNewEmployee(email, password);
       await Promise.all([
         findUserById(user.uid).set({
           birthdate: ToDate(birthdate),
           email,
-          role,
-          firstName,
-          lastName,
+          types,
+          fullName: `${firstName} ${lastName}`,
           salary,
           photoURL: user.photoURL,
           phoneNumber: user.phoneNumber,
         }),
         sendEmailVerification(user),
       ]);
+      console.log(user);
+      if (user.uid !== null) {
+        console.log('type', types);
+        createEmployee('/user', {
+          fullName: `${firstName}  ${lastName}`,
+          salary,
+          uid: user.uid,
+          email,
+          gender: 'male',
+          phoneNumber: '15321346821',
+          types,
+          birthdate,
+        }).catch((error) => console.log(error));
+      }
 
       dispatch(
         setNotification(
@@ -135,7 +160,15 @@ export default function Form() {
           required
           {...form.getInputProps('confirmPassword')}
         />
-        <SegmentedControl data={roleData} {...form.getInputProps('role')} />
+        {data && (
+          <SegmentedControl
+            data={listRights}
+            styles={{
+              label: { textTransform: 'capitalize' },
+            }}
+            {...form.getInputProps('types')}
+          />
+        )}
         <Button color="green" type="submit">
           Create
         </Button>
