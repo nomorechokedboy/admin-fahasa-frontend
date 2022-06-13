@@ -3,7 +3,7 @@ export default interface Product {
   sku: string;
   name: string;
   author: string;
-  genres: string;
+  genres: string[];
   description: string;
   price: number;
   productSupplier: string;
@@ -14,3 +14,22 @@ export default interface Product {
 }
 
 export type PartialProduct = Partial<Product>;
+
+export interface ProductResponse {
+  _id: string;
+  sku: string;
+  description: string;
+  name: string;
+  image: string;
+  amount: number;
+  pubicYear: number;
+  productSupplier: {
+    name: string;
+  };
+  publishingCompany: {
+    name: string;
+  };
+  slug: string;
+  price: { priceInText: string; amount: number }[];
+  deleted: boolean;
+}

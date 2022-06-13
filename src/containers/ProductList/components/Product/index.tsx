@@ -18,6 +18,7 @@ type ProductProps = {
   price?: number;
   image?: string;
   _id?: string;
+  slug?: string;
   handleDeleteCache?: (id: string) => void;
 };
 
@@ -27,6 +28,7 @@ export default function Product({
   image,
   loading,
   _id,
+  slug,
   handleDeleteCache,
 }: ProductProps) {
   const dispatch = useDispatch();
@@ -65,7 +67,7 @@ export default function Product({
   };
 
   const handleToDetail = () => {
-    redirect(`${TO_PRODUCTS}/${DETAIL}/${_id}`);
+    redirect(`${TO_PRODUCTS}/${DETAIL}/${slug}`);
   };
 
   return (

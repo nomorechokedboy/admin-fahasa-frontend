@@ -4,11 +4,11 @@ import Joi from 'joi';
 const productFormSchema = Joi.object<Product>({
   sku: Joi.string().min(5).message('Invalid Sku'),
   amount: Joi.number().min(1).message('Invalid amount'),
-  author: Joi.string().min(3).max(20).message('Invalid author name'),
+  author: Joi.string().min(3).max(50).message('Invalid author name'),
   description: Joi.string()
     .min(10)
     .message('Description must greater than 10 character'),
-  genres: Joi.string().min(3).max(50).message('Invalid genres'),
+  genres: Joi.array().min(1).message('Invalid genres'),
   name: Joi.string()
     .min(3)
     .message('Product name must greater than 3 characters'),

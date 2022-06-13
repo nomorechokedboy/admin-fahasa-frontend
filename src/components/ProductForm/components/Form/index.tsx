@@ -1,8 +1,15 @@
-import { createGenre, getAllGenre } from '@/api';
+import {
+  createGenre,
+  getAllAuthor,
+  getAllGenre,
+  getAllPublisher,
+  getAllSupplier,
+} from '@/api';
 import CustomRTE from '@/components/CustomRTE';
 import UploadFile from '@/components/UploadFile';
 import useUploadFile from '@/hooks/useUploadFile';
 import useValidate from '@/hooks/useValidate';
+import { setNotification } from '@/redux';
 import { PartialProduct } from '@/types/product';
 import { validateErrorHelper } from '@/utils';
 import {
@@ -19,6 +26,7 @@ import { joiResolver, useForm } from '@mantine/form';
 import { UseFormInput } from '@mantine/form/lib/use-form';
 import axios from 'axios';
 import { FormEvent, memo } from 'react';
+import { useDispatch } from 'react-redux';
 import RichTextEditor, { EditorValue } from 'react-rte';
 import useSWR from 'swr';
 import { defaultProduct, PublicYearData } from '../../data';
@@ -34,23 +42,33 @@ interface FormProps extends PartialProduct {
 
 const Form = memo<FormProps>(
   ({ disabled, onSubmit, loading, ...productProps }) => {
-    console.log('Form render');
+    const dispatch = useDispatch();
 
     const [productImage, handleChangeImage, handleCancelImage] =
       useUploadFile();
-    const useFormInput: UseFormInput<PartialProduct> = productProps._id
+    const useFormInput: UseFormInput<PartialProduct> = !!productProps
       ? {
           initialValues: {
-            ...productProps,
+            amount: productProps.amount,
+            author: productProps.author,
+            description: productProps.description,
+            genres: productProps.genres,
+            image: productProps.image,
+            name: productProps.name,
+            price: productProps.price,
+            productSupplier: productProps.productSupplier,
+            publicYear: productProps.publicYear,
+            publishingCompany: productProps.publishingCompany,
+            sku: productProps.sku,
           },
         }
       : defaultProduct;
+
     const form = useForm<PartialProduct>({
       ...useFormInput,
       schema: joiResolver(productFormSchema),
     });
-
-    console.log({ errors: form.errors, values: form.values });
+    console.log({ values: form.values, errors: form.errors });
 
     const [productDesc, descriptionError, handleDescriptionChange, resetDesc] =
       productProps.description
@@ -73,27 +91,103 @@ const Form = memo<FormProps>(
           );
 
     // const genresArray = productProps.genres && [productProps.genres];
-    const { data: genresArray } = useSWR('/genre', getAllGenre);
+    const { data: genresArray, mutate } = useSWR('/genre', getAllGenre);
+    const { data: authorsData } = useSWR('/author', getAllAuthor);
+    const { data: suppliersData } = useSWR('/supplier', getAllSupplier);
+    const { data: publishersData } = useSWR('/publisher', getAllPublisher);
 
-    const [genres, genresError, handleGenresChange] = genresArray
+    const genreData =
+      genresArray &&
+      genresArray.map((value: any) => ({
+        value: value._id,
+        label: value.name,
+      }));
+    const authorData =
+      authorsData &&
+      authorsData.map(
+        (author: { name: string; _id: string; slug: string }) => ({
+          value: author._id,
+          label: author.name,
+        }),
+      );
+    const supplierData =
+      suppliersData &&
+      suppliersData.map((author: { name: string; _id: string }) => ({
+        value: author._id,
+        label: author.name,
+      }));
+    const publisherData =
+      publishersData &&
+      publishersData.map((author: { name: string; _id: string }) => ({
+        value: author._id,
+        label: author.name,
+      }));
+    const [authors, authorsError, handleAuthorChange] = productProps.author
+      ? useValidate<string>(
+          form.errors.author,
+          (values) => {
+            console.log({ author: values });
+
+            form.setFieldValue('author', values);
+          },
+          productProps.author,
+        )
+      : useValidate<string>(form.errors.author, (values) => {
+          console.log({ author: values });
+          form.setFieldValue('author', values);
+        });
+
+    const [suppliers, suppliersError, handleSupplierChange] =
+      productProps.productSupplier
+        ? useValidate<string>(
+            form.errors.productSupplier,
+            (values) => {
+              console.log({ supplier: values });
+
+              form.setFieldValue('productSupplier', values);
+            },
+            productProps.productSupplier,
+          )
+        : useValidate<string>(form.errors.productSupplier, (values) => {
+            console.log({ supplier: values });
+            form.setFieldValue('productSupplier', values);
+          });
+
+    const [publishers, publishersError, handlePublisherChange] =
+      productProps.publishingCompany
+        ? useValidate<string>(
+            form.errors.publishingCompany,
+            (values) => {
+              console.log({ publisher: values });
+              form.setFieldValue('publishingCompany', values);
+            },
+            productProps.publishingCompany,
+          )
+        : useValidate<string>(form.errors.publishingCompany, (values) => {
+            console.log({ publisher: values });
+            form.setFieldValue('publishingCompany', values);
+          });
+
+    const [genres, genresError, handleGenresChange] = productProps.genres
       ? useValidate<string[]>(
           form.errors.genres,
           (values) => {
-            form.setFieldValue('genres', values.join(', '));
+            form.setFieldValue('genres', values);
           },
-          genresArray.map((value: any) => value.name),
+          productProps.genres,
         )
       : useValidate<string[]>(form.errors.genres, (values) => {
-          form.setFieldValue('genres', values.join(', '));
+          form.setFieldValue('genres', values);
         });
 
     const handleCreateGenre = async (query: any) => {
-      createGenre(query)
+      createGenre({ name: query, description: 'Genre description holder' })
         .then((res) => {
           const {
             createdGenre: { name },
           } = res;
-          console.log(`Genre name: ${name} created!`);
+
+          dispatch(setNotification(`Successfully create genre: ${name}`));
         })
         .catch((e) => {
           if (axios.isAxiosError(e)) {
@@ -174,35 +268,47 @@ const Form = memo<FormProps>(
         </FormSection>
         <FormSection label="2. Additional information" loading={loading}>
           <Skeleton visible={loading}>
-            <TextInput
+            <Select
               className={styles.input}
               disabled={disabled}
-              placeholder="Enter author name here..."
+              data={authorData ?? []}
+              placeholder="Pick author name here..."
               label="Author"
               required
-              {...form.getInputProps('author')}
+              value={authors}
+              onChange={handleAuthorChange}
+              error={authorsError}
+              // {...form.getInputProps('author')}
             />
           </Skeleton>
           <Skeleton visible={loading}>
-            <TextInput
+            <Select
               className={styles.input}
               disabled={disabled}
+              data={supplierData ?? []}
               type="text"
               label="Product Supplier"
               placeholder="Enter product supplier here..."
               required
-              {...form.getInputProps('productSupplier')}
+              value={suppliers}
+              onChange={handleSupplierChange}
+              error={suppliersError}
+              // {...form.getInputProps('productSupplier')}
             />
           </Skeleton>
           <Skeleton visible={loading}>
-            <TextInput
+            <Select
               className={styles.input}
+              data={publisherData ?? []}
               disabled={disabled}
               type="text"
               label="Publishing Company"
               placeholder="Enter product publishing company here..."
               required
-              {...form.getInputProps('publishingCompany')}
+              value={publishers}
+              error={publishersError}
+              onChange={handlePublisherChange}
+              // {...form.getInputProps('publishingCompany')}
             />
           </Skeleton>
           <Skeleton visible={loading}>
@@ -234,10 +340,7 @@ const Form = memo<FormProps>(
             {genresArray && (
               <MultiSelect
                 className={styles.input}
-                data={genresArray.map((value: any) => ({
-                  value: value._id,
-                  label: value.name,
-                }))}
+                data={genreData}
                 disabled={disabled}
                 value={genres}
                 onChange={handleGenresChange}

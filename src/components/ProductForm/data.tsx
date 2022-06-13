@@ -12,7 +12,7 @@ export const defaultProduct: UseFormInput<PartialProduct> = {
     amount: 1,
     author: '',
     description: '',
-    genres: '',
+    genres: [''],
     image: '',
     name: '',
     price: 10000,

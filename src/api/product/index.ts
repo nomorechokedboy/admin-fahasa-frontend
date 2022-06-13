@@ -22,5 +22,5 @@ export const deleteProduct = (id: string) =>
 export const getAllGenre = (url: string) =>
   axiosClient.get(url).then((res) => res.data);
 
-export const createGenre = (newGenre: string) =>
-  axiosClient.post('/genre', newGenre).then((res) => res.data);
+export const createGenre = (payload: { name: string; description: string }) =>
+  axiosClient.post('/genre', payload).then((res) => res.data);

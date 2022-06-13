@@ -28,10 +28,16 @@ export default function ProductDetail() {
   const { id } = useParams();
   const redirect = useNavigate();
   const { mutate } = useSWRConfig();
-  const { data: product, error } = useSWR(`/product/${id}`, getProduct, {
-    shouldRetryOnError: false,
-  });
-  const loading = !product && !error;
+  const { data: productResponse, error } = useSWR(
+    `/product/${id}`,
+    getProduct,
+    {
+      shouldRetryOnError: false,
+    },
+  );
+  console.log({ productResponse });
+
+  const loading = !productResponse && !error;
 
   const handleTransitionUpdate = () => {
     dispatch(toggleDisabledProduct());
@@ -42,32 +48,34 @@ export default function ProductDetail() {
   };
 
   const handleSubmit = (data: PartialProduct) => {
-    id &&
-      updateProduct(id, data)
-        .then((res) => {
-          const {
-            updated: { name, _id: newId },
-          } = res;
-          redirect(`${TO_PRODUCTS}/${DETAIL}/${newId}`);
-          dispatch(setNotification(`Product name: ${name} updated!`));
-          dispatch(setDisableProduct());
-        })
-        .catch((e) => {
-          if (axios.isAxiosError(e)) {
-            const { error } = e.response?.data;
-            const errorMessage =
-              typeof error === 'string' ? error : validateErrorHelper(error);
-            dispatch(setError(errorMessage));
-          }
-        });
+    console.log({ data });
+
+    // id &&
+    // updateProduct(id, data)
+    //   .then((res) => {
+    //     const {
+    //       updated: { name, slug },
+    //     } = res;
+    //     redirect(`${TO_PRODUCTS}/${DETAIL}/${slug}`);
+    //     dispatch(setNotification(`Product name: ${name} updated!`));
+    //     dispatch(setDisableProduct());
+    //   })
+    //   .catch((e) => {
+    //     if (axios.isAxiosError(e)) {
+    //       const { error } = e.response?.data;
+    //       const errorMessage =
+    //         typeof error === 'string' ? error : validateErrorHelper(error);
+    //       dispatch(setError(errorMessage));
+    //     }
+    //   });
   };
 
   const DisabledButtonIcon = disabled ? <BsPencilFill /> : <FaTimes />;
 
-  if (!product && error)
+  if (!productResponse && error)
     return (
       <CTA
-        message={`Can't fetch product with id: ${id}!`}
+        message={`Can't fetch product with slug: ${id}!`}
         icon={<ErrorIcon />}
         label="Reload"
         title={'Error fetching product'}
@@ -80,7 +88,7 @@ export default function ProductDetail() {
     <div className={styles.container}>
       <div className={styles.heading}>
         <Skeleton visible={loading}>
-          <Title>{product?.name ?? 'Product detail'}</Title>
+          <Title>{productResponse?.name ?? 'Product detail'}</Title>
         </Skeleton>
         <Skeleton className={styles.editBtnSkeleton} visible={loading}>
           <Button
@@ -95,7 +103,17 @@ export default function ProductDetail() {
           disabled={disabled}
           loading={loading}
           onSubmit={handleSubmit}
-          {...product}
+          amount={productResponse.amount}
+          author={productResponse.author.name}
+          description={productResponse.description}
+          price={productResponse.price[0].amount}
+          genres={productResponse.genres.map((el: any) => el.name)}
+          image={productResponse.image}
+          name={productResponse.name}
+          productSupplier={productResponse.productSupplier.name}
+          publicYear={productResponse.publicYear}
+          publishingCompany={productResponse.publishingCompany.name}
+          sku={productResponse.sku}
         />
       )}
       {loading && <ProductForm loading={loading} onSubmit={handleSubmit} />}

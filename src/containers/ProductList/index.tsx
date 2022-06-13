@@ -2,7 +2,7 @@ import CTA from '@/components/CTA';
 import { TO_PRODUCTS } from '@/configs';
 import ListPageLayout from '@/layout/SubPageLayout';
 import { setError } from '@/redux';
-import IProduct from '@/types/product';
+import IProduct, { ProductResponse } from '@/types/product';
 import { Pagination } from '@mantine/core';
 import { Key, useEffect } from 'react';
 import * as BsIcons from 'react-icons/bs';
@@ -20,6 +20,7 @@ export default function ProductList() {
     getAllProduct,
     { shouldRetryOnError: false },
   );
+
   const dispatch = useDispatch();
 
   console.log('product list render');
@@ -64,14 +65,21 @@ export default function ProductList() {
         ) : (
           <>
             <Products>
-              {data.map((product: IProduct, index: Key) => (
-                <Product
-                  key={index}
-                  handleDeleteCache={handleDeleteCache}
-                  loading={isValidating}
-                  {...product}
-                />
-              ))}
+              {data.map(
+                (product: ProductResponse, index: Key) =>
+                  !product.deleted && (
+                    <Product
+                      key={index}
+                      handleDeleteCache={handleDeleteCache}
+                      loading={isValidating}
+                      image={product.image}
+                      name={product.name}
+                      price={product.price[0].amount}
+                      _id={product._id}
+                      slug={product.slug}
+                    />
+                  ),
+              )}
             </Products>
             <div className={styles.pagination}>
               <Pagination total={5} />
