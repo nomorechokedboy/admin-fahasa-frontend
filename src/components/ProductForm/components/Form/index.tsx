@@ -46,7 +46,7 @@ const Form = memo<FormProps>(
 
     const [productImage, handleChangeImage, handleCancelImage] =
       useUploadFile();
-    const useFormInput: UseFormInput<PartialProduct> = !!productProps
+    const useFormInput: UseFormInput<PartialProduct> = productProps
       ? {
           initialValues: {
             amount: productProps.amount,
