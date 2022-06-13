@@ -5,6 +5,26 @@
   overflow: auto;
 }
 
+.detailImage {
+  --size: 150px;
+  @include center;
+  @include flex-col-center;
+
+  border-radius: 5px;
+  width: var(--size);
+  min-height: var(--size);
+
+  img {
+    object-fit: contain;
+    width: var(--size);
+    height: var(--size);
+  }
+
+  @include desktop {
+    --size: 200px;
+  }
+}
+
 .buttonWrapper {
   @include flex-center-end;
 

@@ -2,7 +2,7 @@ import { createProduct } from '@/api';
 import ProductForm from '@/components/ProductForm';
 import Title from '@/components/Title';
 import { setError, setNotification } from '@/redux';
-import Product from '@/types/product';
+import { PartialProduct } from '@/types/product';
 import { validateErrorHelper } from '@/utils/errors';
 import axios from 'axios';
 import { memo } from 'react';
@@ -11,10 +11,9 @@ import styles from './styles.module.scss';
 
 const AddForm = memo(() => {
   const dispatch = useDispatch();
-  const handleSubmit = (data: Partial<Product>) => {
+  const handleSubmit = (data: PartialProduct) => {
     console.log({ data });
-
-    createProduct('/product', data)
+    createProduct(data)
       .then((res) => {
         const {
           createdProduct: { name },
@@ -36,7 +35,7 @@ const AddForm = memo(() => {
       <div className={styles.title}>
         <Title>Add new product</Title>
       </div>
-      <ProductForm onSubmit={handleSubmit} />
+      <ProductForm loading={false} onSubmit={handleSubmit} />
     </div>
   );
 });

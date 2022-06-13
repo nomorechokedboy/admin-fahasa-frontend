@@ -8,11 +8,11 @@ export const PublicYearData = Array.from(Array(23)).map((_, i) => ({
 
 export const defaultProduct: UseFormInput<PartialProduct> = {
   initialValues: {
-    _id: '',
+    sku: '',
     amount: 1,
     author: '',
     description: '',
-    genres: '',
+    genres: [''],
     image: '',
     name: '',
     price: 10000,
@@ -21,15 +21,3 @@ export const defaultProduct: UseFormInput<PartialProduct> = {
     publishingCompany: '',
   },
 };
-
-export const genresData = [
-  'Shounen',
-  'Horor',
-  'Funny',
-  'Isekai',
-  'Children',
-  'Romance',
-  'One shot',
-  'Adventure',
-  'Fiction',
-];

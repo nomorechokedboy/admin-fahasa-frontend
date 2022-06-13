@@ -26,7 +26,6 @@ jobs:
         run: |
           yarn 
           yarn test
-          yarn build
         env:
           VITE_API: ${{ secrets.VITE_API }}
           VITE_apiKey: ${{ secrets.VITE_apiKey }}
