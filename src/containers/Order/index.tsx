@@ -15,8 +15,7 @@ export default function Order() {
     shouldRetryOnError: false,
   });
   console.log(data);
-  if (data) {
-  }
+
   return (
     <Paper shadow="xs" radius="md" p="md">
       <ListPageLayout rootDir={TO_ORDERS} title="Admin Order List">
