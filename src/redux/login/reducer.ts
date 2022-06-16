@@ -1,4 +1,9 @@
-import { findUserById, isSignedIn } from '@/lib/firebase';
+import {
+  findUserById,
+  findUserByUid,
+  isSignedIn,
+  stayLogin,
+} from '@/lib/firebase';
 import BaseUser from '@/types/user';
 import { Action } from '../types';
 import {
@@ -14,15 +19,17 @@ let user: BaseUser | null = {
   displayName: '',
   photoURL: '',
   role: '',
+  currentUser: '',
 };
 
 if (authUser) {
-  const snapshot = await findUserById(authUser.uid).once('value');
-  const found = snapshot.val();
+  const snapshot = await findUserByUid(authUser.uid);
+  const found = snapshot.data;
   if (user) {
-    user.displayName = `${found.firstName} ${found.lastName}`;
-    user.role = found.role;
-    user.photoURL = found.photoURL;
+    user.displayName = found.fullName;
+    user.role = found.types.name;
+    user.photoURL = found.image;
+    user.currentUser = authUser;
   }
 } else {
   user = null;

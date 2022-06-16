@@ -5,6 +5,7 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  updateCurrentUser,
   User,
 } from 'firebase/auth';
 import { auth } from '../config';
@@ -24,6 +25,8 @@ const logOut = () => signOut(auth);
 const isSignedIn: () => Promise<User | null> = () =>
   new Promise((resolve) => onAuthStateChanged(auth, (user) => resolve(user)));
 
+const stayLogin = (currentUser: User) => updateCurrentUser(auth, currentUser);
+
 export {
   logIn,
   logOut,
@@ -31,4 +34,5 @@ export {
   registerNewEmployee,
   resetPassword,
   sendVerifyEmail,
+  stayLogin,
 };

@@ -1,4 +1,10 @@
-import { findAllUser, findUserById, registerNewEmployee } from '@/lib/firebase';
+import {
+  findAllUser,
+  findUserById,
+  findUserByUid,
+  registerNewEmployee,
+  stayLogin,
+} from '@/lib/firebase';
 import {
   Button,
   Group,
@@ -6,6 +12,7 @@ import {
   NumberInput,
   PasswordInput,
   SegmentedControl,
+  Select,
   Stack,
   TextInput,
 } from '@mantine/core';
@@ -23,12 +30,13 @@ import {
   VietNameseParser,
 } from '@/utils';
 import ToDate from '@/utils/date';
-import { useDispatch } from 'react-redux';
-import { setError, setNotification } from '@/redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLoginState, setError, setNotification } from '@/redux';
 import useSWR from 'swr';
 import { getAllUserType } from '@/api/userType';
 import { createEmployee } from '@/api';
 import axios from 'axios';
+import BaseUser from '@/types/user';
 
 interface FormProps {}
 
@@ -49,9 +57,11 @@ export default function Form() {
       birthdate: new Date(),
       confirmPassword: '',
       email: '',
+      gender: 'male',
       password: '',
       firstName: '',
       lastName: '',
+      phoneNumber: '',
       types: listRights && listRights[0].value,
       salary: 0,
     },
@@ -60,15 +70,23 @@ export default function Form() {
 
   const handleSubmit = async (values: typeof form.values) => {
     setLoading(true);
-    const { email, password, firstName, lastName, types, birthdate, salary } =
-      values;
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      gender,
+      types,
+      birthdate,
+      salary,
+      phoneNumber,
+    } = values;
     try {
       const { user } = await registerNewEmployee(email, password);
       await Promise.all([
         findUserById(user.uid).set({
           birthdate: ToDate(birthdate),
           email,
-          types,
           fullName: `${firstName} ${lastName}`,
           salary,
           photoURL: user.photoURL,
@@ -76,21 +94,19 @@ export default function Form() {
         }),
         sendEmailVerification(user),
       ]);
-      console.log(user);
+
       if (user.uid !== null) {
-        console.log('type', types);
         createEmployee('/user', {
-          fullName: `${firstName}  ${lastName}`,
+          fullName: `${firstName} ${lastName}`,
           salary,
           uid: user.uid,
           email,
-          gender: 'male',
-          phoneNumber: '15321346821',
+          gender,
+          phoneNumber,
           types,
           birthdate,
         }).catch((error) => console.log(error));
       }
-
       dispatch(
         setNotification(
           `Register success for email: ${email}. We have sent you a verify email. Please check your email.`,
@@ -138,6 +154,20 @@ export default function Form() {
           formatter={VietNameseFormatter}
           required
           {...form.getInputProps('salary')}
+        />
+        <Select
+          label="Gender"
+          data={[
+            { value: 'male', label: 'Male' },
+            { value: 'female', label: 'Female' },
+          ]}
+          {...form.getInputProps('gender')}
+        />
+        <TextInput
+          label="phone"
+          placeholder="10-11 number"
+          required
+          {...form.getInputProps('phoneNumber')}
         />
         <TextInput
           label="Email"

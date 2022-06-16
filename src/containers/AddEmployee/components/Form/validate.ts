@@ -9,6 +9,8 @@ export default interface RegisterData {
   lastName: string;
   birthdate: Date;
   salary: number;
+  gender: string;
+  phoneNumber: string;
 }
 
 export const registerSchema = Joi.object<RegisterData>({
@@ -30,4 +32,9 @@ export const registerSchema = Joi.object<RegisterData>({
   salary: Joi.number()
     .min(30000)
     .message('Salary must be greater than 30.000đ'),
+  gender: Joi.string(),
+  phoneNumber: Joi.string()
+    .min(10)
+    .max(11)
+    .message('Phone Number should be from 10 to 11 numbers'),
 });

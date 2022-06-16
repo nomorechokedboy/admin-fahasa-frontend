@@ -1,4 +1,10 @@
-import { findUserById, logIn, logOut } from '@/lib/firebase';
+import {
+  auth,
+  findUserById,
+  findUserByUid,
+  logIn,
+  logOut,
+} from '@/lib/firebase';
 import BaseUser from '@/types/user';
 import { ErrorCodeToMessage } from '@/utils/auth';
 import { closeNotification, setError } from '..';
@@ -23,12 +29,14 @@ export default function login(email: string, password: string) {
           displayName: email ? email : '',
           photoURL: photoURL ? photoURL : '',
           role: '',
+          currentUser: '',
         };
-        const snapshot = await findUserById(uid).once('value');
-        const found = snapshot.val();
-        user.displayName = `${found.firstName} ${found.lastName}`;
-        user.role = found.role;
-        user.photoURL = found.photoURL;
+        const snapshot = await findUserByUid(uid);
+        const found = snapshot.data;
+        user.displayName = found.fullName;
+        user.role = found.types.name;
+        user.photoURL = found.image;
+        user.currentUser = auth;
 
         dispatch(closeNotification());
         dispatch(setLoginUser(user));

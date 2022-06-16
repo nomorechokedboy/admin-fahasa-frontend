@@ -16,9 +16,19 @@ import {
 import CardInfo from './components/CardInfo';
 import TableDetail from './components/TableDetail';
 import PaymentInfo from './components/PaymentInfo';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { TO_ORDERS } from '@/configs';
+import useSWR from 'swr';
+import { getOrderById } from '@/api/order';
+import { getEmployee } from '@/api';
 export default function OrderDetail() {
+  let { id } = useParams();
+  const { data, error } = useSWR(['/order', id!], getOrderById, {
+    shouldRetryOnError: false,
+  });
+
+  const { data: userData } = useSWR(['/user', id!], getEmployee);
+
   return (
     <Paper shadow="sm" p="lg">
       <Group>

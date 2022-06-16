@@ -9,7 +9,7 @@ export default function OrderPage() {
   return (
     <Routes>
       <Route index element={<Order />} />
-      <Route path={DETAIL} element={<OrderDetail />} />
+      <Route path={DETAIL + '/:id'} element={<OrderDetail />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

@@ -9,9 +9,10 @@ type OrderTableProps = {
   header?: string[];
   data: Order[];
   rootDir?: string;
+  loading: boolean;
 };
 
-export default function OrderTable({ data, header }: OrderTableProps) {
+export default function OrderTable({ data, header, loading }: OrderTableProps) {
   return (
     <div className={styles.tableWrapper}>
       <Table verticalSpacing="sm" highlightOnHover fontSize="md">
@@ -24,7 +25,7 @@ export default function OrderTable({ data, header }: OrderTableProps) {
         </thead>
         <tbody>
           {data.map((o: Order, i: Key) => (
-            <OrderRow rootDir={TO_ORDERS} key={i} {...o} />
+            <OrderRow rootDir={TO_ORDERS} key={i} {...o} loading={loading} />
           ))}
         </tbody>
       </Table>

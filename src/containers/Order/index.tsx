@@ -4,7 +4,19 @@ import { TO_ORDERS } from '@/configs';
 import { Paper, Grid, Group, Select, Input } from '@mantine/core';
 import OrderTable from '../../components/OrderTable';
 import ListPageLayout from '@/layout/SubPageLayout';
+import useSWR from 'swr';
+import { getAllOrder } from '@/api/order';
+import CTA from '@/components/CTA';
+import * as BsIcons from 'react-icons/bs';
+import { getEmployee } from '@/api';
+
 export default function Order() {
+  const { data, error } = useSWR('/order', getAllOrder, {
+    shouldRetryOnError: false,
+  });
+  console.log(data);
+  if (data) {
+  }
   return (
     <Paper shadow="xs" radius="md" p="md">
       <ListPageLayout rootDir={TO_ORDERS} title="Admin Order List">
@@ -41,26 +53,50 @@ export default function Order() {
           </Paper>
 
           <div>
-            <OrderTable
-              header={[
-                'ID',
-                'Email',
-                'Customer name',
-                'Price',
-                'Status',
-                'Date',
-                'Action',
-              ]}
-              data={[...Array(7).keys()].map(() => ({
-                id: '2323',
-                name: 'Devon Lane',
-                email: 'devon@example.com',
-                totalPayment: 77835,
-                orderStatus: 'Delivered',
-                date: '07.05.2020',
-              }))}
-              rootDir="detail"
-            />
+            {!error && !data ? (
+              <OrderTable
+                header={[
+                  'ID',
+                  'Email',
+                  'Customer name',
+                  'Price',
+                  'Status',
+                  'Date',
+                  'Action',
+                ]}
+                data={[...Array(7)]}
+                loading={true}
+                rootDir="detail"
+              />
+            ) : !data?.length ? (
+              <CTA
+                icon={<BsIcons.BsCartX />}
+                message="There is no current order"
+              />
+            ) : (
+              <OrderTable
+                header={[
+                  'ID',
+                  'Email',
+                  'Customer name',
+                  'Price',
+                  'Status',
+                  'Date',
+                  'Action',
+                ]}
+                data={data.map((value: any) => ({
+                  id: value._id,
+                  name: 'Devon Lane',
+                  email: 'devon@example.com',
+                  totalPayment: value.totalPrice,
+                  orderStatus: value.status,
+                  date: '07.05.2020',
+                  userID: value.buyer,
+                }))}
+                loading={false}
+                rootDir="detail"
+              />
+            )}
           </div>
         </div>
       </ListPageLayout>
