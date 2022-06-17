@@ -1,9 +1,4 @@
-import {
-  findUserById,
-  findUserByUid,
-  isSignedIn,
-  stayLogin,
-} from '@/lib/firebase';
+import { findUserByUid, isSignedIn } from '@/lib/firebase';
 import BaseUser from '@/types/user';
 import { Action } from '../types';
 import {
@@ -19,7 +14,7 @@ let user: BaseUser | null = {
   displayName: '',
   photoURL: '',
   role: '',
-  currentUser: '',
+  currentUser: authUser,
 };
 
 if (authUser) {

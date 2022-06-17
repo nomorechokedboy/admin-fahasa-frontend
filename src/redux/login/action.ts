@@ -1,10 +1,4 @@
-import {
-  auth,
-  findUserById,
-  findUserByUid,
-  logIn,
-  logOut,
-} from '@/lib/firebase';
+import { findUserByUid, logIn, logOut } from '@/lib/firebase';
 import BaseUser from '@/types/user';
 import { ErrorCodeToMessage } from '@/utils/auth';
 import { closeNotification, setError } from '..';
@@ -22,21 +16,19 @@ export default function login(email: string, password: string) {
     dispatch(setLoading());
     logIn(email, password)
       .then(async (credential) => {
-        const {
-          user: { email, uid, photoURL },
-        } = credential;
+        const { user: currentUser } = credential;
+        const { email, uid, photoURL } = currentUser;
         const user: BaseUser = {
           displayName: email ? email : '',
           photoURL: photoURL ? photoURL : '',
           role: '',
-          currentUser: '',
+          currentUser,
         };
         const snapshot = await findUserByUid(uid);
         const found = snapshot.data;
         user.displayName = found.fullName;
         user.role = found.types.name;
         user.photoURL = found.image;
-        user.currentUser = auth;
 
         dispatch(closeNotification());
         dispatch(setLoginUser(user));
