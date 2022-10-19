@@ -1,6 +1,7 @@
 import { Center, Image } from '@mantine/core';
 import styles from './styles.module.scss';
 import BurgerMenu from '@/components/BurgerMenu';
+import logo from './logo.svg';
 
 type SideBarHeaderProps = {
   opened: boolean;
@@ -13,7 +14,10 @@ export default function SideBarHeader({ opened }: SideBarHeaderProps) {
         <Center>
           <Image
             alt="Fahasa logo"
-            src="https://jobseekers.vn/wp-content/uploads/2019/05/Quy-Chuan-Logo.png"
+            width={133}
+            height={50}
+            fit="contain"
+            src={logo}
           />
         </Center>
       )}
